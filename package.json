@@ -17,6 +17,7 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
+    "antd": "^3.3.3",
     "express": "^4.15.4"
   }
 }
