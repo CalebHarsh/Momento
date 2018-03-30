@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import 'antd/dist/antd.css';
 import "./App.css";
 import Navbar from './components/Navbar/Navbar.js'
+import {Affix} from 'antd'
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar />
+        <Affix>
+          <Navbar />
+        </Affix>
       </div>
     );
   }
