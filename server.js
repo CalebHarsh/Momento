@@ -11,8 +11,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // connnect to DataBase
-const ko = require('./models')
-
 // Send every request to the React app
 // Define any API routes before this runs
 // app.get("*", function(req, res) {

@@ -5,9 +5,12 @@ ko.connect({
   url: process.env.MONGODB_URL || 'mongodb://localhost/momento'
 })
 
-require("./User.js")
-require("./Album.js")
-require("./Photo.js")
-require("./Comment.js")
+const db = {
+  User: require("./User.js"),
+  Album: require("./Album.js"),
+  Photo: require("./Photo.js"),
+  Comment: require("./Comment.js")
+}
 
-module.exports = ko
+
+module.exports = db

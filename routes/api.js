@@ -1,10 +1,12 @@
-const ko = require('nekodb')
-const User = require("../controllers/userController.js")
+const Commands = require("../controllers/userController.js")
 
-// User.signUp({
+// Commands.signUp({
 //   name: "Caleb",
 //   password: "Password123",
 //   email: "caleb.harsh139@gmail.com"
-// })
+// }).then(user => console.log(user.slice()))
 
-User.logIn("caleb.harsh139@gmail.com", "Password23")
+Commands.logIn("caleb.harsh139@gmail.com", "Password123")
+.then(user => Command.addNewAlbum(user._id, "New Album") )
+.then(user => console.log(user.slice()))
+.catch(err => console.log(err))
