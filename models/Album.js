@@ -1,7 +1,8 @@
 const ko = require("nekodb")
 
 const Album = ko.Model("Album", {
-  name: ko.String,
+  users: [ko.models.User],
+  name: ko.String.minlength(2),
   photos: [ko.models.Photo]
 })
 

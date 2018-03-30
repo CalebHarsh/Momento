@@ -7,7 +7,8 @@ const Password = ko.String.minlength(8)
                             .match(/\d/)
 
 const User = ko.Model("User", {
-  name: ko.String,
+  name: ko.String.minlength(2),
+  friends: [ko.models.User],
   password: Password,
   email: ko.Email,
   albums: [ko.models.Album],
