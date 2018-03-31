@@ -56,7 +56,7 @@ const UserCommands = {
 
   getAlbums: (UserID) => {
     return db.User.findById(UserID).join()
-      .then(user => user.albums)
+      .then(user => user)
   },
 
   addNewAlbum: (UserID, albumName) => {
@@ -91,7 +91,7 @@ const UserCommands = {
 
   getPhotos: (AlbumID) => {
     return db.Album.findById(AlbumID).join()
-      .then(album => album.photos)
+      .then(album => album)
   },
 
   addNewPhoto: (UserID, AlbumID, photoName) => {
@@ -108,7 +108,7 @@ const UserCommands = {
 
   getComments: (PhotoID) => {
     return db.Photo.findById(PhotoID).join()
-      .then(photo => photo.comments)
+      .then(photo => photo)
   },
 
   addNewComment: (UserID, PhotoID, commentText) => {
