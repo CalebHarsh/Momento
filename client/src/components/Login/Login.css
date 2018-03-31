@@ -5,3 +5,20 @@
 .input {
   margin-right: 15px
 }
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(25%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fadeInRight {
+  animation-name: fadeInRight;
+  animation-duration: 0.5s;
+}
