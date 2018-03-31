@@ -24,24 +24,32 @@ const UserCommands = {
         })
           .save())
       .then(user => user ? user : new Error("Email already in Use"))
-      .catch(err => err)
+  },
+
+  getAllFriends: (UserID) => {
+    return db.User.findById(UserID)
+      .join({ friends: { name: 1, email: 1 } })
+      .then(user => user.friends)
   },
 
   addFriend: (UserID, friendEmail) => {
+    // console.log("Friend Adding")
     return db.User.findById(UserID)
-      .then(user => db.User.findOne({ email: friendEmail })
-        .then(friend => {
-          if(friend) user.friends.push(friend._id)
-          return user.save()
-        })
-      )
+      .then(user => {
+        return db.User.findOne({ email: friendEmail })
+          .then(friend => {
+            if (friend) user.friends.push(friend._id)
+            //console.log(user.slice())
+            return user.save()
+          })
+      })
   },
 
   updateUserData: (UserID, userdata) => {
     return db.User.findById(UserID)
       .then(user => {
         user.name = userdata.name
-        //able to change password coming
+        if(userdata.password)  user.password = userdata.password
         return user.save()
       })
   },
@@ -54,24 +62,29 @@ const UserCommands = {
   addNewAlbum: (UserID, albumName) => {
     return db.User.findById(UserID)
       .then(user => {
-        user.albums.push({
+        user.albums.$push({
           users: [user._id],
           name: albumName,
           photos: []
         })
+        // console.log("adding album")
         return user.saveAll()
       })
   },
 
   addExistingAlbum: (UserID, AlbumID) => {
-    return db.Album.findById(AlbumID)
-      .then(album => {
-        if(album) album.users.push(UserID)
-        return album.save()
-      })
-      .then(album => db.User.findById(UserID))
+    return db.User.findById(UserID)
       .then(user => {
-        user.albums.push(AlbumID)
+        if (user.albums.includes(AlbumID)) throw new Error("You already have this album")
+        return db.Album.findById(AlbumID)
+          .then(album => {
+            if (album) album.users.$push(UserID)
+            album.saveAll()
+            return user
+          })
+      })
+      .then(user => {
+        user.albums.$push(AlbumID)
         return user.save()
       })
   },
@@ -84,7 +97,7 @@ const UserCommands = {
   addNewPhoto: (UserID, AlbumID, photoName) => {
     return db.Album.findById(AlbumID)
       .then(album => {
-        album.photos.push({
+        album.photos.$push({
           author: UserID,
           name: photoName,
           comments: []
@@ -101,7 +114,7 @@ const UserCommands = {
   addNewComment: (UserID, PhotoID, commentText) => {
     return db.Photo.findById(PhotoID)
       .then(photo => {
-        photo.comments.push({
+        photo.comments.$push({
           text: commentText,
           author: UserID
         })

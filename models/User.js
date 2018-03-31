@@ -2,9 +2,9 @@ const ko = require("nekodb")
 const bcrypt = require("bcrypt")
 
 const Password = ko.String.minlength(8)
-                            .match(/[a-z]/)
-                            .match(/[A-Z]/)
-                            .match(/\d/)
+  .match(/[a-z]/)
+  .match(/[A-Z]/)
+  .match(/\d/)
 
 const User = ko.Model("User", {
   name: ko.String.minlength(2),
@@ -19,14 +19,16 @@ const User = ko.Model("User", {
     }
   },
   $$hooks: {
-    presave: {
-      password: (user, next) => {
-        bcrypt.hash(user.password, 8, function(err, hash) {
-          if(err) return next(err)
+    presave: (user, next) => {
+      if (user.isUpdated('password')) {
+        bcrypt.hash(user.password, 8, function (err, hash) {
+          if (err) {
+            return next(err)
+          }
           user.password = hash
           next()
         })
-      }
+      } else next()
     }
   }
 })
