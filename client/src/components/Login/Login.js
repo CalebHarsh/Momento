@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import './Login.css';
 
 const Login = props => (
-  <div className="login-container fadeInRight">
+  <div className="login-container login">
     <Input className="input" placeholder="Email" type="text"
       prefix={<Icon type="user"/>}/>
     <Input className="input" placeholder="Password" type="password"
