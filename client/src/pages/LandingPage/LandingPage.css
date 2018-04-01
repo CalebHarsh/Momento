@@ -1,0 +1,71 @@
+.firstHalf {
+  height: 93vh;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-container {
+  margin-top: 35vh;
+}
+
+.intro {
+  color: #0084FF;
+  font-size: 5em;
+  font-weight: bold;
+  margin: 0;
+}
+
+.phonetic {
+  font-size: 2em;
+  font-weight: 200;
+  color: #868686;
+  margin: 0;
+}
+
+.define {
+  font-size: 1.7em;
+  font-weight: 200;
+  color: #868686;
+  margin: 0;
+}
+
+.graphic-container img {
+  width: 100%;
+  filter: drop-shadow(0 0 6px #cccccc);
+}
+
+.secondHalf {
+  background-color: #F3F9FF;
+  height: 50vh;
+}
+
+.signup-section {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.signup-container {
+  margin-top: 60px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fefefe;
+  border: 2px solid #0084FF;
+  border-radius: 10px;
+  filter: drop-shadow(0 0 5px #cccccc);
+}
+
+.signup-container h2 {
+  margin: 0;
+}
+
+.hookMsg {
+  font-size: 1.25em;
+  line-height: 1.5em;
+  text-align: left;
+  font-weight: 200;
+  color: #2E2E2E;
+  margin-bottom: 30px;
+}
