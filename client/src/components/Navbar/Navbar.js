@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from "react-router-dom";
 import {Button, Divider} from 'antd';
 import Login from '../Login/Login'
 import 'antd/dist/antd.css';
@@ -25,9 +26,11 @@ class Navbar extends  Component {
       <div className="Navbar">
         <div className="container">
           <div className="logo-container">
-            <div className="logo">
-              <img src={logo} />
-            </div>
+            <Link to="/">
+              <div className="logo">
+                <img src={logo} alt="logo"/>
+              </div>
+            </Link>
             <h1 className="logotype">momento</h1>
           </div>
           <div className="nav-items">
@@ -39,10 +42,12 @@ class Navbar extends  Component {
               Sign In
             </Button>
             <Divider type="vertical" />
-            <Button size="default"
-              type="primary">
-              Sign Up
-            </Button>
+            <Link to="/signup">
+              <Button size="default"
+                type="primary">
+                Sign Up
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
