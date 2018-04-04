@@ -14,6 +14,7 @@ const SignUp = props => (
       <Row gutter={48}>
         <Col md={{span: 12}}>
           <div className="signupHook">
+            <h1 className="heading">Heading</h1>
             <h3 className="hookMsg">We are a micro social network based 
               on sharing photos between friends, families, and significant 
               others. Store your photos on our platform so your inner 
@@ -24,34 +25,35 @@ const SignUp = props => (
           </div>
         </Col>
         <Col md={{span: 12}}>
+          <h1 className="heading">Sign Up</h1>
           <Form>
             <FormItem
               label="Name"
               labelCol={{span: 5}}
               wrapperCol={{span: 12}}
               >
-                <Input placeholder="Full Name"/>
+                <Input type="text" placeholder="Full Name"/>
             </FormItem>
             <FormItem
               label="Email"
               labelCol={{span: 5}}
               wrapperCol={{span: 12}}
               >
-                <Input placeholder="example@email.com"/>
+                <Input type="text" placeholder="example@email.com"/>
             </FormItem>
             <FormItem
               label="Password"
               labelCol={{span: 5}}
               wrapperCol={{span: 12}}
               >
-                <Input/>
+                <Input type="password"/>
             </FormItem>
             <FormItem
               label="Verify Password"
               labelCol={{span: 5}}
               wrapperCol={{span: 12}}
               >
-                <Input/>
+                <Input type="password"/>
             </FormItem>
             <FormItem
               wrapperCol={{ span: 12, offset: 5 }}
