@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import Navbar from '../../components/Navbar'
-import {Affix, Button, Col, Divider, Row} from 'antd'
+import Navbar from '../../components/Navbar';
+import {Affix, Button, Col, Divider, Row} from 'antd';
 import ScrollAnimation from 'react-animate-on-scroll';
 import 'antd/dist/antd.css';
-import './LandingPage.css'
+import './LandingPage.css';
 import "animate.css/animate.min.css";
-import iphone from '../../assets/images/iphone.svg'
+import iphone from '../../assets/images/iphone.svg';
 
 const LandingPage = props => (
   <div className="landing-page">
