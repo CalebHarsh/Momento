@@ -2,7 +2,7 @@ const ko = require("nekodb")
 
 ko.connect({
   client: 'mongodb',
-  url: process.env.MONGODB_URL || 'mongodb://localhost/momento'
+  url: process.env.MONGODB_URI || 'mongodb://localhost/momento'
 })
 
 const db = {
