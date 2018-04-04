@@ -14,7 +14,7 @@ const UserCommands = {
 
   signUp: (formInfo) => {
     return db.User.findOne({ email: formInfo.email })
-      .then(user => user ? null :
+      .then(user => user ? new Error("Email already in Use") :
         db.User.create({
           name: formInfo.name,
           email: formInfo.email,
@@ -23,7 +23,7 @@ const UserCommands = {
           friends: []
         })
           .save())
-      .then(user => user ? user : new Error("Email already in Use"))
+      .then(user => user ? user : new Error("Form Incorrectly Filled Out"))
   },
 
   getAllFriends: (UserID) => {
@@ -38,8 +38,7 @@ const UserCommands = {
       .then(user => {
         return db.User.findOne({ email: friendEmail })
           .then(friend => {
-            if (friend) user.friends.push(friend._id)
-            //console.log(user.slice())
+            if (friend) user.friends.$addToSet(friend._id)
             return user.save()
           })
       })
