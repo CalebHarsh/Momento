@@ -1,0 +1,24 @@
+.login-container {
+  display: flex;
+}
+
+.input {
+  margin-right: 15px
+}
+
+@keyframes login {
+  from {
+    opacity: 0;
+    transform: translate3d(25%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.login {
+  animation-name: fadeInRight;
+  animation-duration: 0.5s;
+}

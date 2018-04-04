@@ -1,0 +1,36 @@
+.Navbar{
+  background-color: #fefefe;
+  filter: drop-shadow(0 0 3px #e8e8e8);
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  font-family: 'Helvetica', sans-serif;
+  height: 60px;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo-container {
+  align-items: center;
+  display: flex;
+}
+
+.logo {
+  height: 32px;
+  width: 32px;
+}
+
+.logotype{
+  color: #0084FF;
+  font-size: 36px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.nav-items {
+  align-items: center;
+  display: flex;
+}

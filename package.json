@@ -17,8 +17,10 @@
     "nodemon": "^1.17.3"
   },
   "dependencies": {
+    "antd": "^3.3.3",
     "bcrypt": "^1.0.3",
     "express": "^4.15.4",
-    "nekodb": "^2.1.0"
+    "nekodb": "^2.1.0",
+    "react-router-dom": "^4.2.2"
   }
 }
