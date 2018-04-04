@@ -14,7 +14,7 @@ const SignUp = props => (
       <Row gutter={48}>
         <Col md={{span: 12}}>
           <div className="signupHook">
-            <h1 className="heading">Heading</h1>
+            <h1 className="heading">Welcome to Momento</h1>
             <h3 className="hookMsg">We are a micro social network based 
               on sharing photos between friends, families, and significant 
               others. Store your photos on our platform so your inner 
