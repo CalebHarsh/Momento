@@ -1,12 +1,12 @@
-import React from 'react'
-import Navbar from '../../components/Navbar'
-import {Affix, Button, Col, Form, Icon, Input, Row} from 'antd'
+import React from 'react';
+import Navbar from '../../components/Navbar';
+import SignupForm from '../../components/SignupForm'
+import {Affix, Col, Icon, Row} from 'antd';
 import 'antd/dist/antd.css';
-import './SignUp.css'
+import './SignUp.css' 
 
-const FormItem = Form.Item;
 const SignUp = props => (
-  <div className="landing-page">
+  <div className="signup-page">
     <Affix>
       <Navbar />
     </Affix>
@@ -26,43 +26,7 @@ const SignUp = props => (
         </Col>
         <Col md={{span: 12}}>
           <h1 className="heading">Sign Up</h1>
-          <Form>
-            <FormItem
-              label="Name"
-              labelCol={{span: 5}}
-              wrapperCol={{span: 12}}
-              >
-                <Input type="text" placeholder="Full Name"/>
-            </FormItem>
-            <FormItem
-              label="Email"
-              labelCol={{span: 5}}
-              wrapperCol={{span: 12}}
-              >
-                <Input type="text" placeholder="example@email.com"/>
-            </FormItem>
-            <FormItem
-              label="Password"
-              labelCol={{span: 5}}
-              wrapperCol={{span: 12}}
-              >
-                <Input type="password"/>
-            </FormItem>
-            <FormItem
-              label="Verify Password"
-              labelCol={{span: 5}}
-              wrapperCol={{span: 12}}
-              >
-                <Input type="password"/>
-            </FormItem>
-            <FormItem
-              wrapperCol={{ span: 12, offset: 5 }}
-              >
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-            </FormItem>
-          </Form>
+          <SignupForm />
         </Col>
       </Row>
     </div>
