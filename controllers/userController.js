@@ -3,9 +3,14 @@ const db = require("../models")
 
 const UserCommands = {
 
+  findUser: UserID => {
+    return db.User.findById(UserID)
+  },
+
   logIn: (email, password) => {
     return db.User.findOne({ email: email })
       .then(inst => {
+        if (inst) throw new Error("Email not there")
         if (bcrypt.compareSync(password, inst.password)) console.log("Signed In")
         else throw new Error("Password is Incorrect")
         return inst

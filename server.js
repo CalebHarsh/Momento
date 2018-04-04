@@ -5,17 +5,32 @@ const app = express();
 const bodyParser = require("body-parser")
 
 
+const passport = require("passport")
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+passport.serializeUser(function(user, cb) {
+  cb(null, user._id);
+});
+
+passport.deserializeUser(function(id, cb) {
+  UserDetails.findById(id).then(user => {
+    cb(err, user);
+  });
+});
+
 //Set up body-parser
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(bodyParser.json());
+
 
 // connnect to DataBase
 // Send every request to the React app
