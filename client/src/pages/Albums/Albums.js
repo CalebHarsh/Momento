@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Affix, Col, Row, Menu, Icon} from 'antd'
+import {Col, Row, Menu, Icon} from 'antd'
 import 'antd/dist/antd.css';
 import "./Albums.css";
 import Card from '../../components/Album-Square';
@@ -21,10 +21,10 @@ class Albums extends Component {
       <div className="Albums">
         <AddButton />
             <Row className="albumRow" gutter={16} style={{margin: "2rem auto"}}>
-              <Col className="Cards" md={{span: 6}} xs={{span: 12}} style={{margin: "15px auto"}}><Card /></Col>
-              <Col className="Cards" md={{span: 6}} xs={{span: 12}} style={{margin: "15px auto"}}><Card /></Col>
-              <Col className="Cards" md={{span: 6}} xs={{span: 12}} style={{margin: "15px auto"}}><Card /></Col>
-              <Col className="Cards" md={{span: 6}} xs={{span: 12}} style={{margin: "15px auto"}}><Card /></Col>
+              <Col md={{span: 6}} xs={{span: 12}} style={{margin: "15px auto"}}><Card /></Col>
+              <Col md={{span: 6}} xs={{span: 12}} style={{margin: "15px auto"}}><Card /></Col>
+              <Col md={{span: 6}} xs={{span: 12}} style={{margin: "15px auto"}}><Card /></Col>
+              <Col md={{span: 6}} xs={{span: 12}} style={{margin: "15px auto"}}><Card /></Col>
             </Row>
       </div>
     );
