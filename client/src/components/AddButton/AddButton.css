@@ -1,0 +1,58 @@
+.button {
+  right: 0%;
+  bottom: 0%;
+  height: 80px;
+  width: 80px;
+  border-radius: 55px;
+  background-color: #0084FF;
+  margin: 2rem;
+  position: fixed;
+  filter: drop-shadow(2px 2px 2px #d6d6d6);
+  z-index: 9000;
+}
+
+.forward{
+  animation: 1s cubic-bezier(.6,.22,.1,.98) 0s 15 alternate button;
+}
+
+.reverse {
+  animation: 1s cubic-bezier(.6,.22,.1,.98) 0s 1 forwards reverse button;
+}
+
+@keyframes button {
+  0% {
+    transform: translate(0,0);
+    height: 80px;
+    width: 80px;
+  }
+
+  30% {
+    border-radius: 75px;
+  }
+
+  70% {
+    background-color: #fefefe;
+  }
+
+  100% {
+    height: 70%;
+    width: 50%;
+    transform: translate(-47%, -20%);
+    background-color: #fefefe;
+    border: solid 2px #0084ff;
+    border-radius: 10px;
+  }
+}
+
+#plus {
+  display: block;
+  text-align: center;
+  margin: auto;
+  font-size: 3rem;
+}
+
+#disForm {
+  display: block;
+  margin-left: 20%;
+  margin-top: 2rem;
+}
