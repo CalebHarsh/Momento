@@ -3,11 +3,26 @@ import {Affix, Col, Row,Menu, Icon} from 'antd'
 import 'antd/dist/antd.css';
 import "./Photos.css";
 import PhotoCard from '../../components/PhotoCard';
+import AddButton from '../../components/AddButton';
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 
+
 class Photos extends Component {
+
+
+
+  plusButton = {
+    buttonClass: "button"
+  }
+
+  buttonForward = (ev) => {
+    console.log("clicked");
+    // this.setState({
+    //   plusButton: this.plusButton.buttonClass = "button forward"
+    // });
+  }
 
   handleClick = (e) => {
     console.log('click ', e);
@@ -15,13 +30,14 @@ class Photos extends Component {
 
   render() {
     return (
-
       <div className="Photos">
+      <AddButton        
+         onClick={this.buttonForward}
+       />
         <Row className="photoBody" gutter={16}>
           <Col md={{span: 4}}>
             <Menu
               onClick={this.handleClick}
-
               defaultSelectedKeys={['1']}
               defaultOpenKeys={['sub1']}
               mode="inline"
