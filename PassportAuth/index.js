@@ -1,4 +1,4 @@
-/*  EXPRESS SETUP  */
+///////*  EXPRESS SETUP  */
 
 const express = require('express');
 const app = express();
@@ -11,7 +11,7 @@ app.get('/', (req, res) => res.sendFile('auth.html', { root : __dirname}));
 const port = process.env.PORT || 3000;
 app.listen(port , () => console.log('App listening on port ' + port));
 
-/*  PASSPORT SETUP  */
+///////*  PASSPORT SETUP  */
 
 const passport = require('passport');
 app.use(passport.initialize());
@@ -30,7 +30,7 @@ passport.deserializeUser(function(id, cb) {
   });
 });
 
-///////* COOKIE-SESSION SETUP
+//////* COOKIE-SESSION SETUP
 
 var cookieSession = require('cookie-session')
  
@@ -42,7 +42,7 @@ app.use(cookieSession({
   maxAge: 12 * 60 * 60 * 1000 // 12 hours
 }))
 
-////////////////////* NEKO SETUP */
+//////* NEKO SETUP */
 
 // const ko = require('nekodb');
 
@@ -67,8 +67,7 @@ app.use(cookieSession({
 //   console.log("User 1 Registered")
 // })
 
-
-// // /* MONGOOSE SETUP */
+//////* MONGOOSE SETUP */
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/MyDatabase');
@@ -80,9 +79,7 @@ const UserDetail = new Schema({
     });
 const UserDetails = mongoose.model('userInfo', UserDetail, 'userInfo');
 
-
-
-/* PASSPORT LOCAL AUTHENTICATION */
+//////* PASSPORT LOCAL AUTHENTICATION */
 
 const LocalStrategy = require('passport-local').Strategy;
 
