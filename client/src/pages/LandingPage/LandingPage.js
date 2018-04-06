@@ -8,11 +8,12 @@ import './LandingPage.css';
 import "animate.css/animate.min.css";
 import iphone from '../../assets/images/iphone.svg';
 
+
 const LandingPage = props => (
   <div className="landing-page">
     <Affix>
       <Navbar />
-    </Affix>
+    </Affix>  
     <div className="firstHalf">
       <Row gutter={16}>
         <Col md={{span: 12}} xs={{span: 12}}>
@@ -39,9 +40,9 @@ const LandingPage = props => (
             <ScrollAnimation animateIn="fadeInUp">
               <div className="signup-container">
                 <Divider><h2>What Is Momento?</h2></Divider>
-                <h3 className="hookMsg">We are a micro social network based 
-                  on sharing photos between friends, families, and significant 
-                  others. Store your photos on our platform so your inner 
+                <h3 className="hookMsg">We are a micro social network based
+                  on sharing photos between friends, families, and significant
+                  others. Store your photos on our platform so your inner
                   circle stays in the loop.</h3>
                 <Link to="/signup">
                   <Button size="default"
@@ -53,6 +54,7 @@ const LandingPage = props => (
             </ScrollAnimation>
           </Col>
         </Row>
+
       </div>
     </div>
   </div>
