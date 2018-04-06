@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-import Navbar from '../../components/Navbar';
 import {Affix, Button, Col, Divider, Row} from 'antd';
 import ScrollAnimation from 'react-animate-on-scroll';
 import 'antd/dist/antd.css';
@@ -11,9 +10,6 @@ import iphone from '../../assets/images/iphone.svg';
 
 const LandingPage = props => (
   <div className="landing-page">
-    <Affix>
-      <Navbar />
-    </Affix>  
     <div className="firstHalf">
       <Row gutter={16}>
         <Col md={{span: 12}} xs={{span: 12}}>

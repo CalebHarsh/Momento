@@ -34,3 +34,8 @@
   align-items: center;
   display: flex;
 }
+
+.name {
+  color: #0084FF;
+  margin-bottom: 0;
+}

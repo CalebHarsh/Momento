@@ -33,8 +33,10 @@ class SignupForm extends Component {
         email: this.state.email,
         password: this.state.password
       })
-      .then(res => 
-      this.setState({name: "", email: "", password: "", passwordVerify: ""}))
+      .then(res =>{ 
+      this.setState({name: "", email: "", password: "", passwordVerify: ""})
+      window.location.pathname = '/albums'
+      })
     } else {
       alert('fill the form out, idiot!')
     }
