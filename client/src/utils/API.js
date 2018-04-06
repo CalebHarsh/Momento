@@ -2,10 +2,13 @@ import axios from 'axios';
 
 export default {
   // Create a new user
-  createNewUser: () => {
-    return axios.post('/api/signup')
+  createNewUser: (data) => {
+    return axios.post('/api/signup', data)
+    .then(res => {
+      window.location.pathname="/"
+    })
   },
-  signIn: () => {
-    return axios.put('/api/login')
+  signIn: (data) => {
+    return axios.put('/api/login', data)
   }
 }
