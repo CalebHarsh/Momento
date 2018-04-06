@@ -1,10 +1,32 @@
 const Command = require("../controllers/userController.js")
 const router = require("express").Router()
+const path = require("path")
+const aws = require("aws-sdk")
+const multer = require("multer")
+const multerS3 = require("multer-s3")
+
+const s3 = new aws.S3({
+  accessKeyId:  process.env.ACCESS_KEY,
+  secretAccessKey: process.env.PRIVATE_KEY,
+  region: "us-west-1"
+})
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.S3_BUCKET,
+    acl: "public-read",
+    key: function(req, file, cb) {
+      cb(null, Date.now() + path.extname(file.originalname))
+    }
+  })
+})
+
 
 //Adding a photo
-router.post("/api/addPhoto", (req, res) => {
-  console.log(req.body)
-  Command.addNewPhoto(req.body.userID, req.body.albumID, req.body.photoName)
+router.post("/api/addPhoto", upload.any(), (req, res) => {
+  console.log(req.files[0])
+  res.send("Got file")
+  Command.addNewPhoto(req.body.userID, req.body.albumID, req.body.photoName, req.files[0].location)
     .then()
 })
 
