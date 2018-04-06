@@ -1,31 +1,33 @@
 const Command = require("../controllers/userController.js")
 const router = require("express").Router()
+const path = require("path")
 const aws = require("aws-sdk")
 const multer = require("multer")
 const multerS3 = require("multer-s3")
 
 const s3 = new aws.S3({
-  key:  "AKIAJPLTFA7PFFKFDQKQ",
-  secret:  "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"
+  accessKeyId:  process.env.ACCESS_KEY,
+  secretAccessKey: process.env.PRIVATE_KEY,
+  region: "us-west-1"
 })
-
 const upload = multer({
   storage: multerS3({
     s3: s3,
-    bucket: "momento-139",
+    bucket: process.env.S3_BUCKET,
+    acl: "public-read",
     key: function(req, file, cb) {
-      cb(null, Date.now().toString())
+      cb(null, Date.now() + path.extname(file.originalname))
     }
   })
 })
 
 
 //Adding a photo
-router.post("/api/addPhoto", upload.single("photo"), (req, res) => {
-  console.log(req.file)
+router.post("/api/addPhoto", upload.any(), (req, res) => {
+  console.log(req.files[0])
   res.send("Got file")
-  // Command.addNewPhoto(req.body.userID, req.body.albumID, req.body.photoName)
-  //   .then()
+  Command.addNewPhoto(req.body.userID, req.body.albumID, req.body.photoName, req.files[0].location)
+    .then()
 })
 
 //Dealing with a single photo page

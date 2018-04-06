@@ -1,5 +1,4 @@
 const express = require("express");
-const PORT = process.env.PORT || 3001;
 const app = express();
 const bodyParser = require("body-parser")
 
@@ -7,7 +6,10 @@ const bodyParser = require("body-parser")
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-
+if (process.env.NODE_ENV !== "procuduction") {
+  require('dotenv').load();
+}
+const PORT = process.env.PORT || 3001;
 //Set up body-parser
 app.use(bodyParser.urlencoded({
   extended: true

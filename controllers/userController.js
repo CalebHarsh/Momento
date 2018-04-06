@@ -93,13 +93,14 @@ const UserCommands = {
       .then(album => album)
   },
 
-  addNewPhoto: (UserID, AlbumID, photoName) => {
+  addNewPhoto: (UserID, AlbumID, photoName, photoLocation) => {
     return db.Album.findById(AlbumID)
       .then(album => {
         album.photos.$push({
           author: UserID,
           name: photoName,
-          comments: []
+          comments: [],
+          href: photoLocation
         })
         return album.saveAll()
       })
