@@ -5,21 +5,42 @@ import Login from '../Login/Login'
 import 'antd/dist/antd.css';
 import './Navbar.css'
 import logo from '../../assets/images/logo.svg'
+import API from '../../utils/API';
+
 
 class Navbar extends  Component {
   constructor(props){
     super(props);
     this.handleSignIn = this.handleSignIn.bind(this)
     this.state = {
-      visible: false
+      visible: false,
+      email: '',
+      password: ''
     }
   }
-  handleSignIn() {
-    this.setState((prevState) => {
-      return {
-        visible: !prevState.visible
+  
+  handleInputChange = event => {
+    let value = event.target.value;
+    const name = event.target.name;
+    
+    this.setState({
+      [name]: value
+    });
+  }
+  
+  handleSignIn = event => {
+      if(this.state.visible){
+        API.signIn({
+          email: this.state.email,
+          password: this.state.password
+        }).then(res => {
+          console.log(res.data)
+        })
+      } else {
+        this.setState({
+          visible: true
+        })
       }
-    })
   }
   render() {
     return(
@@ -35,7 +56,7 @@ class Navbar extends  Component {
           </div>
           <div className="nav-items">
             {
-              this.state.visible && <Login />
+              this.state.visible && <Login email={this.state.email} password={this.state.password} onChange={this.handleInputChange}/>
             }
             <Button size="default"
               onClick={this.handleSignIn}>

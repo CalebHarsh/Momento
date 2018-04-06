@@ -27,9 +27,17 @@ class SignupForm extends Component {
   
   handleFormSubmit = event => {
     event.preventDefault();
-    API.createNewUser()
-    .then(res => 
-    this.setState({name: "", email: "", password: "", passwordVerify: ""}))
+    if(this.state.name && this.state.email && this.state.password && this.state.passwordVerify){
+      API.createNewUser({
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password
+      })
+      .then(res => 
+      this.setState({name: "", email: "", password: "", passwordVerify: ""}))
+    } else {
+      alert('fill the form out, idiot!')
+    }
   }
   render(){
     return(
