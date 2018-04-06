@@ -36,7 +36,7 @@ var cookieSession = require('cookie-session')
  
 app.use(cookieSession({
   name: 'session',
-  keys: ['scootypuffjrsucks'],
+  keys: ['needtomakekeysfile'],
  
   // Cookie Options
   maxAge: 12 * 60 * 60 * 1000 // 12 hours
