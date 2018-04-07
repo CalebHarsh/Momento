@@ -1,7 +1,6 @@
 // ==== MAKE THIS COMPONENT STATE-FULL ========================================
 
 import React from 'react';
-import Navbar from '../../components/Navbar';
 import SignupForm from '../../components/SignupForm'
 import {Col, Icon, Row} from 'antd';
 import 'antd/dist/antd.css';

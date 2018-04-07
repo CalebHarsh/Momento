@@ -15,7 +15,7 @@ class App extends Component {
     this.setState({
       isLoggedIn: true
     })
-  }
+  } 
   render() {
     return (
       <Router>

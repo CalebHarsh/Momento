@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import 'antd/dist/antd.css';
 import { Upload, Icon, Modal } from 'antd';
 
-class PicUpload extends React.Component {
+class PicUpload extends Component {
   state = {
     previewVisible: false,
     previewImage: '',
