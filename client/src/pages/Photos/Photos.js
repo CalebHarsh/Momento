@@ -31,35 +31,35 @@ class Photos extends Component {
   data = [
     {
       title: 'Image One',
-      src: 'https://placehold.it/200x300'
+      src: 'http://www.recipe4living.com/assets/itemimages/400/400/3/default_ff862c6796ec9b9ebf1710f613d32b49_dreamstime_s_27520729.jpg'
     },
     {
       title: 'Image Two',
-      src: 'https://placehold.it/200x300'
+      src: 'https://images-gmi-pmc.edge-generalmills.com/8b648fc0-1cf6-46f2-b923-a48d16923eb9.jpg'
     },
     {
       title: 'Image Three',
-      src: 'https://placehold.it/200x300'
+      src: 'http://images.honestcooking.com/wp-content/uploads/2014/12/Frito_Fried_Chicken_Tenders_Intro.jpg'
     },
     {
       title: 'Image Four',
-      src: 'https://placehold.it/200x300'
+      src: 'https://dinnerthendessert.com/wp-content/uploads/2018/01/Super-Crispy-Chicken-Tenders-2-680x1020.jpg'
     },
     {
       title: 'Image Five',
-      src: 'https://placehold.it/200x300'
+      src: 'http://www.mantitlement.com/wp-content/uploads/2017/10/everything-bagel-chicken-tenders-feature-698x1024.jpg'
     },
     {
       title: 'Image Six',
-      src: 'https://placehold.it/200x300'
+      src: 'https://www.thegraciouswife.com/wp-content/uploads/2017/07/Easy-Baked-Chicken-Tenders-Recipe-5.jpg?x47005'
     },
     {
       title: 'Image Seven',
-      src: 'https://placehold.it/200x300'
+      src: 'http://www.simplyscratch.com/wp-content/uploads/2013/04/Potato-Chip-Crusted-Chicken-Tenders-and-Spicy-Ranch-Dip.jpg'
     },
     {
       title: 'Image Eight',
-      src: 'https://placehold.it/200x300'
+      src: 'http://www.willcookforsmiles.com/wp-content/uploads/2014/05/Bacon-Wrapped-Chicken-Strips-4-from-willcookforsmiles.com-chicken-bacon-easydinner.jpg'
     }
   ]
 
@@ -77,9 +77,9 @@ class Photos extends Component {
               defaultOpenKeys={['sub1']}
               mode="inline"
             >
-            <Menu.Item key="1">Vacation</Menu.Item>
-            <Menu.Item key="2">Apple</Menu.Item>
-            <Menu.Item key="3">Chicken Tenders</Menu.Item>
+            <Menu.Item key="1">Chicken Tenders</Menu.Item>
+            <Menu.Item key="2">cOdInG</Menu.Item>
+            <Menu.Item key="3">Doggos</Menu.Item>
             </Menu>
           </Col>
           <Col md={{span: 20}}>

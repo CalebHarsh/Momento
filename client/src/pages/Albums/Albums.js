@@ -14,15 +14,18 @@ class Albums extends Component {
   data = [
     {
       src: "https://az616578.vo.msecnd.net/files/2016/04/22/635969539404389959-525985018_chicken_fingers_page-bg_8285.jpg",
-      title: 'Chicken Tenders'
+      title: 'Chicken Tenders',
+      description: `Trevor knows what's up ;)`
     },
     {
       src: "https://preschoolsteam.com/wp-content/uploads/2017/02/boycomputer.jpg",
-      title: 'cOdInG'
+      title: 'cOdInG',
+      description: 'Coding Memes'
     },
     {
       src: "http://r.ddmcdn.com/w_830/s_f/o_1/cx_0/cy_220/cw_1255/ch_1255/APL/uploads/2014/11/dog-breed-selector-australian-shepherd.jpg",
-      title: 'Doggos'
+      title: 'Doggos',
+      description: 'Pictures of good bois'
     }
   ]
 
@@ -35,15 +38,17 @@ class Albums extends Component {
 
       <div className="Albums">
         <AddButton />
-        <List 
-          grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
-          dataSource={this.data}
-          renderItem={item=>(
-            <List.Item>
-              <Card title={item.title} src={item.src}/>
-            </List.Item>
-          )}
-        />
+        <div className="album-container">
+          <List 
+            grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+            dataSource={this.data}
+            renderItem={item=>(
+              <List.Item>
+                <Card title={item.title} src={item.src} description={item.description}/>
+              </List.Item>
+            )}
+          />
+        </div>
       </div>
     );
   }

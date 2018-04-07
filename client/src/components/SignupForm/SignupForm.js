@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import  { Redirect } from 'react-router-dom'
 import {Button, Col, Form, Icon, Input, Row} from 'antd';
 import 'antd/dist/antd.css';
 import './SignupForm.css';
@@ -35,7 +36,6 @@ class SignupForm extends Component {
       })
       .then(res =>{ 
       this.setState({name: "", email: "", password: "", passwordVerify: ""})
-      window.location.pathname = '/albums'
       })
     } else {
       alert('fill the form out, idiot!')
