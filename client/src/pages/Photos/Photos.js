@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Affix, Col, Row,Menu, Icon} from 'antd'
+import {Affix, Col, Row, Menu, Icon, List} from 'antd'
 import 'antd/dist/antd.css';
 import "./Photos.css";
 import PhotoCard from '../../components/PhotoCard';
@@ -27,6 +27,33 @@ class Photos extends Component {
   handleClick = (e) => {
     console.log('click ', e);
   }
+  
+  data = [
+    {
+      title: 'Image One'
+    },
+    {
+      title: 'Image Two'
+    },
+    {
+      title: 'Image Three'
+    },
+    {
+      title: 'Image Four'
+    },
+    {
+      title: 'Image Five'
+    },
+    {
+      title: 'Image Six'
+    },
+    {
+      title: 'Image Seven'
+    },
+    {
+      title: 'Image Eight'
+    }
+  ]
 
   render() {
     return (
@@ -48,12 +75,15 @@ class Photos extends Component {
             </Menu>
           </Col>
           <Col md={{span: 20}}>
-            <Row className="photoRow">
-              <Col className="Cards"span={6}><PhotoCard /></Col>
-              <Col className="Cards"span={6}><PhotoCard /></Col>
-              <Col className="Cards"span={6}><PhotoCard /></Col>
-              <Col className="Cards"span={6}><PhotoCard /></Col>
-            </Row>
+            <List
+              grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+              dataSource={this.data}
+              renderItem={item=>(
+                <List.Item>
+                  <PhotoCard title={item.title}/>
+                </List.Item>
+              )}
+            />
           </Col>
         </Row>
       </div>

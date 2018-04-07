@@ -1,16 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
+import {Avatar, Card} from 'antd';
 import 'antd/dist/antd.css';
 import "./PhotoCard.css";
-import { Card, Avatar } from 'antd';
-const { Meta } = Card;
-var Backgorund = "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-var style = {
-  backgroundImage: `url(${Backgorund})`,
-  backgroundSize: "cover"
-}
+
+const {Meta} = Card;
+
+
 
 const PhotoCard = props => (
-  <div className="PhotoCard" style={style}>
+  <div className="PhotoCard">
+    <Card
+      hoverable
+      cover={<img alt={props.title} src={props.src}/>}
+    >
+      <Meta 
+        avatar={<Avatar icon="user" />}
+        title={props.title}
+      />
+      
+    </Card>
   </div>
 );
 
