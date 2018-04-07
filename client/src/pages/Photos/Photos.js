@@ -40,7 +40,14 @@ class Photos extends Component {
   }
 
   handleClick = (e) => {
-    console.log('click ', e);
+    API.addPhoto({
+      name: "Test Album 3",
+      href: "http://www.freedigitalphotos.net/images/img/homepage/394230.jpg"
+      author: "5ac8166113572c1d7c3f1dd4",
+      album: "5ac8312d72eeac1df8e581f5"
+    }).then(res => {
+      console.log(res)
+    })
   }
   
   render() {

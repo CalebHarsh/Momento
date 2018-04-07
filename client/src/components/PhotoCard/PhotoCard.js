@@ -20,6 +20,6 @@ const PhotoCard = props => (
       
     </Card>
   </div>
-)};
+);
 
 export default PhotoCard;

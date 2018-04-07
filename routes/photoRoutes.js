@@ -25,11 +25,16 @@ const upload = multer({
 //adding a new album
 router.post("/api/createAlbum", upload.any(), (req, res) => {
   console.log(req.body)
-  Command.addNewAlbum(req.body.userID, req.body.albumName, req.files[0].location)
+  Command.addNewAlbum(req.body.user, req.body.name, req.body.cover)
+    // req.files[0].location)
     .then(user => {
+      console.log(user.slice())
       res.send(user)
     })
-    .catch(err => res.send(err))
+    .catch(err => {
+      console.log(err)
+      res.send(err)
+    })
 })
 
 
@@ -37,11 +42,16 @@ router.post("/api/createAlbum", upload.any(), (req, res) => {
 router.post("/api/addPhoto", upload.any(), (req, res) => {
   console.log(req.files[0])
   res.send("Got file")
-  Command.addNewPhoto(req.body.userID, req.body.albumID, req.body.photoName, req.files[0].location)
+  Command.addNewPhoto(req.body.author, req.body.album, req.body.name, req.body.href)
+    // req.files[0].location)
     .then(album=> {
+      console.log(album)
       res.send(album)
     })
-    .catch(err => res.send(err))
+    .catch(err => {
+      console.log(err)
+      res.send(err)
+    })
 })
 
 //Dealing with a single photo page

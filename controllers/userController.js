@@ -59,14 +59,16 @@ const UserCommands = {
   },
 
   addNewAlbum: (UserID, albumName, albumCover) => {
+    console.log(UserID, albumName, albumCover)
     return db.User.findById(UserID)
       .then(user => {
         user.albums.$push({
           users: [user._id],
           name: albumName,
           photos: [],
-          cover: album
+          cover: albumCover
         })
+        console.log(user.slice())
         // console.log("adding album")
         return user.saveAll()
       })
@@ -90,7 +92,8 @@ const UserCommands = {
   },
 
   getPhotos: (AlbumID) => {
-    return db.Album.findById(AlbumID).join()
+    console.log(typeof AlbumID)
+    return db.Album.find({_id: AlbumID}).join()
       .then(album => { 
         console.log(album)
         return album
