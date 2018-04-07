@@ -10,6 +10,7 @@ const s3 = new aws.S3({
   secretAccessKey: process.env.PRIVATE_KEY,
   region: "us-west-1"
 })
+
 const upload = multer({
   storage: multerS3({
     s3: s3,

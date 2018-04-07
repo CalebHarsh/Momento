@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import "./Photos.css";
 import PhotoCard from '../../components/PhotoCard';
 import AddButton from '../../components/AddButton';
+import axios from "axios"
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -11,6 +12,18 @@ const MenuItemGroup = Menu.ItemGroup;
 
 class Photos extends Component {
 
+  state = {
+    photos: []
+  }
+
+  componentDidMount() {
+    axios.get(window.location.pathname)
+    .then(res => {
+      this.setState({
+        photos: res.data.photos
+      })
+    })
+  }
 
 
   plusButton = {
