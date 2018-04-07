@@ -59,8 +59,8 @@ const UserCommands = {
   },
 
   addNewAlbum: (UserID, albumName, albumCover) => {
-    console.log(UserID, albumName, albumCover)
-    return db.User.findById(UserID)
+    // console.log(UserID, albumName, albumCover)
+    return db.User.findById(UserID).join()
       .then(user => {
         user.albums.$push({
           users: [user._id],
@@ -68,14 +68,13 @@ const UserCommands = {
           photos: [],
           cover: albumCover
         })
-        console.log(user.slice())
         // console.log("adding album")
         return user.saveAll()
       })
   },
 
   addExistingAlbum: (UserID, AlbumID) => {
-    return db.User.findById(UserID)
+    return db.User.findById(UserID).join()
       .then(user => {
         if (user.albums.includes(AlbumID)) throw new Error("You already have this album")
         return db.Album.findById(AlbumID)
@@ -93,15 +92,15 @@ const UserCommands = {
 
   getPhotos: (AlbumID) => {
     console.log(typeof AlbumID)
-    return db.Album.find({_id: AlbumID}).join()
+    return db.Album.findById(AlbumID).join()
       .then(album => { 
-        console.log(album)
+        console.log(album.slice())
         return album
       })
   },
 
   addNewPhoto: (UserID, AlbumID, photoName, photoLocation) => {
-    return db.Album.findById(AlbumID)
+    return db.Album.findById(AlbumID).join()
       .then(album => {
         album.photos.$push({
           author: UserID,

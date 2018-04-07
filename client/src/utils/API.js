@@ -21,6 +21,11 @@ export default {
   },
   addComment: (data) => {
     return axios.post("/api/addComment", data)
+  },
+  getAllAlbums: (path) => {
+    return axios.get(`/api/${path}`)
+  },
+  getAllPhotos: (path) => {
+    return axios.get(`/api/${path}`)
   }
-  
 }

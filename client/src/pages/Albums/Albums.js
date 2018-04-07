@@ -5,7 +5,6 @@ import "./Albums.css";
 import Card from '../../components/Album-Square';
 import AddButton from '../../components/AddButton';
 import API from "../../utils/API"
-import axios from "axios"
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -16,8 +15,8 @@ class Albums extends Component {
     albums: []
   }
 
-  componentDidMount() {
-    axios.get(window.location.pathname)
+  componentWillMount() {
+    API.getAllAlbums(window.location.pathname)
     .then(res => {
       console.log(res.data)
       this.setState({

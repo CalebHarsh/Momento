@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import "./Photos.css";
 import PhotoCard from '../../components/PhotoCard';
 import AddButton from '../../components/AddButton';
-import axios from "axios"
+import API from "../../utils/API"
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
@@ -16,9 +16,8 @@ class Photos extends Component {
     photos: []
   }
 
-  componentDidMount() {
-    console.log("getting photos")
-    axios.get(window.location.pathname)
+  componentWillMount() {
+    API.getAllPhotos(window.location.pathname)
     .then(res => {
       console.log(res.data)
       this.setState({
@@ -41,8 +40,8 @@ class Photos extends Component {
 
   handleClick = (e) => {
     API.addPhoto({
-      name: "Test Album 3",
-      href: "http://www.freedigitalphotos.net/images/img/homepage/394230.jpg"
+      name: "Test Photo 4",
+      href: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS47f5zoCgxkl5yunLZ9AQs6REXgcjgAtsduuJntZ_ERI3U13xm2g",
       author: "5ac8166113572c1d7c3f1dd4",
       album: "5ac8312d72eeac1df8e581f5"
     }).then(res => {
@@ -54,7 +53,7 @@ class Photos extends Component {
     return (
       <div className="Photos">
       <AddButton        
-         onClick={this.buttonForward}
+         onClick={this.handleClick}
        />
         <Row className="photoBody" gutter={16}>
           <Col md={{span: 4}}>

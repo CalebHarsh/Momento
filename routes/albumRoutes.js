@@ -2,9 +2,9 @@ const Command = require("../controllers/userController.js")
 const router = require("express").Router()
 
 //dealing with dashboard to show albums
-router.get("/dashboard/:id", (req, res) => {
+router.get("/api/dashboard/:id", (req, res) => {
   Command.getAlbums(req.params.id)
-    .then(user => res.send(user))
+    .then(user => res.json(user))
     .catch(err => res.send(err))
 })
 
@@ -17,12 +17,11 @@ router.put("/api/addFriendAlbum", (req, res) => {
 })
 
 //Dealing with a single album page
-router.get("/albums/:id", (req, res) => {
+router.get("/api/albums/:id", (req, res) => {
   console.log(req.params.id)
   Command.getPhotos(req.params.id)
     .then(album => {
-      console.log(album)
-      res.send(album)
+      res.json(album)
     })
     .catch(err => {
       console.log(err)
