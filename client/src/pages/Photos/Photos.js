@@ -8,8 +8,6 @@ import API from "../../utils/API"
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
-
-
 class Photos extends Component {
 
   state = {
@@ -28,15 +26,20 @@ class Photos extends Component {
 
 
   plusButton = {
-    buttonClass: "button"
+    buttonClass: "",
+    showMe: false
   }
 
   buttonForward = (ev) => {
     console.log("clicked");
-    // this.setState({
-    //   plusButton: this.plusButton.buttonClass = "button forward"
-    // });
+    var thisClass = (this.plusButton.buttonClass === "" ? "forward" : this.plusButton.buttonClass === "forward" ? "reverse" : "");
+    this.setState({
+      plusButton: this.plusButton.buttonClass = thisClass
+    });
+    console.log(thisClass);
+
   }
+
 
   handleClick = (e) => {
     API.addPhoto({
@@ -52,9 +55,7 @@ class Photos extends Component {
   render() {
     return (
       <div className="Photos">
-      <AddButton        
-         onClick={this.handleClick}
-       />
+      <AddButton />
         <Row className="photoBody" gutter={16}>
           <Col md={{span: 4}}>
             <Menu
