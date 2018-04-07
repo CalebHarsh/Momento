@@ -111,7 +111,7 @@ class Photos extends Component {
               dataSource={this.data}
               renderItem={item=>(
                 <List.Item>
-                  <PhotoCard title={item.name} src={item.href}/>
+                  <PhotoCard title={item.title} src={item.src}/>
                 </List.Item>
               )}
             />
