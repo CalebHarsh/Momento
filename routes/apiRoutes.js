@@ -18,6 +18,7 @@ router.post("/api/signup", (req, res) => {
     password: req.body.password
   })
     // .then(user => res.redirect(`/dashboard/${user._id}`))
+    .then(user => res.send(user))
     .catch(err => res.send(err))
 })
 

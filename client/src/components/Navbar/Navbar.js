@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
-import {Button, Divider} from 'antd';
+import {Avatar, Button, Divider, Dropdown, Menu} from 'antd';
 import Login from '../Login/Login'
 import 'antd/dist/antd.css';
 import './Navbar.css'
@@ -14,8 +14,10 @@ class Navbar extends  Component {
     this.handleSignIn = this.handleSignIn.bind(this)
     this.state = {
       visible: false,
+      loggedIn: false,
       email: '',
-      password: ''
+      password: '',
+      name: ''
     }
   }
   
@@ -34,7 +36,10 @@ class Navbar extends  Component {
           email: this.state.email,
           password: this.state.password
         }).then(res => {
-          console.log(res.data)
+          this.setState({
+            loggedIn: true,
+            name: res.data.name
+          })
         })
       } else {
         this.setState({
@@ -43,6 +48,12 @@ class Navbar extends  Component {
       }
   }
   render() {
+    const menu = (
+      <Menu>
+        <Menu.Item key="profile">Profile</Menu.Item>
+        <Menu.Item key="logout">Logout</Menu.Item>
+      </Menu>
+    )
     return(
       <div className="Navbar">
         <div className="container">
@@ -54,6 +65,7 @@ class Navbar extends  Component {
             </Link>
             <h1 className="logotype">momento</h1>
           </div>
+          { !this.state.loggedIn ?  
           <div className="nav-items">
             {
               this.state.visible && <Login email={this.state.email} password={this.state.password} onChange={this.handleInputChange}/>
@@ -70,6 +82,15 @@ class Navbar extends  Component {
               </Button>
             </Link>
           </div>
+          : 
+          <div className="nav-items">
+            <h3 className="name">{this.state.name}</h3>
+            <Divider type="vertical"/>
+            <Dropdown overlay={menu} placement="bottomCenter">
+              <Avatar icon="user"/>
+            </Dropdown>
+          </div>
+        }
         </div>
       </div>
     );
