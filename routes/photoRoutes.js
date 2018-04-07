@@ -1,5 +1,5 @@
-const Command = require("../controllers/userController.js")
-const router = require("express").Router()
+const Command = require("../controllers/userController.js");
+const router = require("express").Router();
 
 //Adding a photo
 router.post("/api/addPhoto", (req, res) => {

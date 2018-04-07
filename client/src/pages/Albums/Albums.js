@@ -19,12 +19,14 @@ class Albums extends Component {
     return (
 
       <div className="Albums">
-        <AddButton />
+      <AddButton />
             <Row className="albumRow" gutter={16} style={{margin: "2rem auto"}}>
+            <div style={{margin: "auto", padding: 2}}>
               <Col className="Cards"span={6} style={{margin: "15px auto"}}><Card /></Col>
               <Col className="Cards"span={6} style={{margin: "15px auto"}}><Card /></Col>
               <Col className="Cards"span={6} style={{margin: "15px auto"}}><Card /></Col>
               <Col className="Cards"span={6} style={{margin: "15px auto"}}><Card /></Col>
+            </div>
             </Row>
       </div>
     );

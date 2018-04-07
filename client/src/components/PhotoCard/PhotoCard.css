@@ -3,7 +3,7 @@
   width: 150px;
   margin: 0 10px;
   border-radius: 10px;
-  /* animation: slideIn .5s ease-in 0s infinite alternate; */
+  
 }
 
 @keyframes slideIn {
