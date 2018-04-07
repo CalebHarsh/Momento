@@ -22,13 +22,26 @@ const upload = multer({
   })
 })
 
+//adding a new album
+router.post("/api/createAlbum", upload.any(), (req, res) => {
+  console.log(req.body)
+  Command.addNewAlbum(req.body.userID, req.body.albumName, req.files[0].location)
+    .then(user => {
+      res.send(user)
+    })
+    .catch(err => res.send(err))
+})
+
 
 //Adding a photo
 router.post("/api/addPhoto", upload.any(), (req, res) => {
   console.log(req.files[0])
   res.send("Got file")
   Command.addNewPhoto(req.body.userID, req.body.albumID, req.body.photoName, req.files[0].location)
-    .then()
+    .then(album=> {
+      res.send(album)
+    })
+    .catch(err => res.send(err))
 })
 
 //Dealing with a single photo page
@@ -49,7 +62,9 @@ router.delete("/photos/:id", (req, res) => {
 router.post("/api/addComment", (req, res) => {
   console.log(req.body)
   Command.addNewComment(req.body.userID, req.body.photoID, req.body.text)
-    .then()
+    .then(photo => {
+      res.send(photo)
+    })
 })
 
 module.exports = router

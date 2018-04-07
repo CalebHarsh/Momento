@@ -35,13 +35,15 @@ class SignupForm extends Component {
       })
       .then(res =>{ 
       this.setState({name: "", email: "", password: "", passwordVerify: ""})
-      window.location.pathname = '/albums'
+      this.props.login()
+      window.location.pathname = `/dashboard${res.data._id}`
       })
     } else {
       alert('fill the form out, idiot!')
     }
   }
   render(){
+    console.log(this.props)
     return(
       <div>
         <Form>

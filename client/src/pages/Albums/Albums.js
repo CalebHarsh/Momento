@@ -18,6 +18,7 @@ class Albums extends Component {
   componentDidMount() {
     axios.get(window.location.pathname)
     .then(res => {
+      console.log(res.data)
       this.setState({
         albums: res.data.albums
       })
@@ -34,10 +35,11 @@ class Albums extends Component {
       <div className="Albums">
         <AddButton />
             <Row className="albumRow" gutter={16} style={{margin: "2rem auto"}}>
-              <Col className="Cards" md={{span: 6}} xs={{span: 12}} style={{margin: "15px auto"}}><Card /></Col>
-              <Col className="Cards" md={{span: 6}} xs={{span: 12}} style={{margin: "15px auto"}}><Card /></Col>
-              <Col className="Cards" md={{span: 6}} xs={{span: 12}} style={{margin: "15px auto"}}><Card /></Col>
-              <Col className="Cards" md={{span: 6}} xs={{span: 12}} style={{margin: "15px auto"}}><Card /></Col>
+              {this.state.albums.map(album => {
+                return (<Col className="Cards" md={{span: 6}} xs={{span: 12}} style={{margin: "15px auto"}}>
+                  <Card id={album._id} key={album._id} title={album.name} cover={album.cover} />
+                </Col>)
+              })}
             </Row>
       </div>
     );

@@ -14,7 +14,6 @@ class Navbar extends  Component {
     this.handleSignIn = this.handleSignIn.bind(this)
     this.state = {
       visible: false,
-      loggedIn: false,
       email: '',
       password: '',
       name: ''
@@ -36,10 +35,12 @@ class Navbar extends  Component {
           email: this.state.email,
           password: this.state.password
         }).then(res => {
+          console.log(res.data)
+          this.props.login()
           this.setState({
-            loggedIn: true,
             name: res.data.name
           })
+          window.location.pathname = `/dashboard/${res.data._id}`
         })
       } else {
         this.setState({
@@ -65,7 +66,7 @@ class Navbar extends  Component {
             </Link>
             <h1 className="logotype">momento</h1>
           </div>
-          { !this.state.loggedIn ?  
+          { !this.props.loggedIn ?  
           <div className="nav-items">
             {
               this.state.visible && <Login email={this.state.email} password={this.state.password} onChange={this.handleInputChange}/>

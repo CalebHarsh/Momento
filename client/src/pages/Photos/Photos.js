@@ -17,8 +17,10 @@ class Photos extends Component {
   }
 
   componentDidMount() {
+    console.log("getting photos")
     axios.get(window.location.pathname)
     .then(res => {
+      console.log(res.data)
       this.setState({
         photos: res.data.photos
       })
@@ -62,10 +64,10 @@ class Photos extends Component {
           </Col>
           <Col md={{span: 20}}>
             <Row className="photoRow">
-              <Col className="Cards"span={6}><PhotoCard /></Col>
-              <Col className="Cards"span={6}><PhotoCard /></Col>
-              <Col className="Cards"span={6}><PhotoCard /></Col>
-              <Col className="Cards"span={6}><PhotoCard /></Col>
+            {this.state.photos.map(photo => {
+              return  (<Col className="Cards"span={6}><PhotoCard name={photo.name} href={photo.href} /></Col>)
+            })}
+    
             </Row>
           </Col>
         </Row>
