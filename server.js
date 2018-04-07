@@ -7,7 +7,7 @@ const bodyParser = require("body-parser")
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-if (process.env.NODE_ENV !== "procuduction") {
+if (process.env.NODE_ENV !== "production") {
   require('dotenv').load();
 }
 const PORT = process.env.PORT || 3001;
