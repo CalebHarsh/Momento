@@ -25,8 +25,8 @@ class App extends Component {
           </Affix>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/signup" component={SignUp} />
-          <Route path="/dashboard" component={Albums} />
-          <Route path="/albums" component={Photos} />
+          <Route path="/albums" component={Albums} />
+          <Route path="/photos" component={Photos} />
         </div>
       </Router>
     );

@@ -73,8 +73,10 @@ class Albums extends Component {
             )}
           />
         </div>
-            /*
-        <AddButton onClick={this.handleClick}/>
+
+       
+          
+        {/* <AddButton onClick={this.handleClick}/>
         <List 
           grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
           dataSource={this.state.albums}
@@ -83,8 +85,8 @@ class Albums extends Component {
               <Card title={item.name} id={item._id} src={item.cover}/>
             </List.Item>
           )}
-        />
-        */
+        /> */}
+         </div>
     );
   }
 }
