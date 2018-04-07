@@ -4,7 +4,7 @@ const db = require("../models")
 const UserCommands = {
 
   logIn: (email, password) => {
-    return db.User.findOne({ email: email })
+    return db.User.findOne({ email: email }).join()
       .then(inst => {
         if (bcrypt.compareSync(password, inst.password)) console.log("Signed In")
         else throw new Error("Password is Incorrect")
@@ -58,13 +58,15 @@ const UserCommands = {
       .then(user => user)
   },
 
-  addNewAlbum: (UserID, albumName) => {
-    return db.User.findById(UserID)
+  addNewAlbum: (UserID, albumName, albumCover) => {
+    // console.log(UserID, albumName, albumCover)
+    return db.User.findById(UserID).join()
       .then(user => {
         user.albums.$push({
           users: [user._id],
           name: albumName,
-          photos: []
+          photos: [],
+          cover: albumCover
         })
         // console.log("adding album")
         return user.saveAll()
@@ -72,7 +74,7 @@ const UserCommands = {
   },
 
   addExistingAlbum: (UserID, AlbumID) => {
-    return db.User.findById(UserID)
+    return db.User.findById(UserID).join()
       .then(user => {
         if (user.albums.includes(AlbumID)) throw new Error("You already have this album")
         return db.Album.findById(AlbumID)
@@ -89,12 +91,16 @@ const UserCommands = {
   },
 
   getPhotos: (AlbumID) => {
+    console.log(typeof AlbumID)
     return db.Album.findById(AlbumID).join()
-      .then(album => album)
+      .then(album => { 
+        console.log(album.slice())
+        return album
+      })
   },
 
   addNewPhoto: (UserID, AlbumID, photoName, photoLocation) => {
-    return db.Album.findById(AlbumID)
+    return db.Album.findById(AlbumID).join()
       .then(album => {
         album.photos.$push({
           author: UserID,

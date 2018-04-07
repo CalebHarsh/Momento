@@ -15,7 +15,7 @@ const { Meta } = Card;
 const Square = props => (
   <Card
     hoverable
-    cover={<div style={{backgroundImage: `url(${props.src})`, width: "auto", height: "200px", backgroundSize: 'cover', backgroundPosition: 'center'}}></div>}
+    cover={<a href={`/albums/${props.id}`}><div style={{backgroundImage: `url(${props.src})`, width: "auto", height: "200px", backgroundSize: 'cover', backgroundPosition: 'center'}}></div></a>}
     actions={[<Icon type="setting" />, <Icon type="edit" />]}
   >
     <Meta
