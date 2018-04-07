@@ -60,7 +60,7 @@ class Photos extends Component {
             <Menu.Item key="3">Chicken Tenders</Menu.Item>
             </Menu>
           </Col>
-          <Col className="animateIn" md={{span: 20}}>
+          <Col md={{span: 20}}>
             <Row className="photoRow">
               <Col className="Cards"span={6}><PhotoCard /></Col>
               <Col className="Cards"span={6}><PhotoCard /></Col>

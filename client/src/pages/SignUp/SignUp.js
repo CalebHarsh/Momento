@@ -1,15 +1,12 @@
 import React from 'react';
 import Navbar from '../../components/Navbar';
 import SignupForm from '../../components/SignupForm'
-import {Affix, Col, Icon, Row} from 'antd';
+import {Col, Icon, Row} from 'antd';
 import 'antd/dist/antd.css';
 import './SignUp.css' 
 
 const SignUp = props => (
   <div className="signup-page">
-    <Affix>
-      <Navbar />
-    </Affix>
     <div className="content">
       <Row gutter={48}>
         <Col md={{span: 12}}>
