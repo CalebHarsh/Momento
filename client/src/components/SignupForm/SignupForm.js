@@ -1,3 +1,5 @@
+// ==== MAKE THIS COMPONENT STATE-LESS ========================================
+
 import React, {Component} from 'react';
 import  { Redirect } from 'react-router-dom'
 import {Button, Col, Form, Icon, Input, Row} from 'antd';
@@ -46,7 +48,6 @@ class SignupForm extends Component {
     }
   }
   render(){
-    // console.log(this.props)
     return(
       <div>
         <Form>

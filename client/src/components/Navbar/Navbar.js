@@ -29,6 +29,9 @@ class Navbar extends  Component {
     });
   }
   
+  // use 'lift state up': https://reactjs.org/docs/lifting-state-up.html to pass
+  // the user info to App.js in the handleSignIn() function.
+  
   handleSignIn = event => {
       if(this.state.visible){
         API.signIn({
@@ -39,8 +42,8 @@ class Navbar extends  Component {
           this.props.login()
           this.setState({
             name: res.data.name
+            // this might be where we store the user info and pass it up.
           })
-          // window.location.pathname = `/albums/${res.data._id}`
         })
       } else {
         this.setState({
@@ -100,7 +103,8 @@ class Navbar extends  Component {
             <Dropdown overlay={menu} placement="bottomCenter">
               <Avatar icon="user"/>
             </Dropdown>
-            <Redirect to="/albums" />
+            {/* /dashboard/:id */}
+            <Redirect to="/dashboard" />
           </div>
         }
         </div>
