@@ -22,7 +22,7 @@ class Navbar extends  Component {
   }
   
   handleInputChange = event => {
-    let value = event.target.value;
+    let value = event.target.value.trim();
     const name = event.target.name;
     
     this.setState({
