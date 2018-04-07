@@ -10,19 +10,19 @@ const MenuItemGroup = Menu.ItemGroup;
 
 class Photos extends Component {
 
-  state = {
-    photos: []
-  }
+  // state = {
+  //   photos: []
+  // }
 
-  componentWillMount() {
-    API.getAllPhotos(window.location.pathname)
-    .then(res => {
-      console.log(res.data)
-      this.setState({
-        photos: res.data.photos
-      })
-    })
-  }
+  // componentWillMount() {
+  //   API.getAllPhotos(window.location.pathname)
+  //   .then(res => {
+  //     console.log(res.data)
+  //     this.setState({
+  //       photos: res.data.photos
+  //     })
+  //   })
+  // }
 
 
   plusButton = {
@@ -41,16 +41,16 @@ class Photos extends Component {
   }
 
 
-  handleClick = (e) => {
-    API.addPhoto({
-      name: "Test Photo 4",
-      href: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS47f5zoCgxkl5yunLZ9AQs6REXgcjgAtsduuJntZ_ERI3U13xm2g",
-      author: "5ac8166113572c1d7c3f1dd4",
-      album: "5ac8312d72eeac1df8e581f5"
-    }).then(res => {
-      console.log(res)
-    })
-  }
+  // handleClick = (e) => {
+  //   API.addPhoto({
+  //     name: "Test Photo 4",
+  //     href: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS47f5zoCgxkl5yunLZ9AQs6REXgcjgAtsduuJntZ_ERI3U13xm2g",
+  //     author: "5ac8166113572c1d7c3f1dd4",
+  //     album: "5ac8312d72eeac1df8e581f5"
+  //   }).then(res => {
+  //     console.log(res)
+  //   })
+  // }
   
 
   data = [

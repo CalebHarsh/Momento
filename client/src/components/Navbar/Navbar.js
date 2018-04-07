@@ -40,7 +40,6 @@ class Navbar extends  Component {
           this.setState({
             name: res.data.name
           })
-          window.location.pathname = `/dashboard/${res.data._id}`
         })
       } else {
         this.setState({
