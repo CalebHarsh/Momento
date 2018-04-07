@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Affix, Col, Row, Menu, Icon} from 'antd'
+import {Col, Row, Menu, Icon, List} from 'antd'
 import 'antd/dist/antd.css';
 import "./Albums.css";
 import Card from '../../components/Album-Square';
@@ -34,13 +34,15 @@ class Albums extends Component {
 
       <div className="Albums">
         <AddButton />
-            <Row className="albumRow" gutter={16} style={{margin: "2rem auto"}}>
-              {this.state.albums.map(album => {
-                return (<Col className="Cards" md={{span: 6}} xs={{span: 12}} style={{margin: "15px auto"}}>
-                  <Card id={album._id} key={album._id} title={album.name} cover={album.cover} />
-                </Col>)
-              })}
-            </Row>
+        <List 
+          grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+          dataSource={this.data}
+          renderItem={item=>(
+            <List.Item>
+              <Card title={item.name} src={item.cover}/>
+            </List.Item>
+          )}
+        />
       </div>
     );
   }

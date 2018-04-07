@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Affix, Col, Row,Menu, Icon} from 'antd'
+import {Affix, Col, Row, Menu, Icon, List} from 'antd'
 import 'antd/dist/antd.css';
 import "./Photos.css";
 import PhotoCard from '../../components/PhotoCard';
@@ -42,7 +42,7 @@ class Photos extends Component {
   handleClick = (e) => {
     console.log('click ', e);
   }
-
+  
   render() {
     return (
       <div className="Photos">
@@ -63,12 +63,15 @@ class Photos extends Component {
             </Menu>
           </Col>
           <Col md={{span: 20}}>
-            <Row className="photoRow">
-            {this.state.photos.map(photo => {
-              return  (<Col className="Cards"span={6}><PhotoCard name={photo.name} href={photo.href} /></Col>)
-            })}
-    
-            </Row>
+            <List
+              grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+              dataSource={this.state.photos}
+              renderItem={item=>(
+                <List.Item>
+                  <PhotoCard title={item.name} src={item.href}/>
+                </List.Item>
+              )}
+            />
           </Col>
         </Row>
       </div>

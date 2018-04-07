@@ -6,13 +6,12 @@ const { Meta } = Card;
 
 const Square = props => (
   <Card
-    data-id={props.id}
-    style={{width: "100%"}}
-    cover={<img alt="example" src={props.cover} />}
+    hoverable
+    cover={<img alt="example" src={props.src} />}
     actions={[<Icon type="setting" />, <Icon type="edit" />]}
   >
     <Meta
-      avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+      avatar={<Avatar icon="user" />}
       title={props.title}
       description="This is the description"
     />
