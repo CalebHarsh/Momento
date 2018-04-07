@@ -40,7 +40,7 @@ class Albums extends Component {
           dataSource={this.data}
           renderItem={item=>(
             <List.Item>
-              <Card title={item.title} src={item.title}/>
+              <Card title={item.title} src={item.src}/>
             </List.Item>
           )}
         />

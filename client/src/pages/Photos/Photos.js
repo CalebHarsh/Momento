@@ -30,28 +30,36 @@ class Photos extends Component {
   
   data = [
     {
-      title: 'Image One'
+      title: 'Image One',
+      src: 'https://placehold.it/200x300'
     },
     {
-      title: 'Image Two'
+      title: 'Image Two',
+      src: 'https://placehold.it/200x300'
     },
     {
-      title: 'Image Three'
+      title: 'Image Three',
+      src: 'https://placehold.it/200x300'
     },
     {
-      title: 'Image Four'
+      title: 'Image Four',
+      src: 'https://placehold.it/200x300'
     },
     {
-      title: 'Image Five'
+      title: 'Image Five',
+      src: 'https://placehold.it/200x300'
     },
     {
-      title: 'Image Six'
+      title: 'Image Six',
+      src: 'https://placehold.it/200x300'
     },
     {
-      title: 'Image Seven'
+      title: 'Image Seven',
+      src: 'https://placehold.it/200x300'
     },
     {
-      title: 'Image Eight'
+      title: 'Image Eight',
+      src: 'https://placehold.it/200x300'
     }
   ]
 
@@ -80,7 +88,7 @@ class Photos extends Component {
               dataSource={this.data}
               renderItem={item=>(
                 <List.Item>
-                  <PhotoCard title={item.title}/>
+                  <PhotoCard title={item.title} src={item.src}/>
                 </List.Item>
               )}
             />
