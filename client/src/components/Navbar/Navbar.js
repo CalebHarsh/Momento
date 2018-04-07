@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import {Avatar, Button, Divider, Dropdown, Menu} from 'antd';
 import Login from '../Login/Login'
 import 'antd/dist/antd.css';
@@ -21,7 +21,7 @@ class Navbar extends  Component {
   }
   
   handleInputChange = event => {
-    let value = event.target.value;
+    let value = event.target.value.trim();
     const name = event.target.name;
     
     this.setState({
@@ -59,11 +59,21 @@ class Navbar extends  Component {
       <div className="Navbar">
         <div className="container">
           <div className="logo-container">
-            <Link to="/">
-              <div className="logo">
-                <img src={logo} alt="logo"/>
-              </div>
-            </Link>
+            {
+              !this.state.loggedIn ? 
+              <Link to="/">
+                <div className="logo">
+                  <img src={logo} alt="logo"/>
+                </div>
+              </Link>
+              :
+              <Link to="/albums">
+                <div className="logo">
+                  <img src={logo} alt="logo"/>
+                </div>
+              </Link>
+            }
+            
             <h1 className="logotype">momento</h1>
           </div>
           { !this.props.loggedIn ?  
@@ -90,6 +100,7 @@ class Navbar extends  Component {
             <Dropdown overlay={menu} placement="bottomCenter">
               <Avatar icon="user"/>
             </Dropdown>
+            <Redirect to="/albums" />
           </div>
         }
         </div>

@@ -11,7 +11,7 @@ const PhotoCard = props => (
   <div className="PhotoCard">
     <Card
       hoverable
-      cover={<img alt={props.title} src={props.src}/>}
+      cover={<div style={{backgroundImage: `url(${props.src})`, width: "auto", height: "200px", backgroundSize: 'cover', backgroundPosition: 'center'}}></div>}
     >
       <Meta 
         avatar={<Avatar icon="user" />}
