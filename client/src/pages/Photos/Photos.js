@@ -108,10 +108,10 @@ class Photos extends Component {
           <Col md={{span: 20}}>
             <List
               grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
-              dataSource={this.state.photos}
+              dataSource={this.data}
               renderItem={item=>(
                 <List.Item>
-                  <PhotoCard title={item.name} src={item.href}/>
+                  <PhotoCard title={item.title} src={item.src}/>
                 </List.Item>
               )}
             />

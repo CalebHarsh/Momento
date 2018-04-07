@@ -40,7 +40,7 @@ class Navbar extends  Component {
           this.setState({
             name: res.data.name
           })
-          window.location.pathname = `/albums/${res.data._id}`
+          // window.location.pathname = `/albums/${res.data._id}`
         })
       } else {
         this.setState({
