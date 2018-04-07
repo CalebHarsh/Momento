@@ -2,7 +2,6 @@ const Command = require("../controllers/userController.js")
 const router = require("express").Router()
 const path = require("path");
 
-
 const photos = require("./photoRoutes.js")
 const albums = require("./albumRoutes.js")
 

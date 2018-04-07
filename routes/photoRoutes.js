@@ -10,6 +10,7 @@ const s3 = new aws.S3({
   secretAccessKey: process.env.PRIVATE_KEY,
   region: "us-west-1"
 })
+
 const upload = multer({
   storage: multerS3({
     s3: s3,
@@ -21,13 +22,35 @@ const upload = multer({
   })
 })
 
+//adding a new album
+router.post("/api/createAlbum", upload.any(), (req, res) => {
+  console.log(req.body)
+  Command.addNewAlbum(req.body.user, req.body.name, req.body.cover)
+    // req.files[0].location)
+    .then(user => {
+      console.log(user.slice())
+      res.send(user)
+    })
+    .catch(err => {
+      console.log(err)
+      res.send(err)
+    })
+})
+
 
 //Adding a photo
 router.post("/api/addPhoto", upload.any(), (req, res) => {
-  console.log(req.files[0])
-  res.send("Got file")
-  Command.addNewPhoto(req.body.userID, req.body.albumID, req.body.photoName, req.files[0].location)
-    .then()
+  // console.log(req.files[0])
+  Command.addNewPhoto(req.body.author, req.body.album, req.body.name, req.body.href)
+    // req.files[0].location)
+    .then(album=> {
+      console.log(album)
+      res.send(album)
+    })
+    .catch(err => {
+      console.log(err)
+      res.send(err)
+    })
 })
 
 //Dealing with a single photo page
@@ -48,7 +71,9 @@ router.delete("/photos/:id", (req, res) => {
 router.post("/api/addComment", (req, res) => {
   console.log(req.body)
   Command.addNewComment(req.body.userID, req.body.photoID, req.body.text)
-    .then()
+    .then(photo => {
+      res.send(photo)
+    })
 })
 
 module.exports = router

@@ -8,17 +8,25 @@ import SignUp from './pages/SignUp';
 import Albums from './pages/Albums';
 import Photos from './pages/Photos';
 class App extends Component {
+  state = {
+    isLoggedIn: false
+  }
+  changeLogInStatus = () => {
+    this.setState({
+      isLoggedIn: true
+    })
+  }
   render() {
     return (
       <Router>
         <div className="App">
           <Affix>
-            <Navbar />
+            <Navbar login={this.changeLogInStatus} loggedIn={this.state.isLoggedIn}/>
           </Affix>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/albums" component={Albums} />
-          <Route exact path="/photos" component={Photos} />
+          <Route path="/dashboard" component={Albums} />
+          <Route path="/albums" component={Photos} />
         </div>
       </Router>
     );

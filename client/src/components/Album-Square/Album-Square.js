@@ -14,6 +14,7 @@ const { Meta } = Card;
 // }
 
 const Square = props => (
+
   <Link to="/photos">
     <Card
       hoverable
@@ -27,6 +28,19 @@ const Square = props => (
       />
     </Card>
   </Link>
+/*
+  <Card
+    hoverable
+    cover={<a href={`/albums/${props.id}`}><div style={{backgroundImage: `url(${props.src})`, width: "auto", height: "200px", backgroundSize: 'cover', backgroundPosition: 'center'}}></div></a>}
+    actions={[<Icon type="setting" />, <Icon type="edit" />]}
+  >
+    <Meta
+      avatar={<Avatar icon="user" />}
+      title={props.title}
+      description="This is the description"
+    />
+  </Card>
+*/
 );
 
 export default Square;

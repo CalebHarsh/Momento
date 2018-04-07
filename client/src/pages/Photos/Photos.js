@@ -4,30 +4,55 @@ import 'antd/dist/antd.css';
 import "./Photos.css";
 import PhotoCard from '../../components/PhotoCard';
 import AddButton from '../../components/AddButton';
+import API from "../../utils/API"
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
-
-
 class Photos extends Component {
 
+  state = {
+    photos: []
+  }
+
+  componentWillMount() {
+    API.getAllPhotos(window.location.pathname)
+    .then(res => {
+      console.log(res.data)
+      this.setState({
+        photos: res.data.photos
+      })
+    })
+  }
 
 
   plusButton = {
-    buttonClass: "button"
+    buttonClass: "",
+    showMe: false
   }
 
   buttonForward = (ev) => {
     console.log("clicked");
-    // this.setState({
-    //   plusButton: this.plusButton.buttonClass = "button forward"
-    // });
+    var thisClass = (this.plusButton.buttonClass === "" ? "forward" : this.plusButton.buttonClass === "forward" ? "reverse" : "");
+    this.setState({
+      plusButton: this.plusButton.buttonClass = thisClass
+    });
+    console.log(thisClass);
+
   }
 
+
   handleClick = (e) => {
-    console.log('click ', e);
+    API.addPhoto({
+      name: "Test Photo 4",
+      href: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS47f5zoCgxkl5yunLZ9AQs6REXgcjgAtsduuJntZ_ERI3U13xm2g",
+      author: "5ac8166113572c1d7c3f1dd4",
+      album: "5ac8312d72eeac1df8e581f5"
+    }).then(res => {
+      console.log(res)
+    })
   }
   
+
   data = [
     {
       title: 'Image One',
@@ -66,9 +91,7 @@ class Photos extends Component {
   render() {
     return (
       <div className="Photos">
-      <AddButton        
-         onClick={this.buttonForward}
-       />
+      <AddButton />
         <Row className="photoBody" gutter={16}>
           <Col md={{span: 4}}>
             <Menu
@@ -85,10 +108,10 @@ class Photos extends Component {
           <Col md={{span: 20}}>
             <List
               grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
-              dataSource={this.data}
+              dataSource={this.state.photos}
               renderItem={item=>(
                 <List.Item>
-                  <PhotoCard title={item.title} src={item.src}/>
+                  <PhotoCard title={item.name} src={item.href}/>
                 </List.Item>
               )}
             />
