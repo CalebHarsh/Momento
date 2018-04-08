@@ -1,6 +1,6 @@
 const Command = require("../controllers/userController.js")
 const router = require("express").Router()
-const path = require("path");
+// const path = require("path");
 
 const photos = require("./photoRoutes.js")
 const albums = require("./albumRoutes.js")
@@ -32,8 +32,8 @@ router.put("/api/login", (req, res) => {
 
 // Send every request to the React app
 // Define any API routes before this runs
-router.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
+// router.get("*", function(req, res) {
+//   res.sendFile(path.join(__dirname, "../client/build/index.html"));
+// });
 
 module.exports = router

@@ -1,5 +1,5 @@
 const express = require("express");
-
+const path = require("path")
 const app = express();
 const bodyParser = require("body-parser")
 
@@ -20,9 +20,9 @@ app.use(bodyParser.json());
 // connnect to DataBase
 // Send every request to the React app
 // Define any API routes before this runs
-// app.get("*", function(req, res) {
-//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
-// });
+app.get("*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 app.use(require("./routes/apiRoutes.js"))
 
