@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import {Affix, Col, Row, Menu, Icon, List} from 'antd'
+import {Col, Row, Menu, List} from 'antd'
 import 'antd/dist/antd.css';
 import "./Photos.css";
 import PhotoCard from '../../components/PhotoCard';
 import AddButton from '../../components/AddButton';
 import API from "../../utils/API"
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 class Photos extends Component {
 

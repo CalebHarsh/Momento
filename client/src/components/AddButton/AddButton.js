@@ -4,13 +4,13 @@ import {Modal, Button, Icon, Form, Input} from 'antd';
 import PicUpload from "../PicUpload/PicUpload.js";
 const FormItem = Form.Item;
 
-class AddButton extends React.Component {
+class AddButton extends Component {
   componentWillMount() {
     var page = window.location.pathname;
     console.log(page, "this page");
     var checkPath = (page === "/photos" ? false : true);
     this.setState({
-      state: this.state.album = checkPath
+      album: checkPath
     });
     console.log(this.state.album, "checkPath");
   }
@@ -34,7 +34,7 @@ class AddButton extends React.Component {
     this.setState({visible: false});
   }
   render() {
-    const {visible, confirmLoading, ModalText} = this.state;
+    const {visible, confirmLoading} = this.state;
     var title = (this.state.album ? "Album Upload" : "Photo Upload");
     var name = (this.state.album ? "album" : "photo");
     var hidden = (this.state.album ? "hidden" : "show")

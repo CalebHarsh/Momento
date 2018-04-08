@@ -6,6 +6,7 @@
   "dependencies": {
     "animate.css": "^3.6.1",
     "animated": "^0.2.2",
+    "antd": "^3.4.0",
     "axios": "^0.18.0",
     "react": "^16.0.0",
     "react-animate-on-scroll": "^2.1.3",

@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import {Col, Row, Menu, Icon, List} from 'antd'
+import {List} from 'antd'
 import 'antd/dist/antd.css';
 import "./Albums.css";
 import Card from '../../components/Album-Square';
 import AddButton from '../../components/AddButton';
-import API from "../../utils/API"
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
+import API from "../../utils/API";
 
 
 
