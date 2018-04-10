@@ -91,10 +91,8 @@ const UserCommands = {
   },
 
   getPhotos: (AlbumID) => {
-    console.log(typeof AlbumID)
     return db.Album.findById(AlbumID).join()
       .then(album => { 
-        console.log(album.slice())
         return album
       })
   },

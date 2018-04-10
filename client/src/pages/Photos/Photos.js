@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Col, Row, Menu, List} from 'antd'
+// import {Link} from 'react-router-dom'
 import 'antd/dist/antd.css';
 import "./Photos.css";
 import PhotoCard from '../../components/PhotoCard';
@@ -9,20 +10,25 @@ import API from "../../utils/API"
 class Photos extends Component {
 
   state = {
-    photos: []
+    currentAlbum: {}
   }
 
   componentWillMount() {
+    this.getPictures()
+  }
+
+  getPictures = () => {
     API.getAllPhotos(window.location.pathname)
-    .then(res => {
-      console.log(res.data)
-      this.setState({
-        photos: res.data.photos
+      .then(res => {
+        this.setState({
+          currentAlbum: res.data
+        })
       })
-    })
   }
 
   // Talk to Trevor about this
+
+
 
   // handleClick = (e) => {
   //   API.addPhoto({
@@ -43,22 +49,24 @@ class Photos extends Component {
           <Col md={{span: 4}}>
             <Menu
               onClick={this.handleClick}
-              defaultSelectedKeys={['1']}
+              defaultSelectedKeys={[window.location.pathname.slice(8)]}
               defaultOpenKeys={['sub1']}
               mode="inline"
             >
-            <Menu.Item key="1">Chicken Tenders</Menu.Item>
-            <Menu.Item key="2">cOdInG</Menu.Item>
-            <Menu.Item key="3">Doggos</Menu.Item>
+            { 
+              this.props.albums.map((item, i) => (
+                <Menu.Item key={item._id} id={item._id}>{item.name}</Menu.Item>
+              ))
+            }
             </Menu>
           </Col>
           <Col md={{span: 20}}>
             <List
               grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
-              dataSource={this.data}
+              dataSource={this.state.currentAlbum.photos}
               renderItem={item=>(
                 <List.Item>
-                  <PhotoCard title={item.title} src={item.src}/>
+                  <PhotoCard id={item._id} title={item.name} src={item.href}/>
                 </List.Item>
               )}
             />

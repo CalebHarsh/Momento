@@ -4,7 +4,9 @@ const router = require("express").Router()
 //dealing with dashboard to show albums
 router.get("/api/dashboard/:id", (req, res) => {
   Command.getAlbums(req.params.id)
-    .then(user => res.json(user))
+    .then(user => {
+      res.json(user)
+    })
     .catch(err => res.send(err))
 })
 
