@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {Link} from 'react-router-dom'
 import 'antd/dist/antd.css';
 import "./Album-Square.css";

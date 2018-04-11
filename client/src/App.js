@@ -15,7 +15,7 @@ class App extends Component {
     this.setState({
       isLoggedIn: true
     })
-  }
+  } 
   render() {
     return (
       <Router>
@@ -25,8 +25,8 @@ class App extends Component {
           </Affix>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/signup" component={SignUp} />
-          <Route path="/albums" component={Albums} />
-          <Route path="/photos" component={Photos} />
+          <Route path="/dashboard" component={Albums} />
+          <Route path="/albums" component={Photos} />
         </div>
       </Router>
     );

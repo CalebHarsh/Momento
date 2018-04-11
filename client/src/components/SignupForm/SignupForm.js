@@ -1,6 +1,7 @@
+// ==== MAKE THIS COMPONENT STATE-LESS ========================================
+
 import React, {Component} from 'react';
-import  { Redirect } from 'react-router-dom'
-import {Button, Col, Form, Icon, Input, Row} from 'antd';
+import {Button, Form, Input} from 'antd';
 import 'antd/dist/antd.css';
 import './SignupForm.css';
 import API from '../../utils/API';

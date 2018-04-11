@@ -13,7 +13,7 @@ class AddButton extends React.Component {
     console.log(page, "this page");
     var checkPath = (page === "/photos" ? false : true);
     this.setState({
-      state: this.state.album = checkPath
+      album: checkPath
     });
     console.log(this.state.album, "checkPath");
   }
@@ -56,7 +56,7 @@ class AddButton extends React.Component {
   }
 
   render() {
-    const {visible, confirmLoading, ModalText} = this.state;
+    const {visible, confirmLoading} = this.state;
     var title = (this.state.album ? "Album Upload" : "Photo Upload");
     var name = (this.state.album ? "album" : "photo");
     var hidden = (this.state.album ? "hidden" : "show")

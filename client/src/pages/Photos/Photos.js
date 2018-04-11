@@ -1,45 +1,28 @@
 import React, { Component } from "react";
-import {Affix, Col, Row, Menu, Icon, List} from 'antd'
+import {Col, Row, Menu, List} from 'antd'
 import 'antd/dist/antd.css';
 import "./Photos.css";
 import PhotoCard from '../../components/PhotoCard';
 import AddButton from '../../components/AddButton';
 import API from "../../utils/API"
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 class Photos extends Component {
 
-  // state = {
-  //   photos: []
-  // }
-
-  // componentWillMount() {
-  //   API.getAllPhotos(window.location.pathname)
-  //   .then(res => {
-  //     console.log(res.data)
-  //     this.setState({
-  //       photos: res.data.photos
-  //     })
-  //   })
-  // }
-
-
-  plusButton = {
-    buttonClass: "",
-    showMe: false
+  state = {
+    photos: []
   }
 
-  buttonForward = (ev) => {
-    console.log("clicked");
-    var thisClass = (this.plusButton.buttonClass === "" ? "forward" : this.plusButton.buttonClass === "forward" ? "reverse" : "");
-    this.setState({
-      plusButton: this.plusButton.buttonClass = thisClass
-    });
-    console.log(thisClass);
-
+  componentWillMount() {
+    API.getAllPhotos(window.location.pathname)
+    .then(res => {
+      console.log(res.data)
+      this.setState({
+        photos: res.data.photos
+      })
+    })
   }
 
+  // Talk to Trevor about this
 
   // handleClick = (e) => {
   //   API.addPhoto({
@@ -51,42 +34,6 @@ class Photos extends Component {
   //     console.log(res)
   //   })
   // }
-  
-
-  data = [
-    {
-      title: 'Image One',
-      src: 'http://www.recipe4living.com/assets/itemimages/400/400/3/default_ff862c6796ec9b9ebf1710f613d32b49_dreamstime_s_27520729.jpg'
-    },
-    {
-      title: 'Image Two',
-      src: 'https://images-gmi-pmc.edge-generalmills.com/8b648fc0-1cf6-46f2-b923-a48d16923eb9.jpg'
-    },
-    {
-      title: 'Image Three',
-      src: 'http://images.honestcooking.com/wp-content/uploads/2014/12/Frito_Fried_Chicken_Tenders_Intro.jpg'
-    },
-    {
-      title: 'Image Four',
-      src: 'https://dinnerthendessert.com/wp-content/uploads/2018/01/Super-Crispy-Chicken-Tenders-2-680x1020.jpg'
-    },
-    {
-      title: 'Image Five',
-      src: 'http://www.mantitlement.com/wp-content/uploads/2017/10/everything-bagel-chicken-tenders-feature-698x1024.jpg'
-    },
-    {
-      title: 'Image Six',
-      src: 'https://www.thegraciouswife.com/wp-content/uploads/2017/07/Easy-Baked-Chicken-Tenders-Recipe-5.jpg?x47005'
-    },
-    {
-      title: 'Image Seven',
-      src: 'http://www.simplyscratch.com/wp-content/uploads/2013/04/Potato-Chip-Crusted-Chicken-Tenders-and-Spicy-Ranch-Dip.jpg'
-    },
-    {
-      title: 'Image Eight',
-      src: 'http://www.willcookforsmiles.com/wp-content/uploads/2014/05/Bacon-Wrapped-Chicken-Strips-4-from-willcookforsmiles.com-chicken-bacon-easydinner.jpg'
-    }
-  ]
 
   render() {
     return (
@@ -108,7 +55,7 @@ class Photos extends Component {
           <Col md={{span: 20}}>
             <List
               grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
-              dataSource={this.data}
+              dataSource={this.state.photos}
               renderItem={item=>(
                 <List.Item>
                   <PhotoCard title={item.name} src={item.href}/>

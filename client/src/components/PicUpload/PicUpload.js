@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 import './PicUpload.css'
 import { Upload, Icon, Modal } from 'antd';
 
+<<<<<<< HEAD
 class PicUpload extends React.Component {
 
   constructor(props) {
@@ -10,6 +11,9 @@ class PicUpload extends React.Component {
 
     }
 
+=======
+class PicUpload extends Component {
+>>>>>>> 12fc5627e8b38e6c33f88cfa82a89336170d02f4
   state = {
     previewVisible: false,
     previewImage: '',
