@@ -3,12 +3,25 @@ const db = require("../models")
 
 const UserCommands = {
 
-  findUser: UserID => {
-    return db.User.findById(UserID)
+  findUser: id => {
+    return db.User.findById(id)
+  },
+
+  passportLogin: (email, password, done) => {
+   
+    return db.User.findOne({ email: email }).join()
+      .then(user => {
+        if(!user) return done(null, false, { message: 'Email not found' })
+        if (!bcrypt.compareSync(password, user.password)) return done(null, false, { message: 'Incorrect password.' })
+        return done(null, user)
+      })
+      .catch(err => {
+        return done(err)
+    })
   },
 
   logIn: (email, password) => {
-    return db.User.findOne({ email: email })
+    return db.User.findOne({ email: email }).join()
       .then(inst => {
         if (inst) throw new Error("Email not there")
         if (bcrypt.compareSync(password, inst.password)) console.log("Signed In")
@@ -53,7 +66,7 @@ const UserCommands = {
     return db.User.findById(UserID)
       .then(user => {
         user.name = userdata.name
-        if(userdata.password)  user.password = userdata.password
+        if (userdata.password) user.password = userdata.password
         return user.save()
       })
   },
@@ -63,13 +76,15 @@ const UserCommands = {
       .then(user => user)
   },
 
-  addNewAlbum: (UserID, albumName) => {
-    return db.User.findById(UserID)
+  addNewAlbum: (UserID, albumName, albumCover) => {
+    // console.log(UserID, albumName, albumCover)
+    return db.User.findById(UserID).join()
       .then(user => {
         user.albums.$push({
           users: [user._id],
           name: albumName,
-          photos: []
+          photos: [],
+          cover: albumCover
         })
         // console.log("adding album")
         return user.saveAll()
@@ -77,7 +92,7 @@ const UserCommands = {
   },
 
   addExistingAlbum: (UserID, AlbumID) => {
-    return db.User.findById(UserID)
+    return db.User.findById(UserID).join()
       .then(user => {
         if (user.albums.includes(AlbumID)) throw new Error("You already have this album")
         return db.Album.findById(AlbumID)
@@ -95,16 +110,20 @@ const UserCommands = {
 
   getPhotos: (AlbumID) => {
     return db.Album.findById(AlbumID).join()
-      .then(album => album)
+      .then(album => {
+        // console.log("commands", album.slice())
+        return album
+      })
   },
 
-  addNewPhoto: (UserID, AlbumID, photoName) => {
-    return db.Album.findById(AlbumID)
+  addNewPhoto: (UserID, AlbumID, photoName, photoLocation) => {
+    return db.Album.findById(AlbumID).join()
       .then(album => {
         album.photos.$push({
           author: UserID,
           name: photoName,
-          comments: []
+          comments: [],
+          href: photoLocation
         })
         return album.saveAll()
       })

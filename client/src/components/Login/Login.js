@@ -5,9 +5,9 @@ import './Login.css';
 
 const Login = props => (
   <div className="login-container login">
-    <Input className="input" placeholder="Email" type="text"
+    <Input className="input" placeholder="Email" type="text" name="email" value={props.email} onChange={props.onChange}
       prefix={<Icon type="user"/>}/>
-    <Input className="input" placeholder="Password" type="password"
+    <Input className="input" placeholder="Password" type="password" name="password" value={props.password} onChange={props.onChange}
       prefix={<Icon type="lock"/>}/>
   </div>
 )

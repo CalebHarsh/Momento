@@ -4,16 +4,6 @@
   margin: 0 auto;
 }
 
-
-.albumRow {
-  width: auto;
-  margin: auto;
-}
-.Cards {
-  margin: auto;
-  margin-top: 10px;
-}
-
-.ant-card-body {
-  padding: 15px;
+.album-container {
+  margin-top: 10vh;
 }

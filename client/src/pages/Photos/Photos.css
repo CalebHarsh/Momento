@@ -3,18 +3,6 @@
   margin: 0 auto;
 }
 
-.animateIn {
-  
-}
-
-.photoRow {
-  width: 95%;
-  margin: 0 auto;
-}
-
-.Cards {
-  margin: auto;
-  margin-top: 10px;
-  height: 100%;
-  width: auto;
+.photoBody {
+  margin-top: 10vh;
 }
