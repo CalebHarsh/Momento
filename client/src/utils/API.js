@@ -26,6 +26,7 @@ export default {
     return axios.get(`/api/${path}`)
   },
   getAllPhotos: (path) => {
+    console.log(path)
     return axios.get(`/api/${path}`)
   }
 }

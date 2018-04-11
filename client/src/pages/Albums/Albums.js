@@ -4,12 +4,11 @@ import 'antd/dist/antd.css';
 import "./Albums.css";
 import Card from '../../components/Album-Square';
 import AddButton from '../../components/AddButton';
-import API from "../../utils/API";
+// import API from "../../utils/API";
 
 
 
 class Albums extends Component {
-
 
   // componentWillMount() {
   //   console.log("mounted")

@@ -1,25 +1,25 @@
 const Command = require("../controllers/userController.js")
 const router = require("express").Router()
 // const path = require("path");
-const passport = require('passport');
+// const passport = require('passport');
 
 const photos = require("./photoRoutes.js")
 const albums = require("./albumRoutes.js")
 
-require("../passport.js")(passport)
+// require("../passport.js")(passport)
 
-router.use(passport.initialize());
-router.use(passport.session());
+// router.use(passport.initialize());
+// router.use(passport.session());
 router.use(photos)
 router.use(albums)
 
-function isLoggedIn(req, res, next) {
-  // If user is authenticated in the session, carry on 
-      if (req.isAuthenticated())
-          return next();
-  // If they aren't redirect them to the home page
-      res.redirect('/');
-  }
+// function isLoggedIn(req, res, next) {
+//   // If user is authenticated in the session, carry on 
+//       if (req.isAuthenticated())
+//           return next();
+//   // If they aren't redirect them to the home page
+//       res.redirect('/');
+//   }
 
 //signing up route
 router.post("/api/signup", (req, res) => {
@@ -35,11 +35,12 @@ router.post("/api/signup", (req, res) => {
 })
 
 //login route
-router.put("/api/login",  passport.authenticate('local-login', {
-   // redirect to the secure profile section
-  failureRedirect : '/', // redirect back to the signup page if there is an error
-  failureFlash : true // allow flash messages
-}),
+router.put("/api/login",  
+// passport.authenticate('local-login', {
+//    // redirect to the secure profile section
+//   failureRedirect : '/', // redirect back to the signup page if there is an error
+//   failureFlash : true // allow flash messages
+// }),
 (req, res) => {
   console.log(req.body)
   Command.logIn(req.body.email, req.body.password)

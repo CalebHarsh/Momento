@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {Col, Row, Menu, List} from 'antd'
-// import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import 'antd/dist/antd.css';
 import "./Photos.css";
 import PhotoCard from '../../components/PhotoCard';
@@ -13,13 +13,23 @@ class Photos extends Component {
     currentAlbum: {}
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getPictures()
+    //  console.log("getting Pictures")
+    // API.getAllPhotos(window.location.pathname)
+    //   .then(res => {
+    //     console.log(res.data)
+    //     this.setState({
+    //       currentAlbum: res.data
+    //     })
+    //   })
   }
 
   getPictures = () => {
+    console.log("getting Pictures")
     API.getAllPhotos(window.location.pathname)
       .then(res => {
+        // console.log(res)
         this.setState({
           currentAlbum: res.data
         })
@@ -27,8 +37,6 @@ class Photos extends Component {
   }
 
   // Talk to Trevor about this
-
-
 
   // handleClick = (e) => {
   //   API.addPhoto({
@@ -48,14 +56,19 @@ class Photos extends Component {
         <Row className="photoBody" gutter={16}>
           <Col md={{span: 4}}>
             <Menu
-              onClick={this.handleClick}
+              onClick={this.getPictures}
               defaultSelectedKeys={[window.location.pathname.slice(8)]}
               defaultOpenKeys={['sub1']}
               mode="inline"
             >
             { 
-              this.props.albums.map((item, i) => (
-                <Menu.Item key={item._id} id={item._id}>{item.name}</Menu.Item>
+              this.props.albums.map(item => (
+               
+                <Menu.Item key={item._id} id={item._id}>
+                 <Link to={`/albums/${item._id}`}>
+                {item.name}
+                </ Link >
+                </Menu.Item>
               ))
             }
             </Menu>

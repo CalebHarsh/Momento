@@ -2,10 +2,10 @@ const express = require("express");
 const path = require("path")
 const app = express();
 const bodyParser = require("body-parser")
-const passport = require('passport');
-const flash    = require('connect-flash');
-const cookieParser = require('cookie-parser');
-const session      = require('express-session');
+// const passport = require('passport');
+// const flash    = require('connect-flash');
+// const cookieParser = require('cookie-parser');
+// const session      = require('express-session');
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
@@ -16,19 +16,19 @@ if (process.env.NODE_ENV !== "production") {
 }
 const PORT = process.env.PORT || 3001;
 
-app.use(cookieParser());
+// app.use(cookieParser());
 //Set up body-parser
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
 
-// Required for passport
-// Session secret
-app.use(session({ secret: 'scootypuffjrsucks' }));
+// // Required for passport
+// // Session secret
+// app.use(session({ secret: 'scootypuffjrsucks' }));
 
-// Use connect-flash for flash messages stored in session
-app.use(flash());
+// // Use connect-flash for flash messages stored in session
+// app.use(flash());
 
 // connnect to DataBase
 // Send every request to the React app

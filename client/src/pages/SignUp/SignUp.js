@@ -16,7 +16,7 @@ class SignUp extends Component {
   }
 
   handleInputChange = event => {
-    let value = event.target.value.trim()
+    let value = event.target.value
     const name = event.target.name
 
     this.setState({
@@ -29,9 +29,9 @@ class SignUp extends Component {
     event.preventDefault();
     if (this.state.name && this.state.email && this.state.password && this.state.passwordVerify) {
       API.createNewUser({
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password
+        name: this.state.name.trim(),
+        email: this.state.email.trim(),
+        password: this.state.password.trim()
       })
         .then(res => {
           this.props.changeApp({

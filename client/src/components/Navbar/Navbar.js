@@ -17,7 +17,7 @@ class Navbar extends Component {
 
 
   handleInputChange = event => {
-    let value = event.target.value.trim();
+    let value = event.target.value;
     const name = event.target.name;
 
     this.setState({
@@ -31,8 +31,8 @@ class Navbar extends Component {
   handleSignIn = event => {
     if (this.state.visible) {
       API.signIn({
-        email: this.state.email,
-        password: this.state.password
+        email: this.state.email.trim(),
+        password: this.state.password.trim()
       }).then(res => {
         this.props.changeApp({
           "isLoggedIn": true,

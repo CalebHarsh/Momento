@@ -44,7 +44,7 @@ const SignupForm = props => (
         <Input
           type="password"
           name="password"
-          value={props.state.password}
+          value={props.password}
           onChange={props.handleInputChange}
         />
       </FormItem>
