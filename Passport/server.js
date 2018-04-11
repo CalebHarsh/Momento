@@ -2,7 +2,7 @@
 
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
+const ko = require('nekodb');
 var passport = require('passport');
 var flash    = require('connect-flash');
 var cookieParser = require('cookie-parser');
@@ -13,7 +13,10 @@ var session      = require('express-session');
 var configDB = require('./config/database.js');
 
 // Connect to our database
-mongoose.connect(configDB.url); 
+ko.connect({
+  client: 'mongodb',
+  url: process.env.MONGODB_URI || configDB
+})
 
 // Pass passport for configuration
 require('./config/passport')(passport);
