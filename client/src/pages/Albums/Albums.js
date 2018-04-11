@@ -4,22 +4,24 @@ import 'antd/dist/antd.css';
 import "./Albums.css";
 import Card from '../../components/Album-Square';
 import AddButton from '../../components/AddButton';
-// import API from "../../utils/API";
+import API from "../../utils/API";
 
 
 
 class Albums extends Component {
 
-  // componentWillMount() {
+  componentWillMount() {
   //   console.log("mounted")
-  //   API.getAllAlbums(window.location.pathname)
-  //   .then(res => {
-  //     // console.log("res data", res)
-  //     this.props.changeApp({
-  //       "albums": res.data.albums
-  //     })
-  //   })
-  // } 
+    API.checkUser(window.location.pathname.slice(0, 10))
+    .then(res => {
+      // console.log("res data", res)
+      this.props.changeApp({
+        "isLoggedIn": true,
+        "user": res.data,
+        "albums": res.data.albums
+      })
+    })
+  } 
 
   // Talk to Trevor about this 
   

@@ -6,7 +6,7 @@ export default {
     return axios.post('/api/signup', data)
   },
   signIn: (data) => {
-    return axios.put('/api/login', data)
+    return axios.post('/api/login', data)
   },
 
   addAlbum: (data) => {
@@ -28,5 +28,9 @@ export default {
   getAllPhotos: (path) => {
     console.log(path)
     return axios.get(`/api/${path}`)
+  },
+  checkUser: (path) => {
+    console.log(path)
+    return axios.get(`/auth${path}`)
   }
 }

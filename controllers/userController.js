@@ -3,6 +3,23 @@ const db = require("../models")
 
 const UserCommands = {
 
+  findUser: id => {
+    return db.User.findById(id)
+  },
+
+  passportLogin: (email, password, done) => {
+   
+    return db.User.findOne({ email: email }).join()
+      .then(user => {
+        if(!user) return done(null, false, { message: 'Email not found' })
+        if (!bcrypt.compareSync(password, user.password)) return done(null, false, { message: 'Incorrect password.' })
+        return done(null, user)
+      })
+      .catch(err => {
+        return done(err)
+    })
+  },
+
   logIn: (email, password) => {
     return db.User.findOne({ email: email }).join()
       .then(inst => {
@@ -48,7 +65,7 @@ const UserCommands = {
     return db.User.findById(UserID)
       .then(user => {
         user.name = userdata.name
-        if(userdata.password)  user.password = userdata.password
+        if (userdata.password) user.password = userdata.password
         return user.save()
       })
   },
@@ -92,7 +109,7 @@ const UserCommands = {
 
   getPhotos: (AlbumID) => {
     return db.Album.findById(AlbumID).join()
-      .then(album => { 
+      .then(album => {
         // console.log("commands", album.slice())
         return album
       })

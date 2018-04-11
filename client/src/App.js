@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import "./App.css";
 import {Affix} from 'antd'
 import Navbar from './components/Navbar';
@@ -36,9 +36,10 @@ class App extends Component {
           </Affix>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/signup" render={() => <SignUp changeApp={this.changeAppState} user={this.state.user} />} />
-          <Route path="/dashboard" render={() => <Albums 
-              changeApp={this.changeAppState} albums={this.state.albums} user={this.state.user} />} />
-          <Route path="/albums" render={() => <Photos albums={this.state.albums} user={this.state.user} />} />
+          <Route path="/dashboard" render={() => 
+            <Albums changeApp={this.changeAppState} albums={this.state.albums} user={this.state.user} /> } />
+          <Route path="/albums" render={() =>
+               <Photos changeApp={this.changeAppState} albums={this.state.albums} user={this.state.user}/> }/>
         </div>
       </Router>
     );
