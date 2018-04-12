@@ -28,36 +28,53 @@ class AddButton extends Component {
     setTimeout(() => {
       this.setState({ visible: false, confirmLoading: false });
     }, 1000);
-
   }
   handleCancel = () => {
     console.log('Clicked cancel button');
-    this.setState({visible: false});
+    this.setState({ visible: false });
   }
   render() {
-    const {visible, confirmLoading} = this.state;
-    var title = (this.state.album ? "Album Upload" : "Photo Upload");
-    var name = (this.state.album ? "album" : "photo");
-    var hidden = (this.state.album ? "hidden" : "show")
-    return (<div>
-      <Button style={{width: 60, height: 60, borderRadius: 55, position: "fixed", bottom: 0, right: 0, margin: "2rem"}} type="primary" onClick={this.showModal}>
-        <Icon style={{color: "white", fontSize: 32, display: "flex", justifyContent: "center"}} type="plus" />
-      </Button>
-      <Modal title= {title} visible={visible} onOk={this.handleOk} confirmLoading={confirmLoading} onCancel={this.handleCancel}>
-        <Form layout="vertical">
-          <FormItem label="Name It!">
-            <Input type="text" placeholder="Foo Bar" name={name + "name"}/>
-          </FormItem>
-          <FormItem label="Add a description.">
-            <Input type="text" placeholder="Some more Foo Bar" name={name + "description"}/>
-          </FormItem>
-        </Form>
-        <div style={{visibility: hidden}}>
-          <PicUpload />
-        </div>
-      </Modal>
-    </div>);
+    const { visible, confirmLoading } = this.state;
+    const title = (this.state.album ? 'Album Upload' : 'Photo Upload');
+    const name = (this.state.album ? 'album' : 'photo');
+    const hidden = (this.state.album ? 'hidden' : 'show');
+    return (
+      <div>
+        <Button
+          style={{
+ width: 60, height: 60, borderRadius: 55, position: 'fixed', bottom: 0, right: 0, margin: '2rem',
+}}
+          type="primary"
+          onClick={this.showModal}
+        >
+          <Icon
+            style={{
+ color: 'white', fontSize: 32, display: 'flex', justifyContent: 'center',
+}}
+            type="plus"
+          />
+        </Button>
+        <Modal
+          title={title}
+          visible={visible}
+          onOk={this.handleOk}
+          confirmLoading={confirmLoading}
+          onCancel={this.handleCancel}
+        >
+          <Form layout="vertical">
+            <FormItem label="Name It!">
+              <Input type="text" placeholder="Foo Bar" name={`${name}name`} />
+            </FormItem>
+            <FormItem label="Add a description.">
+              <Input type="text" placeholder="Some more Foo Bar" name={`${name}description`} />
+            </FormItem>
+          </Form>
+          <div style={{ visibility: hidden }}>
+            <PicUpload />
+          </div>
+        </Modal>
+      </div>);
   }
 }
 
-export default AddButton
+export default AddButton;

@@ -1,25 +1,24 @@
-import React, { Component } from "react";
-import {Col, Row, Menu, List} from 'antd'
+import React, { Component } from 'react';
+import { Col, Row, Menu, List } from 'antd';
 import 'antd/dist/antd.css';
-import "./Photos.css";
+import './Photos.css';
 import PhotoCard from '../../components/PhotoCard';
 import AddButton from '../../components/AddButton';
-import API from "../../utils/API"
+import API from '../../utils/API';
 
 class Photos extends Component {
-
   state = {
-    photos: []
+    photos: [],
   }
 
   componentWillMount() {
     API.getAllPhotos(window.location.pathname)
-    .then(res => {
-      console.log(res.data)
-      this.setState({
-        photos: res.data.photos
-      })
-    })
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          photos: res.data.photos,
+        });
+      });
   }
 
   // Talk to Trevor about this
@@ -38,27 +37,29 @@ class Photos extends Component {
   render() {
     return (
       <div className="Photos">
-      <AddButton />
+        <AddButton />
         <Row className="photoBody" gutter={16}>
-          <Col md={{span: 4}}>
+          <Col md={{ span: 4 }}>
             <Menu
               onClick={this.handleClick}
               defaultSelectedKeys={['1']}
               defaultOpenKeys={['sub1']}
               mode="inline"
             >
-            <Menu.Item key="1">Chicken Tenders</Menu.Item>
-            <Menu.Item key="2">cOdInG</Menu.Item>
-            <Menu.Item key="3">Doggos</Menu.Item>
+              <Menu.Item key="1">Chicken Tenders</Menu.Item>
+              <Menu.Item key="2">cOdInG</Menu.Item>
+              <Menu.Item key="3">Doggos</Menu.Item>
             </Menu>
           </Col>
-          <Col md={{span: 20}}>
+          <Col md={{ span: 20 }}>
             <List
-              grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+              grid={{
+ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,
+}}
               dataSource={this.state.photos}
-              renderItem={item=>(
+              renderItem={item => (
                 <List.Item>
-                  <PhotoCard title={item.name} src={item.href}/>
+                  <PhotoCard title={item.name} src={item.href} />
                 </List.Item>
               )}
             />
