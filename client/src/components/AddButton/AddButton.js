@@ -26,6 +26,7 @@ class AddButton extends React.Component {
     visible: false,
     confirmLoading: false,
     album: false,
+    value: "",
     img: "",
     name: "",
     description: ""
@@ -44,16 +45,15 @@ class AddButton extends React.Component {
     console.log('Clicked cancel button');
     this.setState({visible: false});
   }
-  itemName = () => {
-    this.setState({
-      name:
-    })
-    console.log("Name is working");
-  }
 
-  itemDesription = () => {
-    console.log("Description is also working");
-  }
+  handleChangeName = (event) => {
+   this.setState({name: event.target.value});
+   console.log(this.state.name, "hello");
+ }
+ handleChangeDescription = (event) => {
+  this.setState({description: event.target.value});
+  console.log(this.state.description, "hello");
+}
 
   render() {
     const {visible, confirmLoading} = this.state;
@@ -67,10 +67,10 @@ class AddButton extends React.Component {
       <Modal title= {title} visible={visible} onOk={this.handleOk} confirmLoading={confirmLoading} onCancel={this.handleCancel}>
         <Form layout="vertical">
           <FormItem label="Name It!">
-            <Input onChange={this.itemName} type="text" placeholder="Foo Bar" name={name + "name"}/>
+            <Input onChange={this.handleChangeName} value={this.state.name} type="text" placeholder="Foo Bar" name={name + "name"}/>
           </FormItem>
           <FormItem label="Add a description.">
-            <Input onChange={this.itemDesription} type="text" placeholder="Some more Foo Bar" name={name + "description"}/>
+            <Input onChange={this.handleChangeDescription} value={this.state.description} type="text" placeholder="Some more Foo Bar" name={name + "description"}/>
           </FormItem>
         </Form>
         <div style={{visibility: hidden}}>
