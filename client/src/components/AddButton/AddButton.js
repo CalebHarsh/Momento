@@ -28,7 +28,7 @@ class AddButton extends React.Component {
     confirmLoading: false,
     album: false,
     value: "",
-    img: "",
+    img: {},
     name: "",
     description: ""
   }
@@ -52,7 +52,7 @@ class AddButton extends React.Component {
       }
       API.addPhoto(uploadPicture);
     } else {
-      var createAlbum = {
+      var createAlbum = {      
         name: this.state.name,
         description: this.state.description
       }
