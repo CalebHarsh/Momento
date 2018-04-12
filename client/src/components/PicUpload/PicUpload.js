@@ -4,7 +4,6 @@ import './PicUpload.css'
 import { Upload, Icon, Modal } from 'antd';
 
 
-
 class PicUpload extends Component {
 
   state = {

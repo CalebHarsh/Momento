@@ -26,18 +26,24 @@ function isLoggedIn(req, res, next) {
 
 //signing up route
 router.post("/api/signup", (req, res) => {
+  console.log(req.body)
   Command.signUp({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password
   })
     .then(user => {
-      passport.authenticate('local-login')(req, res, function() {
-        console.log("working")
-        return res.send(req.user)
-      })
+      console.log(user.slice())
+      // passport.authenticate('local-login')(req, res, function() {
+      //   console.log("working")
+      //   return res.send(req.user)
+      // })
+      res.send(user)
     })
-    .catch(err => res.send(err))
+    .catch(err => {
+      console.log(err)
+       res.send(err)
+    })
 })
 
 //login route

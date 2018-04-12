@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import {Affix} from 'antd'
 import Navbar from './components/Navbar';
@@ -7,7 +7,6 @@ import LandingPage from './pages/LandingPage';
 import SignUp from './pages/SignUp';
 import Albums from './pages/Albums';
 import Photos from './pages/Photos';
-import API from './utils/API'
 
 class App extends Component {
 

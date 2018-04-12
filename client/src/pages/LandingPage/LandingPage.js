@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {Affix, Button, Col, Divider, Row} from 'antd';
 import ScrollAnimation from 'react-animate-on-scroll';
 import 'antd/dist/antd.css';

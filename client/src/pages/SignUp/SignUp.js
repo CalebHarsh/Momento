@@ -24,8 +24,8 @@ class SignUp extends Component {
     });
   }
 
-  testPassword = (password, verifyPass) => {
-    if(password === verifyPass && password.length > 7) return true
+  testPassword = () => {
+    if(this.state.password === this.state.passwordVerify && this.state.password.length > 7) return true
     return false
   }
 
@@ -39,7 +39,7 @@ class SignUp extends Component {
         password: this.state.password.trim()
       })
         .then(res => {
-          this.props.changeApp({
+          if(res.data._id) this.props.changeApp({
             "isLoggedIn": true,
             "user": res.data,
             "albums": res.data.albums

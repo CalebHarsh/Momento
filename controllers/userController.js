@@ -76,7 +76,7 @@ const UserCommands = {
       .then(user => user)
   },
 
-  addNewAlbum: (UserID, albumName, albumCover) => {
+  addNewAlbum: (UserID, albumName, albumCover, albumDesc) => {
     // console.log(UserID, albumName, albumCover)
     return db.User.findById(UserID).join()
       .then(user => {
@@ -84,7 +84,8 @@ const UserCommands = {
           users: [user._id],
           name: albumName,
           photos: [],
-          cover: albumCover
+          cover: albumCover,
+          description: albumDesc
         })
         // console.log("adding album")
         return user.saveAll()
