@@ -8,7 +8,7 @@ var userSchema = ko.Model("User", {
     local            : {
         email        : ko.Email,
         password     : ko.String,
-    },
+    }
     // facebook         : {
     //     id           : String,
     //     token        : String,
@@ -21,7 +21,6 @@ var userSchema = ko.Model("User", {
     //     email        : String,
     //     name         : String
     // }
-}
 });
 
 // methods ======================

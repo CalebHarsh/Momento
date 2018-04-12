@@ -13,6 +13,16 @@ const User = ko.Model("User", {
   email: ko.Email,
   albums: [ko.models.Album],
   lastLogin: ko.Date.now(),
+  // socialMedia: {
+  //   facebook: {
+  //     id: [ko.String, null],
+  //     token: [ko.String, null]
+  //   },
+  //   google: {
+  //     id: [ko.String, null],
+  //     token: [ko.String, null]
+  //   }
+  // },
   $$indexes: {
     email: {
       unique: true

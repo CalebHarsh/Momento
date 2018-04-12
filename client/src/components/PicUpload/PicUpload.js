@@ -3,8 +3,6 @@ import 'antd/dist/antd.css';
 import './PicUpload.css'
 import { Upload, Icon, Modal } from 'antd';
 
-
-
 class PicUpload extends Component {
 
   state = {
@@ -33,7 +31,7 @@ class PicUpload extends Component {
 
   render() {
     const { previewVisible, previewImage, fileList } = this.state;
-    
+
     const uploadButton = (
       <div>
         <Icon type="plus" />

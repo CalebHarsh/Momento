@@ -30,6 +30,7 @@ class Navbar extends Component {
 
   handleSignIn = event => {
     if (this.state.visible) {
+      console.log(this.state.email.trim())
       API.signIn({
         email: this.state.email.trim(),
         password: this.state.password.trim()
@@ -47,9 +48,21 @@ class Navbar extends Component {
     }
   }
 
+  handleDropDown = e => {
+    if(e.key === 'logout') this.logout()
+    else console.log(e.key)
+  }
+
+  logout = () => {
+    console.log("logging out")
+    API.logout().then(res => {
+      window.location.pathname = "/"
+    })
+  }
+
   render() {
     const menu = (
-      <Menu>
+      <Menu onClick={this.handleDropDown}> 
         <Menu.Item key="profile">Profile</Menu.Item>
         <Menu.Item key="logout">Logout</Menu.Item>
       </Menu>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import {Col, Row, Menu, List} from 'antd'
-import {Link} from 'react-router-dom'
+import { Col, Row, Menu, List } from 'antd'
+import { Link } from 'react-router-dom'
 import 'antd/dist/antd.css';
 import "./Photos.css";
 import PhotoCard from '../../components/PhotoCard';
@@ -14,22 +14,26 @@ class Photos extends Component {
   }
 
   componentDidMount() {
-    this.getPictures()
-    //  console.log("getting Pictures")
-    // API.getAllPhotos(window.location.pathname)
-    //   .then(res => {
-    //     console.log(res.data)
-    //     this.setState({
-    //       currentAlbum: res.data
-    //     })
-    //   })
+    if (!this.props.loginStatus) {
+      API.checkUser()
+        .then(res => {
+          if (res.data._id) {
+            this.props.changeApp({
+              "isLoggedIn": true,
+              "user": res.data,
+              "albums": res.data.albums
+            })
+            this.getPictures()
+          }
+          // else window.location.pathname = "/"
+
+        })
+    }
   }
 
   getPictures = () => {
-    console.log("getting Pictures")
     API.getAllPhotos(window.location.pathname)
       .then(res => {
-        // console.log(res)
         this.setState({
           currentAlbum: res.data
         })
@@ -52,34 +56,37 @@ class Photos extends Component {
   render() {
     return (
       <div className="Photos">
-      <AddButton />
+        <AddButton
+          user={this.props.user}
+          changeApp={this.props.changeApp}
+        />
         <Row className="photoBody" gutter={16}>
-          <Col md={{span: 4}}>
+          <Col md={{ span: 4 }}>
             <Menu
               onClick={this.getPictures}
               defaultSelectedKeys={[window.location.pathname.slice(8)]}
               defaultOpenKeys={['sub1']}
               mode="inline"
             >
-            { 
-              this.props.albums.map(item => (
-               
-                <Menu.Item key={item._id} id={item._id}>
-                 <Link to={`/albums/${item._id}`}>
-                {item.name}
-                </ Link >
-                </Menu.Item>
-              ))
-            }
+              {
+                this.props.albums.map(item => (
+
+                  <Menu.Item key={item._id} id={item._id}>
+                    <Link to={`/albums/${item._id}`}>
+                      {item.name}
+                    </ Link >
+                  </Menu.Item>
+                ))
+              }
             </Menu>
           </Col>
-          <Col md={{span: 20}}>
+          <Col md={{ span: 20 }}>
             <List
               grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
               dataSource={this.state.currentAlbum.photos}
-              renderItem={item=>(
+              renderItem={item => (
                 <List.Item>
-                  <PhotoCard id={item._id} title={item.name} src={item.href}/>
+                  <PhotoCard id={item._id} title={item.name} src={item.href} />
                 </List.Item>
               )}
             />
