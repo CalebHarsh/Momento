@@ -30,6 +30,7 @@ class Navbar extends Component {
 
   handleSignIn = event => {
     if (this.state.visible) {
+      console.log(this.state.email.trim())
       API.signIn({
         email: this.state.email.trim(),
         password: this.state.password.trim()
@@ -37,7 +38,8 @@ class Navbar extends Component {
         this.props.changeApp({
           "isLoggedIn": true,
           "user": res.data,
-          "albums": res.data.albums
+          "albums": res.data.albums,
+          "checkedUser": true
         })
       })
     } else {
@@ -47,11 +49,16 @@ class Navbar extends Component {
     }
   }
 
+  logout = () => {
+    console.log("logout")
+    API.logout()
+  }
+
   render() {
     const menu = (
       <Menu>
         <Menu.Item key="profile">Profile</Menu.Item>
-        <Menu.Item key="logout">Logout</Menu.Item>
+        <Menu.Item onClick={this.logout.bind(this)} key="logout">Logout</Menu.Item>
       </Menu>
     )
     return (

@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path")
 const app = express();
 const bodyParser = require("body-parser")
-const passport = require('passport');
+// const passport = require('passport');
 // const flash    = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const session      = require('express-session');
@@ -18,18 +18,12 @@ const PORT = process.env.PORT || 3001;
 
 app.use(cookieParser());
 
-passport.serializeUser(function(user, cb) {
-  cb(null, user._id);
-});
-
-passport.deserializeUser(function(id, cb) {
-  UserDetails.findById(id).then(user => {
-    cb(err, user);
-  });
-});
 
 //Set up body-parser
-
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 // // Required for passport
 // // Session secret

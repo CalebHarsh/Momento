@@ -20,10 +20,8 @@ router.put("/api/addFriendAlbum", (req, res) => {
 
 //Dealing with a single album page
 router.get("/api/albums/:id", (req, res) => {
-  // console.log(req.params.id)
   Command.getPhotos(req.params.id)
     .then(album => {
-      // console.log(album.slice())
       res.json(album)
     })
     .catch(err => {

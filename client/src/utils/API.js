@@ -26,11 +26,12 @@ export default {
     return axios.get(`/api/${path}`)
   },
   getAllPhotos: (path) => {
-    console.log(path)
     return axios.get(`/api/${path}`)
   },
-  checkUser: (path) => {
-    console.log(path)
-    return axios.get(`/auth${path}`)
+  checkUser: () => {
+    return axios.get(`/auth`)
+  },
+  logout: () => {
+    return axios.get('/logout')
   }
 }

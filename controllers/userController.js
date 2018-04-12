@@ -4,7 +4,7 @@ const db = require("../models")
 const UserCommands = {
 
   findUser: id => {
-    return db.User.findById(id)
+    return db.User.findById(id).join()
   },
 
   passportLogin: (email, password, done) => {

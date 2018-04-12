@@ -7,16 +7,16 @@ import LandingPage from './pages/LandingPage';
 import SignUp from './pages/SignUp';
 import Albums from './pages/Albums';
 import Photos from './pages/Photos';
+import API from './utils/API'
+
 class App extends Component {
+
   state = {
     isLoggedIn: false,
     user: {},
     albums: []
   }
 
-  getUser = () => {
-    return this.state.user
-  }
 
   changeAppState = (obj) => {
     this.setState(obj)
@@ -37,9 +37,15 @@ class App extends Component {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/signup" render={() => <SignUp changeApp={this.changeAppState} user={this.state.user} />} />
           <Route path="/dashboard" render={() => 
-            <Albums changeApp={this.changeAppState} albums={this.state.albums} user={this.state.user} /> } />
+            <Albums changeApp={this.changeAppState} 
+            loginStatus={this.state.isLoggedIn} 
+            albums={this.state.albums} 
+            user={this.state.user} /> } />
           <Route path="/albums" render={() =>
-               <Photos changeApp={this.changeAppState} albums={this.state.albums} user={this.state.user}/> }/>
+               <Photos changeApp={this.changeAppState} 
+               loginStatus={this.state.isLoggedIn}
+               albums={this.state.albums} 
+               user={this.state.user}/> }/>
         </div>
       </Router>
     );

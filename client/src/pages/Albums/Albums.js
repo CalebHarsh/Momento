@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {List} from 'antd'
+import { List } from 'antd'
 import 'antd/dist/antd.css';
 import "./Albums.css";
 import Card from '../../components/Album-Square';
@@ -11,20 +11,21 @@ import API from "../../utils/API";
 class Albums extends Component {
 
   componentWillMount() {
-  //   console.log("mounted")
-    API.checkUser(window.location.pathname.slice(0, 10))
-    .then(res => {
-      // console.log("res data", res)
-      this.props.changeApp({
-        "isLoggedIn": true,
-        "user": res.data,
-        "albums": res.data.albums
-      })
-    })
-  } 
+    if (!this.props.loginStatus) {
+      API.checkUser()
+        .then(res => {
+          // console.log("res data", res)
+          if(res.data._id) this.props.changeApp({
+            "isLoggedIn": true,
+            "user": res.data,
+            "albums": res.data.albums,
+          })
+        })
+    }
+  }
 
   // Talk to Trevor about this 
-  
+
   // handleClick = (e) => {
   //   API.addAlbum({
   //     name: "Test Album 3",
@@ -32,7 +33,7 @@ class Albums extends Component {
   //     user: "5ac8166113572c1d7c3f1dd4"
   //   }).then(res => {
   //     console.log(res)
-        // componentsWillMount()
+  // componentsWillMount()
   //   })
   // }
 
@@ -41,12 +42,12 @@ class Albums extends Component {
       <div className="Albums">
         <AddButton />
         <div className="album-container">
-          <List 
+          <List
             grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
             dataSource={this.props.albums}
-            renderItem={item=>(
+            renderItem={item => (
               <List.Item>
-                <Card id={item._id} title={item.name} src={item.cover} description={item.description}/>
+                <Card id={item._id} title={item.name} src={item.cover} description={item.description} />
               </List.Item>
             )}
           />

@@ -14,22 +14,22 @@ class Photos extends Component {
   }
 
   componentDidMount() {
-    this.getPictures()
-    //  console.log("getting Pictures")
-    // API.getAllPhotos(window.location.pathname)
-    //   .then(res => {
-    //     console.log(res.data)
-    //     this.setState({
-    //       currentAlbum: res.data
-    //     })
-    //   })
+    if (!this.props.loginStatus) {
+      API.checkUser()
+        .then(res => {
+          this.props.changeApp({
+            "isLoggedIn": true,
+            "user": res.data,
+            "albums": res.data.albums
+          })
+          this.getPictures()
+        })
+    } else this.getPictures()
   }
 
   getPictures = () => {
-    console.log("getting Pictures")
     API.getAllPhotos(window.location.pathname)
       .then(res => {
-        // console.log(res)
         this.setState({
           currentAlbum: res.data
         })
