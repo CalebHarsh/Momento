@@ -38,8 +38,7 @@ class Navbar extends Component {
         this.props.changeApp({
           "isLoggedIn": true,
           "user": res.data,
-          "albums": res.data.albums,
-          "checkedUser": true
+          "albums": res.data.albums
         })
       })
     } else {
@@ -49,16 +48,23 @@ class Navbar extends Component {
     }
   }
 
+  handleDropDown = e => {
+    if(e.key === 'logout') this.logout()
+    else console.log(e.key)
+  }
+
   logout = () => {
-    console.log("logout")
-    API.logout()
+    console.log("logging out")
+    API.logout().then(res => {
+      window.location.pathname = "/"
+    })
   }
 
   render() {
     const menu = (
-      <Menu>
+      <Menu onClick={this.handleDropDown}> 
         <Menu.Item key="profile">Profile</Menu.Item>
-        <Menu.Item onClick={this.logout.bind(this)} key="logout">Logout</Menu.Item>
+        <Menu.Item key="logout">Logout</Menu.Item>
       </Menu>
     )
     return (

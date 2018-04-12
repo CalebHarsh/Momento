@@ -5,6 +5,12 @@ import PicUpload from "../PicUpload/PicUpload.js";
 const FormItem = Form.Item;
 
 class AddButton extends Component {
+  state = {
+    visible: false,
+    confirmLoading: false,
+    album: false
+  }
+
   componentWillMount() {
     var page = window.location.pathname;
     console.log(page, "this page");
@@ -14,11 +20,7 @@ class AddButton extends Component {
     });
     console.log(this.state.album, "checkPath");
   }
-  state = {
-    visible: false,
-    confirmLoading: false,
-    album: false
-  }
+
   showModal = () => {
     this.setState({visible: true});
   }

@@ -17,14 +17,14 @@ class Photos extends Component {
     if (!this.props.loginStatus) {
       API.checkUser()
         .then(res => {
-          this.props.changeApp({
+          if(res.data._id) this.props.changeApp({
             "isLoggedIn": true,
             "user": res.data,
             "albums": res.data.albums
           })
           this.getPictures()
         })
-    } else this.getPictures()
+    }
   }
 
   getPictures = () => {

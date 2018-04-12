@@ -32,7 +32,7 @@ router.post("/api/signup", (req, res) => {
     password: req.body.password
   })
     .then(user => {
-      passport.user('local-login')(req, res, function() {
+      passport.authenticate('local-login')(req, res, function() {
         console.log("working")
         return res.send(req.user)
       })

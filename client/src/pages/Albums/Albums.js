@@ -34,6 +34,7 @@ class Albums extends Component {
   //   }).then(res => {
   //     console.log(res)
   // componentsWillMount()
+  
   //   })
   // }
 
@@ -47,7 +48,10 @@ class Albums extends Component {
             dataSource={this.props.albums}
             renderItem={item => (
               <List.Item>
-                <Card id={item._id} title={item.name} src={item.cover} description={item.description} />
+                <Card id={item._id} 
+                title={item.name} 
+                src={item.cover} 
+                description={item.description} />
               </List.Item>
             )}
           />

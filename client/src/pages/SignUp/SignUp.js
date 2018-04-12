@@ -24,10 +24,15 @@ class SignUp extends Component {
     });
   }
 
+  testPassword = (password, verifyPass) => {
+    if(password === verifyPass && password.length > 7) return true
+    return false
+  }
+
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.name && this.state.email && this.state.password && this.state.passwordVerify) {
+    if (this.state.name && this.state.email && this.testPassword()) {
       API.createNewUser({
         name: this.state.name.trim(),
         email: this.state.email.trim(),
@@ -39,7 +44,6 @@ class SignUp extends Component {
             "user": res.data,
             "albums": res.data.albums
           })
-          this.setState({ name: "", email: "", password: "", passwordVerify: "" })
         })
     } else {
       alert('fill the form out, idiot!')
