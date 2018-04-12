@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import 'antd/dist/antd.css';
 import {Modal, Button, Icon, Form, Input} from 'antd';
 import PicUpload from "../PicUpload/PicUpload.js";
+import API from "../../utils/API.js"
 const FormItem = Form.Item;
 
 class AddButton extends React.Component {
@@ -40,6 +41,23 @@ class AddButton extends React.Component {
     setTimeout(() => {
       this.setState({visible: false, confirmLoading: false});
     }, 1000);
+
+    var page = window.location.pathname;
+    console.log(page);
+    if (page.includes("album")) {
+      var uploadPicture = {
+        image: this.state.img,
+        name: this.state.name,
+        description: this.state.description
+      }
+      API.addPhoto(uploadPicture);
+    } else {
+      var createAlbum = {
+        name: this.state.name,
+        description: this.state.description
+      }
+      API.addAlbum(createAlbum);
+    };
   }
   handleCancel = () => {
     console.log('Clicked cancel button');
