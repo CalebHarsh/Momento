@@ -1,16 +1,20 @@
-const ko = require("nekodb")
+const ko = require('nekodb');
+const User = require('./User.js');
+const Album = require('./Album.js');
+const Photo = require('./Photo.js');
+const Comment = require('./Comment.js');
 
 ko.connect({
   client: 'mongodb',
-  url: process.env.MONGODB_URI || 'mongodb://localhost/momento'
-})
+  url: process.env.MONGODB_URI || 'mongodb://localhost/momento',
+});
 
 const db = {
-  User: require("./User.js"),
-  Album: require("./Album.js"),
-  Photo: require("./Photo.js"),
-  Comment: require("./Comment.js")
-}
+  User,
+  Album,
+  Photo,
+  Comment,
+};
 
 
-module.exports = db
+module.exports = db;

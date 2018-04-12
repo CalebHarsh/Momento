@@ -1,19 +1,21 @@
-const express = require("express");
+const express = require('express');
+
+const dotenv = require('dotenv');
 
 const app = express();
-const bodyParser = require("body-parser")
+const bodyParser = require('body-parser');
 
 // Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
 }
-if (process.env.NODE_ENV !== "procuduction") {
-  require('dotenv').load();
+if (process.env.NODE_ENV !== 'procuduction') {
+  dotenv.load();
 }
 const PORT = process.env.PORT || 3001;
-//Set up body-parser
+// Set up body-parser
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: true,
 }));
 app.use(bodyParser.json());
 
@@ -24,9 +26,9 @@ app.use(bodyParser.json());
 //   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 // });
 
-app.use(require("./routes/apiRoutes.js"))
+app.use(require('./routes/apiRoutes.js'));
 
-app.listen(PORT, function() {
+app.listen(PORT, () => {
   console.log(`🌎 ==> Server now on port ${PORT}!`);
 });
 

@@ -1,31 +1,32 @@
-import React, {Component} from "react";
+import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import {Modal, Button, Icon, Form, Input} from 'antd';
-import PicUpload from "../PicUpload/PicUpload.js";
+import { Modal, Button, Icon, Form, Input } from 'antd';
+import PicUpload from '../PicUpload/PicUpload';
+
 const FormItem = Form.Item;
 
 class AddButton extends Component {
-  componentWillMount() {
-    var page = window.location.pathname;
-    console.log(page, "this page");
-    var checkPath = (page === "/photos" ? false : true);
-    this.setState({
-      album: checkPath
-    });
-    console.log(this.state.album, "checkPath");
-  }
   state = {
     visible: false,
     confirmLoading: false,
-    album: false
+    album: false,
+  }
+  componentWillMount() {
+    const page = window.location.pathname;
+    console.log(page, 'this page');
+    const checkPath = (page !== '/photos');
+    this.setState({
+      album: checkPath,
+    });
+    console.log(this.state.album, 'checkPath');
   }
   showModal = () => {
-    this.setState({visible: true});
+    this.setState({ visible: true });
   }
   handleOk = () => {
-    this.setState({confirmLoading: true});
+    this.setState({ confirmLoading: true });
     setTimeout(() => {
-      this.setState({visible: false, confirmLoading: false});
+      this.setState({ visible: false, confirmLoading: false });
     }, 1000);
 
   }

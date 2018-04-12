@@ -1,55 +1,55 @@
-import React, {Component} from 'react';
-import { Link, Redirect } from "react-router-dom";
-import {Avatar, Button, Divider, Dropdown, Menu} from 'antd';
-import Login from '../Login/Login'
+import React, { Component } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { Avatar, Button, Divider, Dropdown, Menu } from 'antd';
 import 'antd/dist/antd.css';
-import './Navbar.css'
-import logo from '../../assets/images/logo.svg'
+import Login from '../Login/Login';
+import './Navbar.css';
+import logo from '../../assets/images/logo.svg';
 import API from '../../utils/API';
 
 
-class Navbar extends  Component {
-  constructor(props){
+class Navbar extends Component {
+  constructor(props) {
     super(props);
-    this.handleSignIn = this.handleSignIn.bind(this)
+    this.handleSignIn = this.handleSignIn.bind(this);
     this.state = {
       visible: false,
       email: '',
       password: '',
-      name: ''
-    }
+      name: '',
+    };
   }
-  
-  handleInputChange = event => {
-    let value = event.target.value.trim();
+
+  handleInputChange = (event) => {
+    const value = event.target.value.trim();
     const name = event.target.name;
-    
+
     this.setState({
-      [name]: value
+      [name]: value,
     });
   }
-  
+
   // use 'lift state up': https://reactjs.org/docs/lifting-state-up.html to pass
   // the user info to App.js in the handleSignIn() function.
-  
-  handleSignIn = event => {
-      if(this.state.visible){
-        API.signIn({
-          email: this.state.email,
-          password: this.state.password
-        }).then(res => {
-          console.log(res.data)
-          this.props.login()
-          this.setState({
-            name: res.data.name
-            // this might be where we store the user info and pass it up.
-          })
-        })
-      } else {
+
+  handleSignIn = () => {
+    if (this.state.visible) {
+      API.signIn({
+        email: this.state.email,
+        password: this.state.password,
+      }).then((res) => {
+        console.log(res.data);
+        this.props.login();
         this.setState({
-          visible: true
-        })
-      }
+          name: res.data.name,
+          // this might be where we store the user info and pass it up.
+        });
+      });
+    } else {
+      this.setState({
+        visible: true,
+      });
+    }
   }
   render() {
     const menu = (
@@ -57,55 +57,63 @@ class Navbar extends  Component {
         <Menu.Item key="profile">Profile</Menu.Item>
         <Menu.Item key="logout">Logout</Menu.Item>
       </Menu>
-    )
-    return(
+    );
+    return (
       <div className="Navbar">
         <div className="container">
           <div className="logo-container">
             {
-              !this.state.loggedIn ? 
-              <Link to="/">
-                <div className="logo">
-                  <img src={logo} alt="logo"/>
-                </div>
-              </Link>
+              !this.state.loggedIn ?
+                <Link to="/">
+                  <div className="logo">
+                    <img src={logo} alt="logo" />
+                  </div>
+                </Link>
               :
-              <Link to="/albums">
-                <div className="logo">
-                  <img src={logo} alt="logo"/>
-                </div>
-              </Link>
+                <Link to="/albums">
+                  <div className="logo">
+                    <img src={logo} alt="logo" />
+                  </div>
+                </Link>
             }
-            
+
             <h1 className="logotype">momento</h1>
           </div>
-          { !this.props.loggedIn ?  
-          <div className="nav-items">
-            {
-              this.state.visible && <Login email={this.state.email} password={this.state.password} onChange={this.handleInputChange}/>
+          { !this.props.loggedIn ?
+            <div className="nav-items">
+              {
+              this.state.visible && <Login
+                email={this.state.email}
+                password={this.state.password}
+                onChange={this.handleInputChange}
+              />
             }
-            <Button size="default"
-              onClick={this.handleSignIn}>
-              Sign In
-            </Button>
-            <Divider type="vertical" />
-            <Link to="/signup">
-              <Button size="default"
-                type="primary">
-                Sign Up
+              <Button
+                size="default"
+                onClick={this.handleSignIn}
+              >
+                Sign In
               </Button>
-            </Link>
-          </div>
-          : 
-          <div className="nav-items">
-            <h3 className="name">{this.state.name}</h3>
-            <Divider type="vertical"/>
-            <Dropdown overlay={menu} placement="bottomCenter">
-              <Avatar icon="user"/>
-            </Dropdown>
-            {/* /dashboard/:id */}
-            <Redirect to="/dashboard" />
-          </div>
+              <Divider type="vertical" />
+              <Link to="/signup">
+                <Button
+                  size="default"
+                  type="primary"
+                >
+                  Sign Up
+                </Button>
+              </Link>
+            </div>
+          :
+            <div className="nav-items">
+              <h3 className="name">{this.state.name}</h3>
+              <Divider type="vertical" />
+              <Dropdown overlay={menu} placement="bottomCenter">
+                <Avatar icon="user" />
+              </Dropdown>
+              {/* /dashboard/:id */}
+              <Redirect to="/dashboard" />
+            </div>
         }
         </div>
       </div>

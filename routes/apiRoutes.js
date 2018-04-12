@@ -1,39 +1,39 @@
-const Command = require("../controllers/userController.js")
-const router = require("express").Router()
-const path = require("path");
+const Command = require('../controllers/userController.js');
+const router = require('express').Router();
+const path = require('path');
 
-const photos = require("./photoRoutes.js")
-const albums = require("./albumRoutes.js")
+const photos = require('./photoRoutes.js');
+const albums = require('./albumRoutes.js');
 
-router.use(photos)
-router.use(albums)
+router.use(photos);
+router.use(albums);
 
-//signing up route
-router.post("/api/signup", (req, res) => {
-  console.log(req.body)
+// signing up route
+router.post('/api/signup', (req, res) => {
+  console.log(req.body);
   Command.signUp({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
   })
     // .then(user => res.redirect(`/dashboard/${user._id}`))
     .then(user => res.send(user))
-    .catch(err => res.send(err))
-})
+    .catch(err => res.send(err));
+});
 
-//login route
-router.put("/api/login", (req, res) => {
-  console.log(req.body)
+// login route
+router.put('/api/login', (req, res) => {
+  console.log(req.body);
   Command.logIn(req.body.email, req.body.password)
     // .then(user => res.redirect(`/dashboard/${user._id}`))
     .then(user => res.send(user))
-    .catch(err => res.send(err))
-})
+    .catch(err => res.send(err));
+});
 
 // Send every request to the React app
 // Define any API routes before this runs
-router.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+router.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-module.exports = router
+module.exports = router;
