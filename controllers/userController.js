@@ -4,30 +4,29 @@ const db = require('../models');
 const UserCommands = {
 
   findUser: id => {
-    return db.User.findById(id).join()
+    return db.User.findById(id).join();
   },
 
   passportLogin: (email, password, done) => {
-   
-    return db.User.findOne({ email: email }).join()
+    return db.User.findOne({ email }).join()
       .then(user => {
-        if(!user) return done(null, false, { message: 'Email not found' })
-        if (!bcrypt.compareSync(password, user.password)) return done(null, false, { message: 'Incorrect password.' })
-        return done(null, user)
+        if (!user) return done(null, false, { message: 'Email not found' });
+        if (!bcrypt.compareSync(password, user.password)) return done(null, false, { message: 'Incorrect password.' });
+        return done(null, user);
       })
       .catch(err => {
-        return done(err)
-    })
+        return done(err);
+      });
   },
 
   logIn: (email, password) => {
-    return db.User.findOne({ email: email }).join()
+    return db.User.findOne({ email }).join()
       .then(inst => {
-        if (inst) throw new Error("Email not there")
-        if (bcrypt.compareSync(password, inst.password)) console.log("Signed In")
-        else throw new Error("Password is Incorrect")
-        return inst
-      })
+        if (inst) throw new Error('Email not there');
+        if (bcrypt.compareSync(password, inst.password)) console.log('Signed In');
+        else throw new Error('Password is Incorrect');
+        return inst;
+      });
   },
 
   signUp: formInfo => db.User.findOne({ email: formInfo.email })
@@ -87,9 +86,9 @@ const UserCommands = {
           name: albumName,
           photos: [],
           cover: albumCover,
-          description: albumDesc
+          description: albumDesc,
         });
-      
+
         // console.log("adding album")
         return user.saveAll();
       });
@@ -116,8 +115,8 @@ const UserCommands = {
     return db.Album.findById(AlbumID).join()
       .then(album => {
         // console.log("commands", album.slice())
-        return album
-      })
+        return album;
+      });
   },
 
   addNewPhoto: (UserID, AlbumID, photoName, photoLocation) => {
