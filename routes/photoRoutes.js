@@ -41,12 +41,9 @@ router.post("/api/createAlbum", upload.any(), (req, res) => {
 
 //Adding a photo
 router.post("/api/addPhoto", upload.any(), (req, res) => {
-  console.log(req.files[0])
-  return res.send("found photo")
-  Command.addNewPhoto(req.body.author, req.body.album, req.body.name, req.body.href)
-    // req.files[0].location)
-    .then(album=> {
-      console.log(album)
+  Command.addNewPhoto(req.body.author, req.body.album, req.body.name, req.files[0].location)
+    .then(album => Command.getPhotos(album._id))
+    .then(album => {
       res.send(album)
     })
     .catch(err => {

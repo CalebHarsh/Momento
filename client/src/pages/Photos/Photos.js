@@ -25,7 +25,7 @@ class Photos extends Component {
             })
             this.getPictures()
           }
-          // else window.location.pathname = "/"
+          else window.location.pathname = "/"
 
         })
     }
@@ -40,25 +40,19 @@ class Photos extends Component {
       })
   }
 
-  // Talk to Trevor about this
-
-  // handleClick = (e) => {
-  //   API.addPhoto({
-  //     name: "Test Photo 4",
-  //     href: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS47f5zoCgxkl5yunLZ9AQs6REXgcjgAtsduuJntZ_ERI3U13xm2g",
-  //     author: "5ac8166113572c1d7c3f1dd4",
-  //     album: "5ac8312d72eeac1df8e581f5"
-  //   }).then(res => {
-  //     console.log(res)
-  //   })
-  // }
+  changePhoto = (album) => {
+    this.setState({
+      "currentAlbum": album
+    })
+  }
 
   render() {
     return (
       <div className="Photos">
         <AddButton
+          album={this.state.currentAlbum}
           user={this.props.user}
-          changeApp={this.props.changeApp}
+          changePhoto={this.changePhoto}
         />
         <Row className="photoBody" gutter={16}>
           <Col md={{ span: 4 }}>
