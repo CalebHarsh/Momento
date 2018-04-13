@@ -14,6 +14,7 @@ class Photos extends Component {
   }
 
   componentDidMount() {
+    this.getPictures()
     if (!this.props.loginStatus) {
       API.checkUser()
         .then(res => {
@@ -23,7 +24,6 @@ class Photos extends Component {
               "user": res.data,
               "albums": res.data.albums
             })
-            this.getPictures()
           }
           else window.location.pathname = "/"
 
