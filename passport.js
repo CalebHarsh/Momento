@@ -4,8 +4,7 @@ var LocalStrategy   = require('passport-local').Strategy;
 // var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 // Load up the user model (Testing)
-var Command = require('../controllers/userController');
-
+var Command = require('./controllers/userController.js');
 // load the keys (Needed for FB and Google Login - Comment Out for now)
 // var configAuth = require('./auth');
 
@@ -24,9 +23,13 @@ module.exports = function(passport) {
 
     // Deserialize the user
     passport.deserializeUser(function(id, done) {
-        User.findById(id).then(user => {
-             done(err, user)
-        }
+       Command.findUser(id).then(user => {
+             done(null, user)
+        })
+        .catch(err => {
+            done(err, null)
+        })
+    })
 
     // =========================================================================
     // LOCAL SIGNUP ============================================================
@@ -93,25 +96,10 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, email, password, done) { // callback with email and password from our form
-
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ 'local.email' :  email }).then(function(user) {
-            // if there are any errors, return the error before anything else
-
-            // if no user is found, return the message
-            if (!user)
-                return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
-
-            // if the user is found but the password is wrong
-            if (user.password !== password)
-                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
-
-            // all is well, return successful user
-            return done(null, user);
-        }).cathc(err => {
-            return done(err)
-        })
+        console.log(email, password)
+       Command.passportLogin(email, password, done)
 
     }));
 

@@ -22,14 +22,15 @@ const upload = multer({
   }),
 });
 
-// adding a new album
-router.post('/api/createAlbum', upload.any(), (req, res) => {
-  console.log(req.body);
-  Command.addNewAlbum(req.body.user, req.body.name, req.body.cover)
+//adding a new album
+router.post("/api/createAlbum", upload.any(), (req, res) => {
+  console.log(req.body)
+  Command.addNewAlbum(req.body.user, req.body.name, req.body.cover, req.body.description)
     // req.files[0].location)
-    .then((user) => {
-      console.log(user.slice());
-      res.send(user);
+    .then(user => Command.findUser(user._id))
+    .then(user => {
+      console.log(user.slice())
+      res.send(user)
     })
     .catch((err) => {
       console.log(err);
@@ -38,14 +39,16 @@ router.post('/api/createAlbum', upload.any(), (req, res) => {
 });
 
 
-// Adding a photo
-router.post('/api/addPhoto', upload.any(), (req, res) => {
-  // console.log(req.files[0])
-  Command.addNewPhoto(req.body.author, req.body.album, req.body.name, req.body.href)
-    // req.files[0].location)
-    .then((album) => {
-      console.log(album);
-      res.send(album);
+//Adding a photo
+router.post("/api/addPhoto", upload.any(), (req, res) => {
+  Command.addNewPhoto(req.body.author, req.body.album, req.body.name, req.files[0].location)
+    .then(album => Command.getPhotos(album._id))
+    .then(album => {
+      res.send(album)
+    })
+    .catch(err => {
+      console.log(err)
+      res.send(err)
     })
     .catch((err) => {
       console.log(err);

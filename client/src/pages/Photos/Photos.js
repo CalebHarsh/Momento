@@ -1,7 +1,6 @@
-
 import React, { Component } from "react";
-import {Col, Row, Menu, List} from 'antd'
-import {Link} from 'react-router-dom'
+import { Col, Row, Menu, List } from 'antd'
+import { Link } from 'react-router-dom'
 import 'antd/dist/antd.css';
 import "./Photos.css";
 import PhotoCard from '../../components/PhotoCard';
@@ -15,72 +14,73 @@ class Photos extends Component {
   }
 
   componentDidMount() {
-    this.getPictures()
-    //  console.log("getting Pictures")
-    // API.getAllPhotos(window.location.pathname)
-    //   .then(res => {
-    //     console.log(res.data)
-    //     this.setState({
-    //       currentAlbum: res.data
-    //     })
-    //   })
+    if (!this.props.loginStatus) {
+      API.checkUser()
+        .then(res => {
+          if (res.data._id) {
+            this.props.changeApp({
+              "isLoggedIn": true,
+              "user": res.data,
+              "albums": res.data.albums
+            })
+            this.getPictures()
+          }
+          else window.location.pathname = "/"
+
+        })
+    }
   }
 
   getPictures = () => {
-    console.log("getting Pictures")
     API.getAllPhotos(window.location.pathname)
       .then(res => {
-        // console.log(res)
         this.setState({
           currentAlbum: res.data
         })
       })
   }
 
-  // Talk to Trevor about this
-
-  // handleClick = (e) => {
-  //   API.addPhoto({
-  //     name: "Test Photo 4",
-  //     href: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS47f5zoCgxkl5yunLZ9AQs6REXgcjgAtsduuJntZ_ERI3U13xm2g",
-  //     author: "5ac8166113572c1d7c3f1dd4",
-  //     album: "5ac8312d72eeac1df8e581f5"
-  //   }).then(res => {
-  //     console.log(res)
-  //   })
-  // }
+  changePhoto = (album) => {
+    this.setState({
+      "currentAlbum": album
+    })
+  }
 
   render() {
     return (
       <div className="Photos">
-      <AddButton />
+        <AddButton
+          album={this.state.currentAlbum}
+          user={this.props.user}
+          changePhoto={this.changePhoto}
+        />
         <Row className="photoBody" gutter={16}>
-          <Col md={{span: 4}}>
+          <Col md={{ span: 4 }}>
             <Menu
               onClick={this.getPictures}
               defaultSelectedKeys={[window.location.pathname.slice(8)]}
               defaultOpenKeys={['sub1']}
               mode="inline"
             >
-            { 
-              this.props.albums.map(item => (
-               
-                <Menu.Item key={item._id} id={item._id}>
-                 <Link to={`/albums/${item._id}`}>
-                {item.name}
-                </ Link >
-                </Menu.Item>
-              ))
-            }
+              {
+                this.props.albums.map(item => (
+
+                  <Menu.Item key={item._id} id={item._id}>
+                    <Link to={`/albums/${item._id}`}>
+                      {item.name}
+                    </ Link >
+                  </Menu.Item>
+                ))
+              }
             </Menu>
           </Col>
-          <Col md={{span: 20}}>
+          <Col md={{ span: 20 }}>
             <List
               grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
               dataSource={this.state.currentAlbum.photos}
-              renderItem={item=>(
+              renderItem={item => (
                 <List.Item>
-                  <PhotoCard id={item._id} title={item.name} src={item.href}/>
+                  <PhotoCard id={item._id} title={item.name} src={item.href} />
                 </List.Item>
               )}
             />

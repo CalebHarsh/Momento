@@ -3,12 +3,32 @@ const db = require('../models');
 
 const UserCommands = {
 
-  logIn: (email, password) => db.User.findOne({ email }).join()
-    .then((inst) => {
-      if (bcrypt.compareSync(password, inst.password)) console.log('Signed In');
-      else throw new Error('Password is Incorrect');
-      return inst;
-    }),
+  findUser: id => {
+    return db.User.findById(id).join()
+  },
+
+  passportLogin: (email, password, done) => {
+   
+    return db.User.findOne({ email: email }).join()
+      .then(user => {
+        if(!user) return done(null, false, { message: 'Email not found' })
+        if (!bcrypt.compareSync(password, user.password)) return done(null, false, { message: 'Incorrect password.' })
+        return done(null, user)
+      })
+      .catch(err => {
+        return done(err)
+    })
+  },
+
+  logIn: (email, password) => {
+    return db.User.findOne({ email: email }).join()
+      .then(inst => {
+        if (inst) throw new Error("Email not there")
+        if (bcrypt.compareSync(password, inst.password)) console.log("Signed In")
+        else throw new Error("Password is Incorrect")
+        return inst
+      })
+  },
 
   signUp: formInfo => db.User.findOne({ email: formInfo.email })
     .then(user => (user ? new Error('Email already in Use') :
@@ -58,7 +78,7 @@ const UserCommands = {
       .then(user => user);
   },
 
-  addNewAlbum: (UserID, albumName, albumCover) => {
+  addNewAlbum: (UserID, albumName, albumCover, albumDesc) => {
     // console.log(UserID, albumName, albumCover)
     return db.User.findById(UserID).join()
       .then(user => {
@@ -67,7 +87,9 @@ const UserCommands = {
           name: albumName,
           photos: [],
           cover: albumCover,
+          description: albumDesc
         });
+      
         // console.log("adding album")
         return user.saveAll();
       });
@@ -92,7 +114,7 @@ const UserCommands = {
 
   getPhotos: (AlbumID) => {
     return db.Album.findById(AlbumID).join()
-      .then(album => { 
+      .then(album => {
         // console.log("commands", album.slice())
         return album
       })

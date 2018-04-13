@@ -12,5 +12,9 @@ export default {
   addComment: data => axios.post('/api/addComment', data),
   getAllAlbums: path => axios.get(`/api/${path}`),
   getAllPhotos: path => axios.get(`/api/${path}`),
-};
+  
+  checkUser: () => axios.get(`/auth`),
+  logout: () => axios.get('/logout')
+  }
+}
 
