@@ -1,12 +1,12 @@
-const ko = require("nekodb")
-const bcrypt = require("bcrypt")
+const ko = require('nekodb');
+const bcrypt = require('bcrypt');
 
 const Password = ko.String.minlength(8)
   .match(/[a-z]/)
   .match(/[A-Z]/)
-  .match(/\d/)
+  .match(/\d/);
 
-const User = ko.Model("User", {
+const User = ko.Model('User', {
   name: ko.String.minlength(2),
   friends: [ko.models.User],
   password: Password,
@@ -15,22 +15,24 @@ const User = ko.Model("User", {
   lastLogin: ko.Date.now(),
   $$indexes: {
     email: {
-      unique: true
-    }
+      unique: true,
+    },
   },
   $$hooks: {
     presave: (user, next) => {
       if (user.isUpdated('password')) {
-        bcrypt.hash(user.password, 8, function (err, hash) {
+        return bcrypt.hash(user.password, 8, (err, hash) => {
           if (err) {
-            return next(err)
+            return next(err);
           }
-          user.password = hash
-          next()
-        })
-      } else next()
-    }
-  }
-})
+          /* eslint no-param-reassign: 0 */
+          user.password = hash;
+          return next();
+        });
+      }
+      return next();
+    },
+  },
+});
 
-module.exports = User
+module.exports = User;

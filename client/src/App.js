@@ -1,12 +1,13 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import "./App.css";
-import {Affix} from 'antd'
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Affix } from 'antd';
+import './App.css';
 import Navbar from './components/Navbar';
 import LandingPage from './pages/LandingPage';
 import SignUp from './pages/SignUp';
 import Albums from './pages/Albums';
 import Photos from './pages/Photos';
+
 class App extends Component {
   state = {
     isLoggedIn: false,

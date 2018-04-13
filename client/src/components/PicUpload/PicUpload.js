@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import { Upload, Icon, Modal } from 'antd';
 
@@ -23,11 +23,11 @@ class PicUpload extends Component {
     });
   }
 
-  handleChange = ({ fileList }) => { this.setState({ fileList }); console.log("it's happening")};
+  handleChange = ({ fileList }) => { this.setState({ fileList }); console.log("it's happening"); };
 
   render() {
     const { previewVisible, previewImage, fileList } = this.state;
-    console.log(fileList, "fileList");
+    console.log(fileList, 'fileList');
     const uploadButton = (
       <div>
         <Icon type="plus" />
@@ -52,4 +52,4 @@ class PicUpload extends Component {
     );
   }
 }
-export default PicUpload
+export default PicUpload;

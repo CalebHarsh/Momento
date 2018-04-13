@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect } from 'react-router-dom';
 import { Avatar, Button, Divider, Dropdown, Menu } from 'antd';
-import Login from '../Login/Login'
 import 'antd/dist/antd.css';
-import './Navbar.css'
-import logo from '../../assets/images/logo.svg'
+import Login from '../Login/Login';
+import './Navbar.css';
+import logo from '../../assets/images/logo.svg';
 import API from '../../utils/API';
 
 
@@ -21,7 +21,7 @@ class Navbar extends Component {
     const name = event.target.name;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   }
 
@@ -37,12 +37,12 @@ class Navbar extends Component {
         this.props.changeApp({
           "isLoggedIn": true,
           "user": res.data,
-          "albums": res.data.albums
+          "albums": res.data.albums,
         })
       })
     } else {
       this.setState({
-        visible: true
+        visible: true,
       })
     }
   }
@@ -53,7 +53,8 @@ class Navbar extends Component {
         <Menu.Item key="profile">Profile</Menu.Item>
         <Menu.Item key="logout">Logout</Menu.Item>
       </Menu>
-    )
+    );
+
     return (
       <div className="Navbar">
         <div className="container">
@@ -102,6 +103,7 @@ class Navbar extends Component {
               <Dropdown overlay={menu} placement="bottomCenter">
                 <Avatar icon="user" />
               </Dropdown>
+
               {
                 (window.location.pathname === "/" || window.location.pathname === "/signup") &&
                 <Redirect to={`/dashboard/${this.props.user._id}`} />
