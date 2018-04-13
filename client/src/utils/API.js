@@ -2,36 +2,19 @@ import axios from 'axios';
 
 export default {
   // Create a new user
-  createNewUser: (data) => {
-    return axios.post('/api/signup', data)
-  },
-  signIn: (data) => {
-    return axios.post('/api/login', data)
-  },
+  createNewUser: data => axios.post('/api/signup', data),
+  signIn: data => axios.put('/api/login', data),
 
-  addAlbum: (data) => {
-    return axios.post("/api/createAlbum", data)
-  },
-  addFriendsAlbum: (data) => {
-    return axios.put("/api/addFriendAlbum", data)
-  },
+  addAlbum: data => axios.post('/api/createAlbum', data),
+  addFriendsAlbum: data => axios.put('/api/addFriendAlbum', data),
 
-  addPhoto: (data) => {
-    return axios.post("/api/addPhoto", data)
-  },
-  addComment: (data) => {
-    return axios.post("/api/addComment", data)
-  },
-  getAllAlbums: (path) => {
-    return axios.get(`/api/${path}`)
-  },
-  getAllPhotos: (path) => {
-    return axios.get(`/api/${path}`)
-  },
-  checkUser: () => {
-    return axios.get(`/auth`)
-  },
-  logout: () => {
-    return axios.get('/logout')
+  addPhoto: data => axios.post('/api/addPhoto', data),
+  addComment: data => axios.post('/api/addComment', data),
+  getAllAlbums: path => axios.get(`/api/${path}`),
+  getAllPhotos: path => axios.get(`/api/${path}`),
+  
+  checkUser: () => axios.get(`/auth`),
+  logout: () => axios.get('/logout')
   }
 }
+
