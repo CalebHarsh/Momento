@@ -9,19 +9,15 @@ import API from '../../utils/API';
 
 
 class Navbar extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSignIn = this.handleSignIn.bind(this);
-    this.state = {
-      visible: false,
-      email: '',
-      password: '',
-      name: '',
-    };
+  state = {
+    visible: false,
+    email: '',
+    password: ''
   }
 
-  handleInputChange = (event) => {
-    const value = event.target.value.trim();
+
+  handleInputChange = event => {
+    let value = event.target.value;
     const name = event.target.name;
 
     this.setState({
@@ -32,25 +28,25 @@ class Navbar extends Component {
   // use 'lift state up': https://reactjs.org/docs/lifting-state-up.html to pass
   // the user info to App.js in the handleSignIn() function.
 
-  handleSignIn = () => {
+  handleSignIn = event => {
     if (this.state.visible) {
       API.signIn({
-        email: this.state.email,
-        password: this.state.password,
-      }).then((res) => {
-        console.log(res.data);
-        this.props.login();
-        this.setState({
-          name: res.data.name,
-          // this might be where we store the user info and pass it up.
-        });
-      });
+        email: this.state.email.trim(),
+        password: this.state.password.trim()
+      }).then(res => {
+        this.props.changeApp({
+          "isLoggedIn": true,
+          "user": res.data,
+          "albums": res.data.albums,
+        })
+      })
     } else {
       this.setState({
         visible: true,
-      });
+      })
     }
   }
+
   render() {
     const menu = (
       <Menu>
@@ -58,19 +54,20 @@ class Navbar extends Component {
         <Menu.Item key="logout">Logout</Menu.Item>
       </Menu>
     );
+
     return (
       <div className="Navbar">
         <div className="container">
           <div className="logo-container">
             {
-              !this.state.loggedIn ?
+              !this.props.loggedIn ?
                 <Link to="/">
                   <div className="logo">
                     <img src={logo} alt="logo" />
                   </div>
                 </Link>
-              :
-                <Link to="/albums">
+                :
+                <Link to={`/dashboard/${this.props.user._id}`}>
                   <div className="logo">
                     <img src={logo} alt="logo" />
                   </div>
@@ -79,42 +76,40 @@ class Navbar extends Component {
 
             <h1 className="logotype">momento</h1>
           </div>
-          { !this.props.loggedIn ?
+          {!this.props.loggedIn ?
             <div className="nav-items">
               {
-              this.state.visible && <Login
-                email={this.state.email}
-                password={this.state.password}
-                onChange={this.handleInputChange}
-              />
-            }
-              <Button
-                size="default"
-                onClick={this.handleSignIn}
-              >
+                this.state.visible &&
+                <Login email={this.state.email}
+                  password={this.state.password}
+                  onChange={this.handleInputChange} />
+              }
+              <Button size="default"
+                onClick={this.handleSignIn}>
                 Sign In
-              </Button>
+            </Button>
               <Divider type="vertical" />
               <Link to="/signup">
-                <Button
-                  size="default"
-                  type="primary"
-                >
+                <Button size="default"
+                  type="primary">
                   Sign Up
-                </Button>
+              </Button>
               </Link>
             </div>
-          :
+            :
             <div className="nav-items">
-              <h3 className="name">{this.state.name}</h3>
+              <h3 className="name">{this.props.user.name}</h3>
               <Divider type="vertical" />
               <Dropdown overlay={menu} placement="bottomCenter">
                 <Avatar icon="user" />
               </Dropdown>
-              {/* /dashboard/:id */}
-              <Redirect to="/dashboard" />
+
+              {
+                (window.location.pathname === "/" || window.location.pathname === "/signup") &&
+                <Redirect to={`/dashboard/${this.props.user._id}`} />
+              }
             </div>
-        }
+          }
         </div>
       </div>
     );

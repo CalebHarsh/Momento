@@ -1,29 +1,29 @@
-import React, { Component } from 'react';
-import { List } from 'antd';
+
+import React, { Component } from "react";
+import {List} from 'antd'
 import 'antd/dist/antd.css';
-import './Albums.css';
+import "./Albums.css";
 import Card from '../../components/Album-Square';
 import AddButton from '../../components/AddButton';
-import API from '../../utils/API';
+// import API from "../../utils/API";
 
-/* eslint react/no-unused-state: 0 */
+
+
 class Albums extends Component {
-  state = {
-    albums: [],
-  }
 
-  componentWillMount() {
-    API.getAllAlbums(window.location.pathname)
-      .then((res) => {
-        console.log(res.data);
-        this.setState({
-          albums: res.data.albums,
-        });
-      });
-  }
+  // componentWillMount() {
+  //   console.log("mounted")
+  //   API.getAllAlbums(window.location.pathname)
+  //   .then(res => {
+  //     // console.log("res data", res)
+  //     this.props.changeApp({
+  //       "albums": res.data.albums
+  //     })
+  //   })
+  // } 
 
-  // Talk to Trevor about this
-
+  // Talk to Trevor about this 
+  
   // handleClick = (e) => {
   //   API.addAlbum({
   //     name: "Test Album 3",
@@ -31,24 +31,21 @@ class Albums extends Component {
   //     user: "5ac8166113572c1d7c3f1dd4"
   //   }).then(res => {
   //     console.log(res)
+        // componentsWillMount()
   //   })
   // }
 
   render() {
     return (
-
       <div className="Albums">
-
         <AddButton />
         <div className="album-container">
-          <List
-            grid={{
- gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,
-}}
-            dataSource={this.state.album}
-            renderItem={item => (
+          <List 
+            grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+            dataSource={this.props.albums}
+            renderItem={item=>(
               <List.Item>
-                <Card title={item.name} src={item.cover} description={item.description} />
+                <Card id={item._id} title={item.name} src={item.cover} description={item.description}/>
               </List.Item>
             )}
           />

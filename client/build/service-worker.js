@@ -1,3 +1,4 @@
+
 'use strict';
 
 let precacheConfig = [['/index.html', 'ac8b02b69fc63b71654a6a42d02b6abc'], ['/static/css/main.7b60833e.css', '374ab8a4051b5d5117abac69aa7e0783'], ['/static/js/main.c1ddfec4.js', '6ca657df19b06cec7a37ca96dc037fd0'], ['/static/media/bg.dadd3141.svg', 'dadd3141dbca122d214d94b34fd71313'], ['/static/media/iphone.4cb8633b.svg', '4cb8633b034da871855545f49e14978a'], ['/static/media/logo.c5cdded5.svg', 'c5cdded553e0dda4ddbeb0b6c335bd3e']],
@@ -25,3 +26,4 @@ let precacheConfig = [['/index.html', 'ac8b02b69fc63b71654a6a42d02b6abc'], ['/st
       r = 'index.html'; (e = urlsToCacheKeys.has(n)) || (n = addDirectoryIndex(n, r), e = urlsToCacheKeys.has(n)); const a = '/index.html'; !e && t.request.mode === 'navigate' && isPathWhitelisted(['^(?!\\/__).*'], t.request.url) && (n = new URL(a, self.location).toString(), e = urlsToCacheKeys.has(n)), e && t.respondWith(caches.open(cacheName).then(e => e.match(urlsToCacheKeys.get(n)).then((e) => { if (e) return e; throw Error('The cached response that was expected is missing.'); })).catch(e => console.warn('Couldn\'t serve response for "%s" from cache: %O', t.request.url, e), fetch(t.request)));
   }
 });
+

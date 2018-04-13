@@ -13,3 +13,4 @@ export default {
   getAllAlbums: path => axios.get(`/api/${path}`),
   getAllPhotos: path => axios.get(`/api/${path}`),
 };
+
