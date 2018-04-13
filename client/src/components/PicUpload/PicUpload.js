@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import 'antd/dist/antd.css';
 import './PicUpload.css'
@@ -56,3 +57,4 @@ class PicUpload extends Component {
   }
 }
 export default PicUpload
+

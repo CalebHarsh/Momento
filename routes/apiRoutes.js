@@ -1,3 +1,4 @@
+
 const Command = require("../controllers/userController.js")
 const router = require("express").Router()
 const passport = require('passport');
@@ -30,7 +31,7 @@ router.post("/api/signup", (req, res) => {
   Command.signUp({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
   })
     .then(user => {
       console.log(user.slice())
@@ -44,7 +45,7 @@ router.post("/api/signup", (req, res) => {
       console.log(err)
        res.send(err)
     })
-})
+});
 
 //login route
 router.post("/api/login", passport.authenticate('local-login'), 
@@ -64,5 +65,4 @@ router.get("/logout", (req, res) => {
   res.redirect('/');
 })
 
-
-module.exports = router
+module.exports = router;
