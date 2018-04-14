@@ -10,21 +10,19 @@ const { Meta } = Card;
 function info(props) {
   Modal.info({
     title: `${props.name}`,
-    iconType: "camera-o",
-    width: "950",
-    className: "photoModal",
+    iconType: 'camera-o',
+    width: '950',
+    className: 'photoModal',
     content: (
-      <div className= "popUp">
+      <div className="popUp">
         <div className="photoContainer">
-          <img id="Picture" alt={props.name} src={props.src}/>
+          <img id="Picture" alt={props.name} src={props.src} />
         </div>
         <div className="infoContainer">
           <div>
             <h2>Comments</h2>
           </div>
-          <div>
-
-          </div>
+          <div />
         </div>
       </div>
     ),
