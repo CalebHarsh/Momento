@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Icon, Avatar, Dropdown, Menu, Button } from 'antd';
+import { Card, Icon, Avatar, Dropdown, Menu } from 'antd';
 import 'antd/dist/antd.css';
 import './Album-Square.css';
 
