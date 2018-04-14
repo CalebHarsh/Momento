@@ -10,7 +10,7 @@
     "build": "node scripts/build.js",
     "lint": "eslint .",
     "install": "cd client; yarn; cd ..; yarn build;",
-    "test": "yarn lint; yarn test:server; CI=true yarn test:client"
+    "test": "yarn lint;"
   },
   "author": "",
   "license": "ISC",
