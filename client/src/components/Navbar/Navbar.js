@@ -123,11 +123,6 @@ class Navbar extends Component {
               <Dropdown overlay={menu} placement="bottomCenter">
                 <Avatar icon="user" />
               </Dropdown>
-
-              {
-                (window.location.pathname === '/' || window.location.pathname === '/signup') &&
-                <Redirect to={`/dashboard/${this.props.user._id}`} />
-              }
             </div>
           }
         </div>

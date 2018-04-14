@@ -100,18 +100,19 @@ const UserCommands = {
         if (user.albums.includes(AlbumID)) throw new Error('You already have this album');
         return db.Album.findById(AlbumID)
           .then(album => {
-            if (album) album.users.$push(UserID);
+            if (album) album.users.$addToSet(UserID);
             album.saveAll();
             return user;
           });
       })
       .then(user => {
-        user.albums.$push(AlbumID);
+        user.albums.$addToSet(AlbumID);
         return user.save();
       });
   },
 
   deleteAlbum: (AlbumID) => {
+    console.log(AlbumID);
   },
 
   getPhotos: (AlbumID) => {
