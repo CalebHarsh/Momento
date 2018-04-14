@@ -40,7 +40,7 @@ class AddButton extends Component {
 
   uploadPicture = (e) => {
     const file = e.target.files;
-
+    console.log(file);
     this.setState({
       img: file,
     });
@@ -57,47 +57,65 @@ class AddButton extends Component {
     const page = window.location.pathname;
 
     if (page.includes('albums')) {
+      console.log('my album');
+      formData.append('author', this.props.user._id);
+      formData.append('album', this.props.album._id);
+      formData.append('name', this.state.name);
+      formData.append('description', this.state.description);
+      formData.append('files', this.state.img[0]);
+      API.addPhoto(formData)
+        .then((res) => {
+          if (res.data._id) this.props.changePhoto(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      console.log('friends album');
+      formData.append('userID', this.props.user._id);
+      formData.append('albumID', this.state.albumID);
+      API.addFriendsAlbum(formData)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (page.includes('dashboard')) {
       if (this.state.tab === '1') {
-        formData.append('author', this.props.user._id);
-        formData.append('album', this.props.album._id);
+        formData.append('user', this.props.user._id);
         formData.append('name', this.state.name);
         formData.append('description', this.state.description);
+        // below is a placeholder of a kitten
         formData.append('files', this.state.img[0]);
-        API.addPhoto(formData)
+        API.addAlbum(formData)
           .then((res) => {
-            if (res.data._id) this.props.changePhoto(res.data);
+            if (res.data._id) {
+              this.props.changeApp({
+                albums: res.data.albums,
+              });
+            }
           })
           .catch((err) => {
             console.log(err);
           });
       } else {
-        formData.append('userID', this.props.user._id);
-        formData.append('albumID', this.state.albumID);
-        API.addFriendsAlbum(formData)
+        console.log('friends album');
+        API.addFriendsAlbum({
+          albumID: this.state.albumID,
+          userID: this.props.user._id,
+        })
           .then((res) => {
-            console.log(res.data);
+            if (res.data._id) {
+              this.props.changeApp({
+                albums: res.data.albums,
+              });
+            }
           })
           .catch((err) => {
             console.log(err);
           });
       }
-    } else {
-      formData.append('user', this.props.user._id);
-      formData.append('name', this.state.name);
-      formData.append('description', this.state.description);
-      // below is a placeholder of a kitten
-      formData.append('cover', 'https://secure.i.telegraph.co.uk/multimedia/archive/03290/kitten_potd_3290498k.jpg');
-      API.addAlbum(formData)
-        .then((res) => {
-          if (res.data._id) {
-            this.props.changeApp({
-              albums: res.data.albums,
-            });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     }
   }
   handleCancel = () => {
@@ -115,9 +133,9 @@ class AddButton extends Component {
     });
   }
   render() {
+    console.log(this.state);
     const { visible, confirmLoading } = this.state;
     const title = (this.state.album ? 'Album Upload' : 'Photo Upload');
-    const hidden = (this.state.album ? 'hidden' : 'show');
     return (
       <div
         style={{ zIndex: 9999 }}
@@ -157,7 +175,7 @@ class AddButton extends Component {
           onCancel={this.handleCancel}
         >
           <Tabs defaultActiveKey="1" onChange={this.handleTabChange}>
-            <TabPane closable={false} tab={this.state.album ? 'Create an Album' : 'Upload Photo'} key="1">
+            <TabPane closable={false} tab={this.state.album ? 'Create an Album' : ''} key="1">
               <Form layout="vertical">
                 <FormItem label="Name It!">
                   <Input
@@ -177,11 +195,9 @@ class AddButton extends Component {
                     name="description"
                   />
                 </FormItem>
-                <div style={{ visibility: hidden }}>
-                  <FormItem>
-                    <input type="file" id="inputFile" onChange={this.uploadPicture} name="files" />
-                  </FormItem>
-                </div>
+                <FormItem label={this.state.album ? 'Upload Cover Photo' : 'Upload New Photo'}>
+                  <input type="file" id="inputFile" onChange={this.uploadPicture} name="files" />
+                </FormItem>
               </Form>
             </TabPane>
             {this.state.album ?

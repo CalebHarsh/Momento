@@ -25,7 +25,7 @@ const upload = multer({
 // adding a new album
 router.post('/api/createAlbum', upload.any(), (req, res) => {
   console.log(req.body);
-  Command.addNewAlbum(req.body.user, req.body.name, req.body.cover, req.body.description)
+  Command.addNewAlbum(req.body.user, req.body.name, req.files[0].location, req.body.description)
     // req.files[0].location)
     .then(user => Command.findUser(user._id))
     .then((user) => {
@@ -64,7 +64,7 @@ router.get('/photos/:id', (req, res) => {
 });
 
 // deleting a photo
-router.delete('/photos/:id', (req, res) => {
+router.delete('api/photos/:id', (req, res) => {
   Command.deletePhoto(req.body.id)
     .then()
     .catch(err => res.send(err));
