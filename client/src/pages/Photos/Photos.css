@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .Photos {
   max-width: 1200px;
   margin: 0 auto;
@@ -6,3 +7,34 @@
 .photoBody {
   margin-top: 10vh;
 }
+
+.popUp {
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
+
+.photoContainer {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+#Picture{
+  display: block;
+  height: 800px;
+  margin: auto;
+}
+
+.infoContainer {
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+=======
+.Photos {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.photoBody {
+  margin-top: 10vh;
+}
+>>>>>>> 522eea3d157203f4607ebba3bed387ec231c7449
