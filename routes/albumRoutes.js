@@ -11,10 +11,17 @@ router.get('/api/dashboard/:id', (req, res) => {
 });
 
 // adding an existing album
-router.put('/api/addFriendAlbum', (req, res) => {
+router.post('/api/addFriendAlbum', (req, res) => {
+  console.log(req.body);
   Command.addExistingAlbum(req.body.userID, req.body.albumID)
-    .then(friends => res.json(friends))
-    .catch(err => res.send(err));
+    .then(user => Command.findUser(user._id))
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
 });
 
 // Dealing with a single album page

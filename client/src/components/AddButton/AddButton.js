@@ -57,47 +57,65 @@ class AddButton extends Component {
     const page = window.location.pathname;
 
     if (page.includes('albums')) {
+      console.log('my album');
+      formData.append('author', this.props.user._id);
+      formData.append('album', this.props.album._id);
+      formData.append('name', this.state.name);
+      formData.append('description', this.state.description);
+      formData.append('files', this.state.img[0]);
+      API.addPhoto(formData)
+        .then((res) => {
+          if (res.data._id) this.props.changePhoto(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      console.log('friends album');
+      formData.append('userID', this.props.user._id);
+      formData.append('albumID', this.state.albumID);
+      API.addFriendsAlbum(formData)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (page.includes('dashboard')) {
       if (this.state.tab === '1') {
-        formData.append('author', this.props.user._id);
-        formData.append('album', this.props.album._id);
+        formData.append('user', this.props.user._id);
         formData.append('name', this.state.name);
         formData.append('description', this.state.description);
+        // below is a placeholder of a kitten
         formData.append('files', this.state.img[0]);
-        API.addPhoto(formData)
+        API.addAlbum(formData)
           .then((res) => {
-            if (res.data._id) this.props.changePhoto(res.data);
+            if (res.data._id) {
+              this.props.changeApp({
+                albums: res.data.albums,
+              });
+            }
           })
           .catch((err) => {
             console.log(err);
           });
       } else {
-        formData.append('userID', this.props.user._id);
-        formData.append('albumID', this.state.albumID);
-        API.addFriendsAlbum(formData)
+        console.log('friends album');
+        API.addFriendsAlbum({
+          albumID: this.state.albumID,
+          userID: this.props.user._id,
+        })
           .then((res) => {
-            console.log(res.data);
+            if (res.data._id) {
+              this.props.changeApp({
+                albums: res.data.albums,
+              });
+            }
           })
           .catch((err) => {
             console.log(err);
           });
       }
-    } else {
-      formData.append('user', this.props.user._id);
-      formData.append('name', this.state.name);
-      formData.append('description', this.state.description);
-      // below is a placeholder of a kitten
-      formData.append('cover', this.state.img[0]);
-      API.addAlbum(formData)
-        .then((res) => {
-          if (res.data._id) {
-            this.props.changeApp({
-              albums: res.data.albums,
-            });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     }
   }
   handleCancel = () => {
