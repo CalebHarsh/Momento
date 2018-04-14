@@ -6,7 +6,7 @@ export default {
   signIn: data => axios.post('/api/login', data),
 
   addAlbum: data => axios.post('/api/createAlbum', data),
-  addFriendsAlbum: data => axios.put('/api/addFriendAlbum', data),
+  addFriendsAlbum: data => axios.post('/api/addFriendAlbum', data),
 
   addPhoto: data => axios.post('/api/addPhoto', data),
   addComment: data => axios.post('/api/addComment', data),
@@ -15,4 +15,8 @@ export default {
 
   checkUser: () => axios.get('/auth'),
   logout: () => axios.get('/logout'),
+
+  deleteAlbum: id => axios.delete(`/api/albums/${id}`),
+  deletePhoto: id => axios.delete(`/api/albums/${id}`),
+  deleteComment: id => axios.delete(`/api/albums/${id}`),
 };

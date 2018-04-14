@@ -21,7 +21,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <Router>
         <div className="App">
@@ -32,7 +31,7 @@ class App extends Component {
               loggedIn={this.state.isLoggedIn}
             />
           </Affix>
-          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/" render={() => <LandingPage isLoggedIn={this.state.isLoggedIn} />} />
           <Route exact path="/signup" render={() => <SignUp changeApp={this.changeAppState} user={this.state.user} />} />
           <Route
             path="/dashboard"
