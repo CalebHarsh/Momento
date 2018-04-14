@@ -1,3 +1,5 @@
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
+/* eslint jsx-a11y/no-static-element-interactions: 0 */
 import React from 'react';
 import { Avatar, Card, Modal } from 'antd';
 import 'antd/dist/antd.css';
@@ -10,7 +12,7 @@ function info(props) {
     title: 'This is a notification message',
     content: (
       <div>
-        <img src={props.src} alt="Cool-Photo-Bro" />
+        <img src={props.src} alt="chicken" />
       </div>
     ),
     onOk() { },
