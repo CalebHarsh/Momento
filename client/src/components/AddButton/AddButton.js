@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import { Modal, Button, Icon, Form, Input } from 'antd';
+import { Modal, Button, Icon, Form, Input, Tabs } from 'antd';
 import API from '../../utils/API';
 
+const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
 
 class AddButton extends Component {
@@ -13,7 +14,8 @@ class AddButton extends Component {
     img: {},
     name: '',
     description: '',
-
+    tab: '1',
+    albumID: '',
   }
 
   componentWillMount() {
@@ -55,18 +57,30 @@ class AddButton extends Component {
     const page = window.location.pathname;
 
     if (page.includes('albums')) {
-      formData.append('author', this.props.user._id);
-      formData.append('album', this.props.album._id);
-      formData.append('name', this.state.name);
-      formData.append('description', this.state.description);
-      formData.append('files', this.state.img[0]);
-      API.addPhoto(formData)
-        .then((res) => {
-          if (res.data._id) this.props.changePhoto(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (this.state.tab === '1') {
+        formData.append('author', this.props.user._id);
+        formData.append('album', this.props.album._id);
+        formData.append('name', this.state.name);
+        formData.append('description', this.state.description);
+        formData.append('files', this.state.img[0]);
+        API.addPhoto(formData)
+          .then((res) => {
+            if (res.data._id) this.props.changePhoto(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        formData.append('userID', this.props.user._id);
+        formData.append('albumID', this.state.albumID);
+        API.addFriendsAlbum(formData)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     } else {
       formData.append('user', this.props.user._id);
       formData.append('name', this.state.name);
@@ -95,6 +109,11 @@ class AddButton extends Component {
     this.setState({ [name]: value });
   }
 
+  handleTabChange = (key) => {
+    this.setState({
+      tab: key,
+    });
+  }
   render() {
     const { visible, confirmLoading } = this.state;
     const title = (this.state.album ? 'Album Upload' : 'Photo Upload');
@@ -105,28 +124,28 @@ class AddButton extends Component {
       >
         <Button
           style={
-          {
-            width: 60,
-            height: 60,
-            borderRadius: 55,
-            position: 'fixed',
-            bottom: 0,
-            right: 0,
-            margin: '2rem',
+            {
+              width: 60,
+              height: 60,
+              borderRadius: 55,
+              position: 'fixed',
+              bottom: 0,
+              right: 0,
+              margin: '2rem',
+            }
           }
-        }
           type="primary"
           onClick={this.showModal}
         >
           <Icon
             style={
-            {
-              color: 'white',
-              fontSize: 32,
-              display: 'flex',
-              justifyContent: 'center',
+              {
+                color: 'white',
+                fontSize: 32,
+                display: 'flex',
+                justifyContent: 'center',
+              }
             }
-          }
             type="plus"
           />
         </Button>
@@ -137,31 +156,49 @@ class AddButton extends Component {
           confirmLoading={confirmLoading}
           onCancel={this.handleCancel}
         >
-          <Form layout="vertical">
-            <FormItem label="Name It!">
-              <Input
-                onChange={this.handleInputChange}
-                value={this.state.name}
-                type="text"
-                placeholder="Foo Bar"
-                name="name"
-              />
-            </FormItem>
-            <FormItem label="Add a description.">
-              <Input
-                onChange={this.handleInputChange}
-                value={this.state.description}
-                type="text"
-                placeholder="Some more Foo Bar"
-                name="description"
-              />
-            </FormItem>
-            <div style={{ visibility: hidden }}>
-              <FormItem>
-                <input type="file" id="inputFile" onChange={this.uploadPicture} name="files" />
-              </FormItem>
-            </div>
-          </Form>
+          <Tabs defaultActiveKey="1" onChange={this.handleTabChange}>
+            <TabPane closable={false} tab={this.state.album ? 'Create an Album' : 'Upload Photo'} key="1">
+              <Form layout="vertical">
+                <FormItem label="Name It!">
+                  <Input
+                    onChange={this.handleInputChange}
+                    value={this.state.name}
+                    type="text"
+                    placeholder="Foo Bar"
+                    name="name"
+                  />
+                </FormItem>
+                <FormItem label="Add a description.">
+                  <Input
+                    onChange={this.handleInputChange}
+                    value={this.state.description}
+                    type="text"
+                    placeholder="Some more Foo Bar"
+                    name="description"
+                  />
+                </FormItem>
+                <div style={{ visibility: hidden }}>
+                  <FormItem>
+                    <input type="file" id="inputFile" onChange={this.uploadPicture} name="files" />
+                  </FormItem>
+                </div>
+              </Form>
+            </TabPane>
+            {this.state.album ?
+              <TabPane tab="Add Friend's Album" key="2">
+                <Form layout="vertical">
+                  <FormItem label="Friend's AlbumID">
+                    <Input
+                      onChange={this.handleInputChange}
+                      value={this.state.albumID}
+                      type="text"
+                      name="albumID"
+                      placeholder="Enter Friend's Album ID"
+                    />
+                  </FormItem>
+                </Form>
+              </TabPane> : null}
+          </Tabs>
         </Modal>
       </div>);
   }
