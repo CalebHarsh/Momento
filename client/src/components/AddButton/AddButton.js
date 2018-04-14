@@ -40,7 +40,7 @@ class AddButton extends Component {
 
   uploadPicture = (e) => {
     const file = e.target.files;
-
+    console.log(file);
     this.setState({
       img: file,
     });
@@ -86,7 +86,7 @@ class AddButton extends Component {
       formData.append('name', this.state.name);
       formData.append('description', this.state.description);
       // below is a placeholder of a kitten
-      formData.append('cover', 'https://secure.i.telegraph.co.uk/multimedia/archive/03290/kitten_potd_3290498k.jpg');
+      formData.append('cover', this.state.img[0]);
       API.addAlbum(formData)
         .then((res) => {
           if (res.data._id) {
@@ -115,9 +115,9 @@ class AddButton extends Component {
     });
   }
   render() {
+    console.log(this.state);
     const { visible, confirmLoading } = this.state;
     const title = (this.state.album ? 'Album Upload' : 'Photo Upload');
-    const hidden = (this.state.album ? 'hidden' : 'show');
     return (
       <div
         style={{ zIndex: 9999 }}
@@ -157,7 +157,7 @@ class AddButton extends Component {
           onCancel={this.handleCancel}
         >
           <Tabs defaultActiveKey="1" onChange={this.handleTabChange}>
-            <TabPane closable={false} tab={this.state.album ? 'Create an Album' : 'Upload Photo'} key="1">
+            <TabPane closable={false} tab={this.state.album ? 'Create an Album' : ''} key="1">
               <Form layout="vertical">
                 <FormItem label="Name It!">
                   <Input
@@ -177,11 +177,9 @@ class AddButton extends Component {
                     name="description"
                   />
                 </FormItem>
-                <div style={{ visibility: hidden }}>
-                  <FormItem>
-                    <input type="file" id="inputFile" onChange={this.uploadPicture} name="files" />
-                  </FormItem>
-                </div>
+                <FormItem label={this.state.album ? 'Upload Cover Photo' : 'Upload New Photo'}>
+                  <input type="file" id="inputFile" onChange={this.uploadPicture} name="files" />
+                </FormItem>
               </Form>
             </TabPane>
             {this.state.album ?

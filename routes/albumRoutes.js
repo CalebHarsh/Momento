@@ -30,7 +30,7 @@ router.get('/api/albums/:id', (req, res) => {
 });
 
 // Deleteing album
-router.delete('/albums/:id', (req, res) => {
+router.delete('api/albums/:id', (req, res) => {
   Command.deleteAlbum(req.params.id);
   console.log(res);
 });

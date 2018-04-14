@@ -15,4 +15,8 @@ export default {
 
   checkUser: () => axios.get('/auth'),
   logout: () => axios.get('/logout'),
+
+  deleteAlbum: id => axios.delete(`/api/albums/${id}`),
+  deletePhoto: id => axios.delete(`/api/albums/${id}`),
+  deleteComment: id => axios.delete(`/api/albums/${id}`),
 };
