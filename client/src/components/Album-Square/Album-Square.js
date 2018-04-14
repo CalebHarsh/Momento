@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Icon, Avatar, Dropdown, Menu } from 'antd';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import 'antd/dist/antd.css';
 import API from '../../utils/API';
 import './Album-Square.css';
@@ -23,7 +24,12 @@ function handleMenuClick(e) {
 const Square = (props) => {
   const menu = (
     <Menu onClick={handleMenuClick} >
-      <Menu.Item value={props.id} key="1">Share</Menu.Item>
+      <CopyToClipboard
+        text={props.id}
+        onCopy={props.onCopy}
+      >
+        <Menu.Item value={props.id} key="1">Share</Menu.Item>
+      </CopyToClipboard>
       <Menu.Item value={props.id} key="2">Delete</Menu.Item>
     </Menu>
   );
@@ -43,7 +49,6 @@ const Square = (props) => {
           />
         </Link>}
       actions={[
-        <Icon type="setting" />,
         <Dropdown
           trigger={['click']}
           overlay={menu}
