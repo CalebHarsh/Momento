@@ -111,6 +111,9 @@ const UserCommands = {
       });
   },
 
+  deleteAlbum: (AlbumID) => {
+  },
+
   getPhotos: (AlbumID) => {
     return db.Album.findById(AlbumID).join()
       .then(album => {
