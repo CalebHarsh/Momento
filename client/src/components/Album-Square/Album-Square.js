@@ -3,22 +3,13 @@ import { Link } from 'react-router-dom';
 import { Card, Icon, Avatar, Dropdown, Menu } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import 'antd/dist/antd.css';
-import API from '../../utils/API';
+// import API from '../../utils/API';
 import './Album-Square.css';
 
 const { Meta } = Card;
 
-function handleShare(id) {
-  console.log('share', id);
-}
-
-function handleDelete(id) {
-  API.deleteAlbum(id);
-}
-
-function handleMenuClick(e) {
-  if (e.key === '1') handleShare(e.item.props.value);
-  else handleDelete(e.item.props.value);
+function handleMenuClick() {
+  console.log('Clicked');
 }
 
 const Square = (props) => {
