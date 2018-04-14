@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Card } from 'antd';
+import { Avatar, Card, Modal } from 'antd';
 import 'antd/dist/antd.css';
 import './PhotoCard.css';
 

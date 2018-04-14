@@ -6,3 +6,25 @@
 .photoBody {
   margin-top: 10vh;
 }
+
+.popUp {
+  display: grid;
+  grid-template-columns: 60% 40%;
+}
+
+.photoContainer {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+#Picture{
+  display: block;
+  height: auto;
+  width: 100%;
+  margin: auto;
+}
+
+.infoContainer {
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
