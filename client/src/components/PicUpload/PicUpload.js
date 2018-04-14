@@ -1,12 +1,11 @@
 
-import React, { Component } from "react";
-import 'antd/dist/antd.css';
-import './PicUpload.css'
+import React, { Component } from 'react';
 import { Upload, Icon, Modal } from 'antd';
+import 'antd/dist/antd.css';
+import './PicUpload.css';
 
 
 class PicUpload extends Component {
-
   state = {
     previewVisible: false,
     previewImage: '',
@@ -25,13 +24,13 @@ class PicUpload extends Component {
   handleChange = ({ fileList }) => {
     this.setState({ fileList });
     console.log("it's happening");
-    var pic = this.state.fileList[0];
+    const pic = this.state.fileList[0];
     this.props.onPicUpload(pic);
   };
 
   render() {
     const { previewVisible, previewImage, fileList } = this.state;
-    
+
     const uploadButton = (
       <div>
         <Icon type="plus" />
@@ -43,7 +42,7 @@ class PicUpload extends Component {
         <Upload
           listType="picture-card"
           fileList={fileList}
-          onPreview={this.handlePreview} 
+          onPreview={this.handlePreview}
           beforeUpload={this.props.confirm}
           onChange={this.handleChange}
         >
@@ -56,5 +55,5 @@ class PicUpload extends Component {
     );
   }
 }
-export default PicUpload
+export default PicUpload;
 

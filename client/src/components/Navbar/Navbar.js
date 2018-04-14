@@ -12,12 +12,12 @@ class Navbar extends Component {
   state = {
     visible: false,
     email: '',
-    password: ''
+    password: '',
   }
 
 
-  handleInputChange = event => {
-    let value = event.target.value;
+  handleInputChange = (event) => {
+    const value = event.target.value;
     const name = event.target.name;
 
     this.setState({
@@ -28,41 +28,42 @@ class Navbar extends Component {
   // use 'lift state up': https://reactjs.org/docs/lifting-state-up.html to pass
   // the user info to App.js in the handleSignIn() function.
 
-  handleSignIn = event => {
+  handleSignIn = () => {
     if (this.state.visible) {
-      console.log(this.state.email.trim())
+      console.log(this.state.email.trim());
       API.signIn({
         email: this.state.email.trim(),
-        password: this.state.password.trim()
-      }).then(res => {
+        password: this.state.password.trim(),
+      }).then((res) => {
         this.props.changeApp({
-          "isLoggedIn": true,
-          "user": res.data,
-          "albums": res.data.albums,
-        })
-      })
+          isLoggedIn: true,
+          user: res.data,
+          albums: res.data.albums,
+        });
+      });
     } else {
       this.setState({
         visible: true,
-      })
+      });
     }
   }
 
-  handleDropDown = e => {
-    if(e.key === 'logout') this.logout()
-    else console.log(e.key)
+  handleDropDown = (e) => {
+    if (e.key === 'logout') this.logout();
+    else console.log(e.key);
   }
 
   logout = () => {
-    console.log("logging out")
-    API.logout().then(res => {
-      window.location.pathname = "/"
-    })
+    console.log('logging out');
+    /* eslint no-unused-vars: 0 */
+    API.logout().then((res) => {
+      window.location.pathname = '/';
+    });
   }
 
   render() {
     const menu = (
-      <Menu onClick={this.handleDropDown}> 
+      <Menu onClick={this.handleDropDown}>
         <Menu.Item key="profile">Profile</Menu.Item>
         <Menu.Item key="logout">Logout</Menu.Item>
       </Menu>
@@ -93,20 +94,26 @@ class Navbar extends Component {
             <div className="nav-items">
               {
                 this.state.visible &&
-                <Login email={this.state.email}
+                <Login
+                  email={this.state.email}
                   password={this.state.password}
-                  onChange={this.handleInputChange} />
+                  onChange={this.handleInputChange}
+                />
               }
-              <Button size="default"
-                onClick={this.handleSignIn}>
+              <Button
+                size="default"
+                onClick={this.handleSignIn}
+              >
                 Sign In
-            </Button>
+              </Button>
               <Divider type="vertical" />
               <Link to="/signup">
-                <Button size="default"
-                  type="primary">
+                <Button
+                  size="default"
+                  type="primary"
+                >
                   Sign Up
-              </Button>
+                </Button>
               </Link>
             </div>
             :
@@ -118,7 +125,7 @@ class Navbar extends Component {
               </Dropdown>
 
               {
-                (window.location.pathname === "/" || window.location.pathname === "/signup") &&
+                (window.location.pathname === '/' || window.location.pathname === '/signup') &&
                 <Redirect to={`/dashboard/${this.props.user._id}`} />
               }
             </div>

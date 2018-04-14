@@ -1,52 +1,52 @@
-// ==== MAKE THIS COMPONENT STATE-FULL ========================================
-
 import React, { Component } from 'react';
-import SignupForm from '../../components/SignupForm'
 import { Col, Icon, Row } from 'antd';
 import 'antd/dist/antd.css';
-import './SignUp.css'
-import API from '../../utils/API'
+import SignupForm from '../../components/SignupForm';
+import './SignUp.css';
+import API from '../../utils/API';
 
 class SignUp extends Component {
   state = {
     name: '',
     email: '',
     password: '',
-    passwordVerify: ''
+    passwordVerify: '',
   }
 
-  handleInputChange = event => {
-    let value = event.target.value
-    const name = event.target.name
+  handleInputChange = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   }
 
   testPassword = () => {
-    if(this.state.password === this.state.passwordVerify && this.state.password.length > 7) return true
-    return false
+    if (
+      this.state.password === this.state.passwordVerify &&
+      this.state.password.length > 7) return true;
+    return false;
   }
 
 
-  handleFormSubmit = event => {
+  handleFormSubmit = (event) => {
     event.preventDefault();
     if (this.state.name && this.state.email && this.testPassword()) {
       API.createNewUser({
         name: this.state.name.trim(),
         email: this.state.email.trim(),
-        password: this.state.password.trim()
+        password: this.state.password.trim(),
       })
-        .then(res => {
-          if(res.data._id) this.props.changeApp({
-            "isLoggedIn": true,
-            "user": res.data,
-            "albums": res.data.albums
-          })
-        })
-    } else {
-      alert('fill the form out, idiot!')
+        .then((res) => {
+          if (res.data._id) {
+            this.props.changeApp({
+              isLoggedIn: true,
+              user: res.data,
+              albums: res.data.albums,
+            });
+          }
+        });
     }
   }
 
@@ -61,7 +61,8 @@ class SignUp extends Component {
                 <h3 className="hookMsg">We are a micro social network based
                   on sharing photos between friends, families, and significant
                   others. Store your photos on our platform so your inner
-              circle stays in the loop.</h3>
+              circle stays in the loop.
+                </h3>
                 <p><Icon type="upload" className="icon" />Upload your images</p>
                 <p><Icon type="folder-add" className="icon" />Create albums</p>
                 <p><Icon type="usergroup-add" className="icon" />Add collaborators to your albums</p>
@@ -81,7 +82,7 @@ class SignUp extends Component {
           </Row>
         </div>
       </div>
-    )
+    );
   }
 }
 

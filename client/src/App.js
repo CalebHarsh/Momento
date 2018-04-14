@@ -9,42 +9,51 @@ import Albums from './pages/Albums';
 import Photos from './pages/Photos';
 
 class App extends Component {
-
   state = {
     isLoggedIn: false,
     user: {},
-    albums: []
+    albums: [],
   }
 
 
   changeAppState = (obj) => {
-    this.setState(obj)
+    this.setState(obj);
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.state);
     return (
       <Router>
         <div className="App">
           <Affix>
-            <Navbar 
+            <Navbar
               user={this.state.user}
-              changeApp={this.changeAppState} 
+              changeApp={this.changeAppState}
               loggedIn={this.state.isLoggedIn}
             />
           </Affix>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/signup" render={() => <SignUp changeApp={this.changeAppState} user={this.state.user} />} />
-          <Route path="/dashboard" render={() => 
-            <Albums changeApp={this.changeAppState} 
-            loginStatus={this.state.isLoggedIn} 
-            albums={this.state.albums} 
-            user={this.state.user} /> } />
-          <Route path="/albums" render={() =>
-               <Photos changeApp={this.changeAppState} 
-               loginStatus={this.state.isLoggedIn}
-               albums={this.state.albums} 
-               user={this.state.user}/> }/>
+          <Route
+            path="/dashboard"
+            render={() =>
+            (<Albums
+              changeApp={this.changeAppState}
+              loginStatus={this.state.isLoggedIn}
+              albums={this.state.albums}
+              user={this.state.user}
+            />)}
+          />
+          <Route
+            path="/albums"
+            render={() =>
+  (<Photos
+    changeApp={this.changeAppState}
+    loginStatus={this.state.isLoggedIn}
+    albums={this.state.albums}
+    user={this.state.user}
+  />)}
+          />
         </div>
       </Router>
     );

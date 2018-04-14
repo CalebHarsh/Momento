@@ -1,49 +1,46 @@
-import React, { Component } from "react";
-import { Col, Row, Menu, List } from 'antd'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Col, Row, Menu, List } from 'antd';
+import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import "./Photos.css";
+import './Photos.css';
 import PhotoCard from '../../components/PhotoCard';
 import AddButton from '../../components/AddButton';
-import API from "../../utils/API"
+import API from '../../utils/API';
 
 class Photos extends Component {
-
   state = {
-    currentAlbum: {}
+    currentAlbum: {},
   }
 
   componentDidMount() {
-    this.getPictures()
+    this.getPictures();
     if (!this.props.loginStatus) {
       API.checkUser()
-        .then(res => {
+        .then((res) => {
           if (res.data._id) {
             this.props.changeApp({
-              "isLoggedIn": true,
-              "user": res.data,
-              "albums": res.data.albums
-            })
-          }
-          else window.location.pathname = "/"
-
-        })
+              isLoggedIn: true,
+              user: res.data,
+              albums: res.data.albums,
+            });
+          } else window.location.pathname = '/';
+        });
     }
   }
 
   getPictures = () => {
     API.getAllPhotos(window.location.pathname)
-      .then(res => {
+      .then((res) => {
         this.setState({
-          currentAlbum: res.data
-        })
-      })
+          currentAlbum: res.data,
+        });
+      });
   }
 
   changePhoto = (album) => {
     this.setState({
-      "currentAlbum": album
-    })
+      currentAlbum: album,
+    });
   }
 
   render() {
@@ -68,7 +65,7 @@ class Photos extends Component {
                   <Menu.Item key={item._id} id={item._id}>
                     <Link to={`/albums/${item._id}`}>
                       {item.name}
-                    </ Link >
+                    </Link>
                   </Menu.Item>
                 ))
               }
@@ -76,7 +73,9 @@ class Photos extends Component {
           </Col>
           <Col md={{ span: 20 }}>
             <List
-              grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+              grid={{
+ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,
+}}
               dataSource={this.state.currentAlbum.photos}
               renderItem={item => (
                 <List.Item>
