@@ -1,0 +1,30 @@
+
+.popUp {
+  display: grid;
+  grid-template-columns: 60% 40%;
+}
+
+.photoContainer {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+#Picture{
+  display: block;
+  height: auto;
+  width: 100%;
+  margin: auto;
+}
+
+.infoContainer {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  margin-left: 10px;
+}
+
+.photoModal {
+  margin-left: 0;
+  max-width: 950px;
+  margin: auto;
+
+}

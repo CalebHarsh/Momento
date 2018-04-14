@@ -7,10 +7,23 @@ const { Meta } = Card;
 
 function info(props) {
   Modal.info({
-    title: 'This is a notification message',
+    title: `${props.name}`,
+    iconType: "camera-o",
+    width: "950",
+    className: "photoModal",
     content: (
-      <div>
-        <img src={props.src} alt="Cool-Photo-Bro" />
+      <div className= "popUp">
+        <div className="photoContainer">
+          <img id="Picture" alt={props.name} src={props.src}/>
+        </div>
+        <div className="infoContainer">
+          <div>
+            <h2>Comments</h2>
+          </div>
+          <div>
+
+          </div>
+        </div>
       </div>
     ),
     onOk() { },
