@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { List } from 'antd';
+import { List, message } from 'antd';
 import 'antd/dist/antd.css';
 import './Albums.css';
 import Card from '../../components/Album-Square';
@@ -24,6 +24,10 @@ class Albums extends Component {
     }
   }
 
+  handleCopy = () => {
+    message.success('Copied to clipboard');
+  }
+
   render() {
     return (
       <div className="Albums">
@@ -44,6 +48,7 @@ class Albums extends Component {
                   title={item.name}
                   src={item.cover}
                   description={item.description}
+                  onCopy={this.handleCopy}
                 />
               </List.Item>
             )}
