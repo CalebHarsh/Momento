@@ -116,14 +116,18 @@ class Navbar extends Component {
                 </Button>
               </Link>
             </div>
-            :
-            <div className="nav-items">
-              <h3 className="name">{this.props.user.name}</h3>
-              <Divider type="vertical" />
-              <Dropdown overlay={menu} placement="bottomCenter">
-                <Avatar icon="user" />
-              </Dropdown>
-            </div>
+            : (
+              <div className="nav-items">
+                <h3 className="name">{this.props.user.name}</h3>
+                <Divider type="vertical" />
+                <Dropdown overlay={menu} placement="bottomCenter">
+                  <Avatar icon="user" />
+                </Dropdown>
+                {window.location.pathname === '/signup' &&
+                <Redirect to={`/dashboard/${this.props.user._id}`} />
+            }
+              </div>
+          )
           }
         </div>
       </div>
