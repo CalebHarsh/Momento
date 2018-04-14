@@ -1,6 +1,7 @@
+
 import React, { Component } from "react";
 import 'antd/dist/antd.css';
-import { Modal, Button, Icon, Form, Input } from 'antd';
+import { Modal, Button, Icon, Form, Input, Upload } from 'antd';
 import PicUpload from "../PicUpload/PicUpload.js";
 import API from "../../utils/API.js"
 const FormItem = Form.Item;
@@ -13,23 +14,26 @@ class AddButton extends Component {
     album: false,
     img: {},
     name: "",
-    description: ""
+    description: "",
+
   }
 
   componentWillMount() {
     var page = window.location.pathname;
     var checkPath = (page.includes("dashboard"));
-    console.log(page, "this page", checkPath);
     this.setState({
       album: checkPath,
       img: {},
       name: "",
-      description: ""
+      description: "",
     });
   }
 
   uploadPhoto = (picture) => {
-    console.log(picture, "this function is passing through");
+
+    this.setState({
+      img: picture
+    })
   }
 
   showModal = () => {
@@ -41,37 +45,44 @@ class AddButton extends Component {
     });
   }
 
+  normFile = (e) => {
+   const file = e.target.files
+
+   this.setState({
+     img: file
+   })
+  }
+
   handleOk = () => {
     this.setState({ confirmLoading: true });
     setTimeout(() => {
       this.setState({ visible: false, confirmLoading: false });
     }, 1000);
 
+    let formData = new FormData()
     var page = window.location.pathname;
-    console.log(page);
+
     if (page.includes("albums")) {
-      var uploadPicture = {
-        image: this.state.img,
-        name: this.state.name,
-        description: this.state.description
-      }
-      API.addPhoto(uploadPicture)
+      formData.append("author", this.props.user._id)
+      formData.append("album", this.props.album._id)
+      formData.append("name", this.state.name)
+      formData.append("description", this.state.description)
+      formData.append("files", this.state.img[0])
+      API.addPhoto(formData)
         .then(res => {
-          if(res.data._id) console.log(res.data)
+          if (res.data._id) this.props.changePhoto(res.data)
         })
         .catch(err => {
           console.log(err)
         });
     } else {
-      var createAlbum = {
-        user: this.props.user._id,
-        name: this.state.name,
-        description: this.state.description,
-        cover: "https://secure.i.telegraph.co.uk/multimedia/archive/03290/kitten_potd_3290498k.jpg"
-      }
-      API.addAlbum(createAlbum)
+      formData.append("user", this.props.user._id)
+      formData.append("name", this.state.name)
+      formData.append("description", this.state.description)
+      formData.append("cover", "https://secure.i.telegraph.co.uk/multimedia/archive/03290/kitten_potd_3290498k.jpg")
+      API.addAlbum(formData)
         .then(res => {
-          if(res.data._id)this.props.changeApp({
+          if (res.data._id) this.props.changeApp({
             "albums": res.data.albums
           })
         })
@@ -81,7 +92,6 @@ class AddButton extends Component {
     };
   }
   handleCancel = () => {
-    console.log('Clicked cancel button');
     this.setState({ visible: false });
   }
 
@@ -113,12 +123,14 @@ class AddButton extends Component {
               type="text" placeholder="Some more Foo Bar"
               name={"description"} />
           </FormItem>
+          <div style={{ visibility: hidden }}>
+            <Form >
+
+              <input type="file" id="inputFile" onChange={this.normFile} name="files" />
+
+            </Form>
+          </div>
         </Form>
-        <div style={{ visibility: hidden }}>
-          <PicUpload
-            onPicUpload={this.uploadPhoto}
-          />
-        </div>
       </Modal>
     </div>);
   }

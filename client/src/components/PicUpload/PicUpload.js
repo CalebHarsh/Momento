@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import 'antd/dist/antd.css';
 import './PicUpload.css'
@@ -13,8 +14,6 @@ class PicUpload extends Component {
 
   handleCancel = () => this.setState({ previewVisible: false })
 
-
-
   handlePreview = (file) => {
     this.setState({
       previewImage: file.url || file.thumbUrl,
@@ -25,7 +24,7 @@ class PicUpload extends Component {
   handleChange = ({ fileList }) => {
     this.setState({ fileList });
     console.log("it's happening");
-    var pic = this.state.fileList[0].originFileObj;
+    var pic = this.state.fileList[0];
     this.props.onPicUpload(pic);
   };
 
@@ -43,7 +42,8 @@ class PicUpload extends Component {
         <Upload
           listType="picture-card"
           fileList={fileList}
-          onPreview={this.handlePreview}
+          onPreview={this.handlePreview} 
+          beforeUpload={this.props.confirm}
           onChange={this.handleChange}
         >
           {fileList.length >= 1 ? null : uploadButton}
@@ -56,3 +56,4 @@ class PicUpload extends Component {
   }
 }
 export default PicUpload
+
