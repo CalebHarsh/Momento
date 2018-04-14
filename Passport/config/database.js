@@ -1,4 +1,4 @@
 module.exports = {
-    //client: 'mongodb',
-    url: 'mongodb://localhost/passport-testing'
-}
+  // client: 'mongodb',
+  url: 'mongodb://localhost/passport-testing',
+};

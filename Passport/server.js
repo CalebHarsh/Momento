@@ -1,30 +1,31 @@
-//Dependencies
+// Dependencies
 
 const express = require('express');
+
 const app = express();
 const ko = require('nekodb');
-var passport = require('passport');
-var flash    = require('connect-flash');
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var session      = require('express-session');
+const passport = require('passport');
+const flash = require('connect-flash');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
 
-//Fetch the MongoDB
-var configDB = require('./config/database.js');
+// Fetch the MongoDB
+const configDB = require('./config/database.js');
 
 // Connect to our database
 ko.connect({
   client: 'mongodb',
-  url: process.env.MONGODB_URI || configDB
-})
+  url: process.env.MONGODB_URI || configDB,
+});
 
 // Pass passport for configuration
 require('./config/passport')(passport);
 
- // Read cookies (needed for auth)
+// Read cookies (needed for auth)
 app.use(cookieParser());
 
- // Get info from page forms
+// Get info from page forms
 app.use(bodyParser());
 
 // Required for passport

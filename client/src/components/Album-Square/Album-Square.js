@@ -7,7 +7,7 @@ import './Album-Square.css';
 const { Meta } = Card;
 const Square = props => (
 
-  <Link to="/photos">
+  <Link to={`/albums/${props.id}`}>
     <Card
       hoverable
       cover={<div style={{

@@ -6,14 +6,14 @@ import 'antd/dist/antd.css';
 import 'animate.css/animate.min.css';
 import './LandingPage.css';
 import iphone from '../../assets/images/iphone.svg';
-import API from '../../utils/API'
+import API from '../../utils/API';
 
-function checkForCookieUser () {
-  API.checkUser().then(res => {
-    if(res.data._id) window.location.pathname = `/dashboard/${res.data._id}`
-  })
+function checkForCookieUser() {
+  API.checkUser().then((res) => {
+    if (res.data._id) window.location.pathname = `/dashboard/${res.data._id}`;
+  });
 }
-const LandingPage = props => (
+const LandingPage = () => (
   <div className="landing-page">
     {checkForCookieUser()}
     <div className="firstHalf">

@@ -1,5 +1,3 @@
-// ==== MAKE THIS COMPONENT STATE-LESS ========================================
-
 import React from 'react';
 import { Button, Form, Input } from 'antd';
 import 'antd/dist/antd.css';
@@ -70,10 +68,10 @@ const SignupForm = props => (
           onClick={props.handleFormSubmit}
         >
           Submit
-              </Button>
+        </Button>
       </FormItem>
     </Form>
   </div>
-)
+);
 
 export default SignupForm;

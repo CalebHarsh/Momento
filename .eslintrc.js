@@ -6,6 +6,7 @@ module.exports = {
       "prefer-destructuring": ["error", {"object": false, "array": false}],
       "jsx-a11y/anchor-is-valid": 0,
       "react/prop-types": 0,
+      "no-underscore-dangle": 0,
     },
     "globals": {
       "document": true,
