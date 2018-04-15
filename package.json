@@ -9,7 +9,8 @@
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "node scripts/build.js",
     "lint": "eslint .",
-    "test": "yarn lint; yarn test:server; CI=true yarn test:client"
+    "install": "cd client; yarn; cd ..; yarn build;",
+    "test": "yarn lint;"
   },
   "author": "",
   "license": "ISC",
