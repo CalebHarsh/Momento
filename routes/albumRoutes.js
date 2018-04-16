@@ -38,8 +38,11 @@ router.get('/api/albums/:id', (req, res) => {
 
 // Deleteing album
 router.delete('api/albums/:id', (req, res) => {
-  Command.deleteAlbum(req.params.id);
-  console.log(res);
+  Command.removeAlbum(req.params.id)
+    .then(user => Command.findUser(user._id))
+    .then((user) => {
+      res.send(user);
+    });
 });
 
 module.exports = router;

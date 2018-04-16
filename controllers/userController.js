@@ -116,14 +116,14 @@ const UserCommands = {
       .then(user => {
         user.albums.$pull(AlbumID);
         return db.Album.findByID(AlbumID)
-          .then(album => {
+          .then((album) => {
             album.users.$pull(UserID);
             if (!album.users.length) {
-              return this.deleteAlbum(album);
+              this.deleteAlbum(album);
             } else {
               album.save();
-              return user.save();
             }
+            return user.save();
           });
       });
   },
@@ -131,14 +131,13 @@ const UserCommands = {
   deleteAlbum: (AlbumInst) => {
     if (AlbumInst.photos.length) {
       const photos = AlbumInst.photos.map(photo => {
-        return this.deletePhoto(photo);
+        return this.deletePhoto(AlbumInst._id, photo);
       });
-      return Promise.all(photos).then(values => {
-        return AlbumInst.delete();
+      Promise.all(photos).then(values => {
+        console.log(values);
       });
-    } else {
-      return AlbumInst.delete();
     }
+    AlbumInst.delete();
   },
 
   getPhotos: (AlbumID) => {
@@ -162,20 +161,24 @@ const UserCommands = {
       });
   },
 
-  deletePhoto: (PhotoID) => {
-    return db.Photo.findByID(PhotoID)
-      .then(photo => {
-        if (photo.comments.length) {
-          const deletedComments = photo.comments.map(comment => {
-            return this.deleteComment(comment);
+  deletePhoto: (AlbumID, PhotoID) => {
+    return db.Album.findById(AlbumID)
+      .then(album => {
+        album.photos.$pull(PhotoID);
+        return db.Photo.findByID(PhotoID)
+          .then(photo => {
+            if (photo.comments.length) {
+              const deletedComments = photo.comments.map(comment => {
+                return this.deleteComment(comment);
+              });
+              Promise.all(deletedComments)
+                .then(values => {
+                  console.log(values);
+                });
+            }
+            photo.delete();
+            return album.save();
           });
-          return Promise.all(deletedComments)
-            .then(values => {
-              return photo.delete();
-            });
-        } else {
-          return photo.delete();
-        }
       });
   },
 
