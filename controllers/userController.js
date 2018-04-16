@@ -111,8 +111,34 @@ const UserCommands = {
       });
   },
 
-  deleteAlbum: (AlbumID) => {
-    console.log(AlbumID);
+  removeAlbum: (UserID, AlbumID) => {
+    return db.User.findById(UserID)
+      .then(user => {
+        user.albums.$pull(AlbumID);
+        return db.Album.findByID(AlbumID)
+          .then(album => {
+            album.users.$pull(UserID);
+            if (!album.users.length) {
+              return this.deleteAlbum(album);
+            } else {
+              album.save();
+              return user.save();
+            }
+          });
+      });
+  },
+
+  deleteAlbum: (AlbumInst) => {
+    if (AlbumInst.photos.length) {
+      const photos = AlbumInst.photos.map(photo => {
+        return this.deletePhoto(photo);
+      });
+      return Promise.all(photos).then(values => {
+        return AlbumInst.delete();
+      });
+    } else {
+      return AlbumInst.delete();
+    }
   },
 
   getPhotos: (AlbumID) => {
@@ -136,6 +162,23 @@ const UserCommands = {
       });
   },
 
+  deletePhoto: (PhotoID) => {
+    return db.Photo.findByID(PhotoID)
+      .then(photo => {
+        if (photo.comments.length) {
+          const deletedComments = photo.comments.map(comment => {
+            return this.deleteComment(comment);
+          });
+          return Promise.all(deletedComments)
+            .then(values => {
+              return photo.delete();
+            });
+        } else {
+          return photo.delete();
+        }
+      });
+  },
+
   getComments: (PhotoID) => {
     return db.Photo.findById(PhotoID).join()
       .then(photo => photo);
@@ -152,6 +195,9 @@ const UserCommands = {
       });
   },
 
+  deleteComment: (CommentID) => {
+    return db.Comment.deleteById(CommentID);
+  },
 };
 
 module.exports = UserCommands;
