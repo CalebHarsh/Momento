@@ -7,7 +7,10 @@ router.get('/api/dashboard/:id', (req, res) => {
     .then((user) => {
       res.json(user);
     })
-    .catch(err => res.send(err));
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
 });
 
 // adding an existing album
@@ -38,10 +41,15 @@ router.get('/api/albums/:id', (req, res) => {
 
 // Deleteing album
 router.delete('api/albums/:id', (req, res) => {
+  // needs to have album and user ID
   Command.removeAlbum(req.params.id)
     .then(user => Command.findUser(user._id))
     .then((user) => {
       res.send(user);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
     });
 });
 

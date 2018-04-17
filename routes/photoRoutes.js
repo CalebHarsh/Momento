@@ -49,6 +49,14 @@ router.post('/api/addPhoto', upload.any(), (req, res) => {
     .catch((err) => {
       console.log(err);
       res.send(err);
+    });
+});
+
+// Dealing with a single photo page
+router.get('/api/photos/:id', (req, res) => {
+  Command.getComments(req.params.id)
+    .then((photo) => {
+      res.send(photo);
     })
     .catch((err) => {
       console.log(err);
@@ -56,18 +64,18 @@ router.post('/api/addPhoto', upload.any(), (req, res) => {
     });
 });
 
-// Dealing with a single photo page
-router.get('/photos/:id', (req, res) => {
-  Command.getComments(req.params.id)
-    .then(photo => res.send(photo))
-    .catch(err => res.send(err));
-});
-
 // deleting a photo
 router.delete('api/photos/:id', (req, res) => {
+  // needs Photo and album id
   Command.deletePhoto(req.body.id)
-    .then()
-    .catch(err => res.send(err));
+    .then(album => Command.getPhotos(album._id))
+    .then((album) => {
+      res.send(album);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
 });
 
 // Adding a comment
@@ -76,6 +84,23 @@ router.post('/api/addComment', (req, res) => {
   Command.addNewComment(req.body.userID, req.body.photoID, req.body.text)
     .then((photo) => {
       res.send(photo);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
+});
+
+router.delete('/api/comment/:id', (req, res) => {
+  // needs comment and photo id
+  Command.deleteComment()
+    .then(photo => Command.getComments(photo._id))
+    .then((photo) => {
+      res.send(photo);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
     });
 });
 

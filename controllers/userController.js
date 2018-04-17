@@ -169,7 +169,7 @@ const UserCommands = {
           .then(photo => {
             if (photo.comments.length) {
               const deletedComments = photo.comments.map(comment => {
-                return this.deleteComment(comment);
+                return this.deleteComment(photo._id, comment);
               });
               Promise.all(deletedComments)
                 .then(values => {
@@ -198,8 +198,13 @@ const UserCommands = {
       });
   },
 
-  deleteComment: (CommentID) => {
-    return db.Comment.deleteById(CommentID);
+  deleteComment: (PhotoID, CommentID) => {
+    return db.Photo.findById(PhotoID)
+      .then((photo) => {
+        photo.comments.$pull(CommentID);
+        db.Comment.deleteById(CommentID);
+        return photo.save();
+      });
   },
 };
 
