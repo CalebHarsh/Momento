@@ -37,7 +37,12 @@ class Albums extends Component {
             user: res.data,
             albums: res.data.albums,
           });
+          message.warning('Album removed');
         }
+      })
+      .catch((err) => {
+        console.log(err);
+        message.error('Error Please Try Again');
       });
 
   render() {
