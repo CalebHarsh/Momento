@@ -13,9 +13,9 @@ function checkForCookieUser() {
     if (res.data._id) window.location.pathname = `/dashboard/${res.data._id}`;
   });
 }
-const LandingPage = () => (
+const LandingPage = props => (
   <div className="landing-page">
-    {checkForCookieUser()}
+    {props.isLoggedIn ? null : checkForCookieUser()}
     <div className="firstHalf">
       <Row gutter={16}>
         <Col md={{ span: 12 }} xs={{ span: 12 }}>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Row, Menu, List } from 'antd';
+import { Col, Row, Menu, List, message } from 'antd';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './Photos.css';
@@ -36,6 +36,10 @@ class Photos extends Component {
         this.setState({
           currentAlbum: res.data,
         });
+      })
+      .catch((err) => {
+        console.log(err);
+        message.error('Error Getting Photos');
       });
   }
 

@@ -43,6 +43,7 @@ const SignupForm = props => (
         <Input
           type="password"
           name="password"
+          placeholder="Enter Password"
           value={props.password}
           onChange={props.handleInputChange}
         />
@@ -55,6 +56,7 @@ const SignupForm = props => (
         <Input
           type="password"
           name="passwordVerify"
+          placeholder="Re-Enter Password"
           value={props.passwordVerify}
           onChange={props.handleInputChange}
         />
@@ -73,5 +75,6 @@ const SignupForm = props => (
     </Form>
   </div>
 );
+
 
 export default SignupForm;

@@ -51,7 +51,6 @@ const UserCommands = {
   },
 
   addFriend: (UserID, friendEmail) => {
-    // console.log("Friend Adding")
     return db.User.findById(UserID)
       /* eslint arrow-parens: 0 */
       .then(user => {
@@ -80,7 +79,6 @@ const UserCommands = {
   },
 
   addNewAlbum: (UserID, albumName, albumCover, albumDesc) => {
-    // console.log(UserID, albumName, albumCover)
     return db.User.findById(UserID).join()
       .then(user => {
         user.albums.$push({
@@ -90,8 +88,6 @@ const UserCommands = {
           cover: albumCover,
           description: albumDesc,
         });
-
-        // console.log("adding album")
         return user.saveAll();
       });
   },
@@ -99,7 +95,6 @@ const UserCommands = {
   addExistingAlbum: (UserID, AlbumID) => {
     return db.User.findById(UserID).join()
       .then(user => {
-        if (user.albums.includes(AlbumID)) throw new Error('You already have this album');
         return db.Album.findById(AlbumID)
           .then(album => {
             if (album) album.users.$addToSet(UserID);
@@ -133,14 +128,12 @@ const UserCommands = {
   deleteAlbum(AlbumInst) {
     if (AlbumInst.photos.length) {
       return Promise.all(AlbumInst.photos.map(photo => {
-        console.log(photo);
         return this.deletePhoto(AlbumInst._id, photo);
+        /* eslint no-unused-vars: 0 */
       })).then((values) => {
-        console.log(values);
         return AlbumInst.delete();
       });
     } else if (!AlbumInst.photos.length) {
-      console.log('deleting');
       return AlbumInst.delete();
     }
     return null;
@@ -149,7 +142,6 @@ const UserCommands = {
   getPhotos: (AlbumID) => {
     return db.Album.findById(AlbumID).join()
       .then(album => {
-        // console.log("commands", album.slice())
         return album;
       });
   },
@@ -178,7 +170,6 @@ const UserCommands = {
                 return this.deleteComment(photo._id, comment);
               }))
                 .then(values => {
-                  console.log(values);
                   photo.delete();
                 });
             } else {

@@ -32,7 +32,6 @@ class AddButton extends Component {
   showModal = () => {
     this.setState({
       visible: true,
-      img: {},
       name: '',
       description: '',
       tab: '1',
@@ -69,7 +68,7 @@ class AddButton extends Component {
         })
         .catch((err) => {
           console.log(err);
-          message.error('Error Please Try Again');
+          message.error('Error Please Make Sure You Filled Everthing Out');
           this.setState({ visible: false, confirmLoading: false });
         });
     } else if (page.includes('dashboard')) {
@@ -91,7 +90,7 @@ class AddButton extends Component {
           })
           .catch((err) => {
             console.log(err);
-            message.error('Error Please Try Again');
+            message.error('Error Please Make Sure You Filled Everthing Out');
             this.setState({ visible: false, confirmLoading: false });
           });
       } else {
@@ -110,7 +109,7 @@ class AddButton extends Component {
           })
           .catch((err) => {
             console.log(err);
-            message.error('Error Please Try Again');
+            message.error('Error Please Make Sure You Filled Everthing Out');
             this.setState({ visible: false, confirmLoading: false });
           });
       }
@@ -194,7 +193,7 @@ class AddButton extends Component {
                   />
                 </FormItem> }
                 <FormItem label={this.state.album ? 'Upload Cover Photo' : 'Upload New Photo'}>
-                  <input type="file" id="inputFile" onChange={this.uploadPicture} name="files" />
+                  <input type="file" id="inputFile" onChange={this.uploadPicture} name="files" accept=".jpg, .jpeg, .png" />
                 </FormItem>
               </Form>
             </TabPane>
