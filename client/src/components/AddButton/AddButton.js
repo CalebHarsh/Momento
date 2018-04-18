@@ -35,12 +35,13 @@ class AddButton extends Component {
       img: {},
       name: '',
       description: '',
+      tab: '1',
+      albumID: '',
     });
   }
 
   uploadPicture = (e) => {
     const file = e.target.files;
-    console.log(file);
     this.setState({
       img: file,
     });
@@ -57,7 +58,6 @@ class AddButton extends Component {
     const page = window.location.pathname;
 
     if (page.includes('albums')) {
-      console.log('my album');
       formData.append('author', this.props.user._id);
       formData.append('album', this.props.album._id);
       formData.append('name', this.state.name);
@@ -66,17 +66,6 @@ class AddButton extends Component {
       API.addPhoto(formData)
         .then((res) => {
           if (res.data._id) this.props.changePhoto(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      console.log('friends album');
-      formData.append('userID', this.props.user._id);
-      formData.append('albumID', this.state.albumID);
-      API.addFriendsAlbum(formData)
-        .then((res) => {
-          console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -100,7 +89,6 @@ class AddButton extends Component {
             console.log(err);
           });
       } else {
-        console.log('friends album');
         API.addFriendsAlbum({
           albumID: this.state.albumID,
           userID: this.props.user._id,
@@ -133,7 +121,6 @@ class AddButton extends Component {
     });
   }
   render() {
-    console.log(this.state);
     const { visible, confirmLoading } = this.state;
     const title = (this.state.album ? 'Album Upload' : 'Photo Upload');
     return (
@@ -186,6 +173,7 @@ class AddButton extends Component {
                     name="name"
                   />
                 </FormItem>
+                { this.state.album &&
                 <FormItem label="Add a description.">
                   <Input
                     onChange={this.handleInputChange}
@@ -194,7 +182,7 @@ class AddButton extends Component {
                     placeholder="Some more Foo Bar"
                     name="description"
                   />
-                </FormItem>
+                </FormItem> }
                 <FormItem label={this.state.album ? 'Upload Cover Photo' : 'Upload New Photo'}>
                   <input type="file" id="inputFile" onChange={this.uploadPicture} name="files" />
                 </FormItem>

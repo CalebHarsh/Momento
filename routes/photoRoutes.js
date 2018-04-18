@@ -24,12 +24,9 @@ const upload = multer({
 
 // adding a new album
 router.post('/api/createAlbum', upload.any(), (req, res) => {
-  console.log(req.body);
   Command.addNewAlbum(req.body.user, req.body.name, req.files[0].location, req.body.description)
-    // req.files[0].location)
     .then(user => Command.findUser(user._id))
     .then((user) => {
-      console.log(user.slice());
       res.send(user);
     })
     .catch((err) => {
@@ -49,6 +46,14 @@ router.post('/api/addPhoto', upload.any(), (req, res) => {
     .catch((err) => {
       console.log(err);
       res.send(err);
+    });
+});
+
+// Dealing with a single photo page
+router.get('/api/photos/:id', (req, res) => {
+  Command.getComments(req.params.id)
+    .then((photo) => {
+      res.send(photo);
     })
     .catch((err) => {
       console.log(err);
@@ -56,18 +61,18 @@ router.post('/api/addPhoto', upload.any(), (req, res) => {
     });
 });
 
-// Dealing with a single photo page
-router.get('/photos/:id', (req, res) => {
-  Command.getComments(req.params.id)
-    .then(photo => res.send(photo))
-    .catch(err => res.send(err));
-});
-
 // deleting a photo
-router.delete('api/photos/:id', (req, res) => {
-  Command.deletePhoto(req.body.id)
-    .then()
-    .catch(err => res.send(err));
+router.delete('api/photos/:AlbumId/:PhotoId', (req, res) => {
+  // needs Photo and album id
+  Command.deletePhoto(req.params.AlbumId, req.params.PhotoId)
+    .then(album => Command.getPhotos(album._id))
+    .then((album) => {
+      res.send(album);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
 });
 
 // Adding a comment
@@ -76,6 +81,23 @@ router.post('/api/addComment', (req, res) => {
   Command.addNewComment(req.body.userID, req.body.photoID, req.body.text)
     .then((photo) => {
       res.send(photo);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
+});
+
+router.delete('/api/comment/:PhotoId/:CommentId', (req, res) => {
+  // needs comment and photo id
+  Command.deleteComment(req.params.PhotoId, req.params.CommentId)
+    .then(photo => Command.getComments(photo._id))
+    .then((photo) => {
+      res.send(photo);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
     });
 });
 
