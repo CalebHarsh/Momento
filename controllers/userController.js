@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const db = require('../models');
 
+const ObjectID = require('nekodb').client.ObjectID;
+
 const UserCommands = {
 
   findUser: id => {
@@ -111,13 +113,13 @@ const UserCommands = {
       });
   },
 
-  removeAlbum: (UserID, AlbumID) => {
+  removeAlbum(UserID, AlbumID) {
     return db.User.findById(UserID)
       .then(user => {
-        user.albums.$pull(AlbumID);
-        return db.Album.findByID(AlbumID)
+        user.albums.$pull(ObjectID(AlbumID));
+        return db.Album.findById(AlbumID)
           .then((album) => {
-            album.users.$pull(UserID);
+            album.users.$pull(ObjectID(UserID));
             if (!album.users.length) {
               this.deleteAlbum(album);
             } else {
@@ -128,16 +130,20 @@ const UserCommands = {
       });
   },
 
-  deleteAlbum: (AlbumInst) => {
+  deleteAlbum(AlbumInst) {
     if (AlbumInst.photos.length) {
-      const photos = AlbumInst.photos.map(photo => {
+      return Promise.all(AlbumInst.photos.map(photo => {
+        console.log(photo);
         return this.deletePhoto(AlbumInst._id, photo);
-      });
-      Promise.all(photos).then(values => {
+      })).then((values) => {
         console.log(values);
+        return AlbumInst.delete();
       });
+    } else if (!AlbumInst.photos.length) {
+      console.log('deleting');
+      return AlbumInst.delete();
     }
-    AlbumInst.delete();
+    return null;
   },
 
   getPhotos: (AlbumID) => {
@@ -161,22 +167,23 @@ const UserCommands = {
       });
   },
 
-  deletePhoto: (AlbumID, PhotoID) => {
+  deletePhoto(AlbumID, PhotoID) {
     return db.Album.findById(AlbumID)
       .then(album => {
-        album.photos.$pull(PhotoID);
-        return db.Photo.findByID(PhotoID)
+        album.photos.$pull(ObjectID(PhotoID));
+        return db.Photo.findById(PhotoID)
           .then(photo => {
             if (photo.comments.length) {
-              const deletedComments = photo.comments.map(comment => {
+              Promise.all(photo.comments.map(comment => {
                 return this.deleteComment(photo._id, comment);
-              });
-              Promise.all(deletedComments)
+              }))
                 .then(values => {
                   console.log(values);
+                  photo.delete();
                 });
+            } else {
+              photo.delete();
             }
-            photo.delete();
             return album.save();
           });
       });
@@ -198,10 +205,10 @@ const UserCommands = {
       });
   },
 
-  deleteComment: (PhotoID, CommentID) => {
+  deleteComment(PhotoID, CommentID) {
     return db.Photo.findById(PhotoID)
       .then((photo) => {
-        photo.comments.$pull(CommentID);
+        photo.comments.$pull(ObjectID(CommentID));
         db.Comment.deleteById(CommentID);
         return photo.save();
       });

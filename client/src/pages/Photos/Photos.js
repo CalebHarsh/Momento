@@ -10,7 +10,7 @@ import API from '../../utils/API';
 
 class Photos extends Component {
   state = {
-    currentAlbum: {}
+    currentAlbum: {},
   }
 
   componentDidMount() {
@@ -81,7 +81,7 @@ class Photos extends Component {
               dataSource={this.state.currentAlbum.photos}
               renderItem={item => (
                 <List.Item>
-                  <PhotoCard  id={item._id} title={item.name} src={item.href} />
+                  <PhotoCard id={item._id} title={item.name} src={item.href} />
                 </List.Item>
               )}
             />

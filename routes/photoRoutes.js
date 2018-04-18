@@ -24,12 +24,9 @@ const upload = multer({
 
 // adding a new album
 router.post('/api/createAlbum', upload.any(), (req, res) => {
-  console.log(req.body);
   Command.addNewAlbum(req.body.user, req.body.name, req.files[0].location, req.body.description)
-    // req.files[0].location)
     .then(user => Command.findUser(user._id))
     .then((user) => {
-      console.log(user.slice());
       res.send(user);
     })
     .catch((err) => {
@@ -65,9 +62,9 @@ router.get('/api/photos/:id', (req, res) => {
 });
 
 // deleting a photo
-router.delete('api/photos/:id', (req, res) => {
+router.delete('api/photos/:AlbumId/:PhotoId', (req, res) => {
   // needs Photo and album id
-  Command.deletePhoto(req.body.id)
+  Command.deletePhoto(req.params.AlbumId, req.params.PhotoId)
     .then(album => Command.getPhotos(album._id))
     .then((album) => {
       res.send(album);
@@ -91,9 +88,9 @@ router.post('/api/addComment', (req, res) => {
     });
 });
 
-router.delete('/api/comment/:id', (req, res) => {
+router.delete('/api/comment/:PhotoId/:CommentId', (req, res) => {
   // needs comment and photo id
-  Command.deleteComment()
+  Command.deleteComment(req.params.PhotoId, req.params.CommentId)
     .then(photo => Command.getComments(photo._id))
     .then((photo) => {
       res.send(photo);
