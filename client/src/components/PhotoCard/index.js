@@ -1,1 +1,1 @@
-export { default } from './PhotoCard.js';
+export { default } from './PhotoCard';

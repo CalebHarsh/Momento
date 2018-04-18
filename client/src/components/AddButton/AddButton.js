@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import { Modal, Button, Icon, Form, Input, Tabs } from 'antd';
+import { Modal, Button, Icon, Form, Input, Tabs, message } from 'antd';
 import API from '../../utils/API';
 
 const TabPane = Tabs.TabPane;
@@ -49,10 +49,6 @@ class AddButton extends Component {
 
   handleOk = () => {
     this.setState({ confirmLoading: true });
-    setTimeout(() => {
-      this.setState({ visible: false, confirmLoading: false });
-    }, 1000);
-
     /* eslint no-undef: 0 */
     const formData = new FormData();
     const page = window.location.pathname;
@@ -65,10 +61,16 @@ class AddButton extends Component {
       formData.append('files', this.state.img[0]);
       API.addPhoto(formData)
         .then((res) => {
-          if (res.data._id) this.props.changePhoto(res.data);
+          if (res.data._id) {
+            this.props.changePhoto(res.data);
+            message.success('Photo Added');
+            this.setState({ visible: false, confirmLoading: false });
+          }
         })
         .catch((err) => {
           console.log(err);
+          message.error('Error Please Try Again');
+          this.setState({ visible: false, confirmLoading: false });
         });
     } else if (page.includes('dashboard')) {
       if (this.state.tab === '1') {
@@ -83,10 +85,14 @@ class AddButton extends Component {
               this.props.changeApp({
                 albums: res.data.albums,
               });
+              message.success('Album Created');
+              this.setState({ visible: false, confirmLoading: false });
             }
           })
           .catch((err) => {
             console.log(err);
+            message.error('Error Please Try Again');
+            this.setState({ visible: false, confirmLoading: false });
           });
       } else {
         API.addFriendsAlbum({
@@ -98,10 +104,14 @@ class AddButton extends Component {
               this.props.changeApp({
                 albums: res.data.albums,
               });
+              message.success('Friend Album Added');
             }
+            this.setState({ visible: false, confirmLoading: false });
           })
           .catch((err) => {
             console.log(err);
+            message.error('Error Please Try Again');
+            this.setState({ visible: false, confirmLoading: false });
           });
       }
     }
