@@ -12,8 +12,7 @@ const { Meta } = Card;
 
 function info(props) {
   Modal.info({
-    title: `${props.title}`,
-    iconType: 'camera-o',
+    iconType: 'delete',
     width: '950',
     className: 'photoModal',
     content: (
