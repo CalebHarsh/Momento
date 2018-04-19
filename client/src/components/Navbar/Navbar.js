@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Avatar, Button, Divider, Dropdown, Menu } from 'antd';
+import { Avatar, Button, Divider, Dropdown, Menu, message } from 'antd';
 import 'antd/dist/antd.css';
 import Login from '../Login/Login';
 import './Navbar.css';
@@ -30,16 +30,22 @@ class Navbar extends Component {
 
   handleSignIn = () => {
     if (this.state.visible) {
-      console.log(this.state.email.trim());
       API.signIn({
         email: this.state.email.trim(),
         password: this.state.password.trim(),
       }).then((res) => {
-        this.props.changeApp({
-          isLoggedIn: true,
-          user: res.data,
-          albums: res.data.albums,
-        });
+        if (res.data._id) {
+          message.success('Logged In');
+          this.props.changeApp({
+            isLoggedIn: true,
+            user: res.data,
+            albums: res.data.albums,
+          });
+        } else {
+          message.error('Not Logged In');
+        }
+      }).catch((err) => {
+        message.error('Email and Password Not Found');
       });
     } else {
       this.setState({
@@ -50,21 +56,19 @@ class Navbar extends Component {
 
   handleDropDown = (e) => {
     if (e.key === 'logout') this.logout();
-    else console.log(e.key);
   }
 
   logout = () => {
-    console.log('logging out');
     /* eslint no-unused-vars: 0 */
     API.logout().then((res) => {
       window.location.pathname = '/';
     });
+    message.success('Logged Out');
   }
 
   render() {
     const menu = (
       <Menu onClick={this.handleDropDown}>
-        <Menu.Item key="profile">Profile</Menu.Item>
         <Menu.Item key="logout">Logout</Menu.Item>
       </Menu>
     );
@@ -116,14 +120,18 @@ class Navbar extends Component {
                 </Button>
               </Link>
             </div>
-            :
-            <div className="nav-items">
-              <h3 className="name">{this.props.user.name}</h3>
-              <Divider type="vertical" />
-              <Dropdown overlay={menu} placement="bottomCenter">
-                <Avatar icon="user" />
-              </Dropdown>
-            </div>
+            : (
+              <div className="nav-items">
+                <h3 className="name">{this.props.user.name}</h3>
+                <Divider type="vertical" />
+                <Dropdown overlay={menu} placement="bottomCenter">
+                  <Avatar icon="user" />
+                </Dropdown>
+                {(window.location.pathname === '/' || window.location.pathname === '/signup') &&
+                  <Redirect to={`/dashboard/${this.props.user._id}`} />
+                }
+              </div>
+            )
           }
         </div>
       </div>

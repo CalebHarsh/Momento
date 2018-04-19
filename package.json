@@ -9,11 +9,13 @@
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "node scripts/build.js",
     "lint": "eslint .",
-    "test": "yarn lint; yarn test:server; CI=true yarn test:client"
+    "install": "cd client; yarn; cd ..; yarn build;",
+    "test": "yarn lint;"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@storybook/react": "^3.4.1",
     "babel-eslint": "^8.2.2",
     "concurrently": "^3.5.0",
     "eslint": "^4.19.1",

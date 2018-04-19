@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const db = require('../models');
 
+const ObjectID = require('nekodb').client.ObjectID;
+
 const UserCommands = {
 
   findUser: id => {
@@ -49,7 +51,6 @@ const UserCommands = {
   },
 
   addFriend: (UserID, friendEmail) => {
-    // console.log("Friend Adding")
     return db.User.findById(UserID)
       /* eslint arrow-parens: 0 */
       .then(user => {
@@ -78,7 +79,6 @@ const UserCommands = {
   },
 
   addNewAlbum: (UserID, albumName, albumCover, albumDesc) => {
-    // console.log(UserID, albumName, albumCover)
     return db.User.findById(UserID).join()
       .then(user => {
         user.albums.$push({
@@ -88,8 +88,6 @@ const UserCommands = {
           cover: albumCover,
           description: albumDesc,
         });
-
-        // console.log("adding album")
         return user.saveAll();
       });
   },
@@ -97,7 +95,6 @@ const UserCommands = {
   addExistingAlbum: (UserID, AlbumID) => {
     return db.User.findById(UserID).join()
       .then(user => {
-        if (user.albums.includes(AlbumID)) throw new Error('You already have this album');
         return db.Album.findById(AlbumID)
           .then(album => {
             if (album) album.users.$addToSet(UserID);
@@ -111,14 +108,40 @@ const UserCommands = {
       });
   },
 
-  deleteAlbum: (AlbumID) => {
-    console.log(AlbumID);
+  removeAlbum(UserID, AlbumID) {
+    return db.User.findById(UserID)
+      .then(user => {
+        user.albums.$pull(ObjectID(AlbumID));
+        return db.Album.findById(AlbumID)
+          .then((album) => {
+            album.users.$pull(ObjectID(UserID));
+            if (!album.users.length) {
+              this.deleteAlbum(album);
+            } else {
+              album.save();
+            }
+            return user.save();
+          });
+      });
+  },
+
+  deleteAlbum(AlbumInst) {
+    if (AlbumInst.photos.length) {
+      return Promise.all(AlbumInst.photos.map(photo => {
+        return this.deletePhoto(AlbumInst._id, photo);
+        /* eslint no-unused-vars: 0 */
+      })).then((values) => {
+        return AlbumInst.delete();
+      });
+    } else if (!AlbumInst.photos.length) {
+      return AlbumInst.delete();
+    }
+    return null;
   },
 
   getPhotos: (AlbumID) => {
     return db.Album.findById(AlbumID).join()
       .then(album => {
-        // console.log("commands", album.slice())
         return album;
       });
   },
@@ -133,6 +156,27 @@ const UserCommands = {
           href: photoLocation,
         });
         return album.saveAll();
+      });
+  },
+
+  deletePhoto(AlbumID, PhotoID) {
+    return db.Album.findById(AlbumID)
+      .then(album => {
+        album.photos.$pull(ObjectID(PhotoID));
+        return db.Photo.findById(PhotoID)
+          .then(photo => {
+            if (photo.comments.length) {
+              Promise.all(photo.comments.map(comment => {
+                return this.deleteComment(photo._id, comment);
+              }))
+                .then(values => {
+                  photo.delete();
+                });
+            } else {
+              photo.delete();
+            }
+            return album.save();
+          });
       });
   },
 
@@ -152,6 +196,14 @@ const UserCommands = {
       });
   },
 
+  deleteComment(PhotoID, CommentID) {
+    return db.Photo.findById(PhotoID)
+      .then((photo) => {
+        photo.comments.$pull(ObjectID(CommentID));
+        db.Comment.deleteById(CommentID);
+        return photo.save();
+      });
+  },
 };
 
 module.exports = UserCommands;

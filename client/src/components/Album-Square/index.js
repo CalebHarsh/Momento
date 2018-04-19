@@ -1,1 +1,1 @@
-export { default } from './Album-Square.js';
+export { default } from './Album-Square';

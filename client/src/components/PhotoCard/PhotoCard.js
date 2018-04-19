@@ -1,3 +1,5 @@
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
+/* eslint jsx-a11y/no-static-element-interactions: 0 */
 import React from 'react';
 import { Avatar, Card, Modal, Form, Input } from 'antd';
 import 'antd/dist/antd.css';
@@ -9,14 +11,22 @@ const { Meta } = Card;
 
 function info(props) {
   Modal.info({
+<<<<<<< HEAD
 
     iconType: "delete",
     width: "1050",
     className: "photoModal",
     cancelText: 'Delete',
+=======
+    title: `${props.title}`,
+    iconType: 'camera-o',
+    width: '950',
+    className: 'photoModal',
+>>>>>>> 85a513139c4062fbb5c5f85194caf5ed3411fe16
     content: (
-      <div className= "popUp">
+      <div className="popUp">
         <div className="photoContainer">
+<<<<<<< HEAD
           <img id="Picture" alt={props.title} src={props.src}/>
         </div>
         <div className="infoContainer">
@@ -45,6 +55,15 @@ function info(props) {
               ><Input placeholder= 'Add a comment!' /></FormItem>
             </Form>
           </div>
+=======
+          <img id="Picture" alt={props.name} src={props.src} />
+        </div>
+        <div className="infoContainer">
+          <div>
+            <h2>Comments</h2>
+          </div>
+          <div />
+>>>>>>> 85a513139c4062fbb5c5f85194caf5ed3411fe16
         </div>
       </div>
     ),

@@ -1,29 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Icon, Avatar, Dropdown, Menu } from 'antd';
+import { Card, Icon, Avatar, Dropdown, Menu, Modal, Button } from 'antd';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import 'antd/dist/antd.css';
-import API from '../../utils/API';
+// import API from '../../utils/API';
 import './Album-Square.css';
 
 const { Meta } = Card;
-
-function handleShare(id) {
-  console.log('share', id);
-}
-
-function handleDelete(id) {
-  API.deleteAlbum(id);
-}
-
-function handleMenuClick(e) {
-  if (e.key === '1') handleShare(e.item.props.value);
-  else handleDelete(e.item.props.value);
-}
+const confirm = Modal.confirm;
 
 const Square = (props) => {
+  function showDeleteConfirm() {
+    confirm({
+      title: 'Are you sure delete this album?',
+      content: 'If you are the last person to own this Album it will disappear forever.',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        return props.onDelete(props.id);
+      },
+      onCancel() {
+        console.log('OK');
+      },
+    });
+  }
+
+  function handleMenuClick(e) {
+    if (e.key === '2') {
+      showDeleteConfirm();
+    }
+  }
+
+
   const menu = (
     <Menu onClick={handleMenuClick} >
-      <Menu.Item value={props.id} key="1">Share</Menu.Item>
+      <CopyToClipboard
+        text={props.id}
+        onCopy={props.onCopy}
+      >
+        <Menu.Item value={props.id} key="1">Share</Menu.Item>
+      </CopyToClipboard>
       <Menu.Item value={props.id} key="2">Delete</Menu.Item>
     </Menu>
   );
@@ -43,13 +60,12 @@ const Square = (props) => {
           />
         </Link>}
       actions={[
-        <Icon type="setting" />,
         <Dropdown
           trigger={['click']}
           overlay={menu}
           placement="topCenter"
         >
-          <a><Icon type="edit" /></a>
+          <Button><Icon type="edit" /></Button>
         </Dropdown>]}
     >
       <Meta

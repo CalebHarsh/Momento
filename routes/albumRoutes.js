@@ -7,12 +7,14 @@ router.get('/api/dashboard/:id', (req, res) => {
     .then((user) => {
       res.json(user);
     })
-    .catch(err => res.send(err));
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
 });
 
 // adding an existing album
 router.post('/api/addFriendAlbum', (req, res) => {
-  console.log(req.body);
   Command.addExistingAlbum(req.body.userID, req.body.albumID)
     .then(user => Command.findUser(user._id))
     .then((user) => {
@@ -37,9 +39,17 @@ router.get('/api/albums/:id', (req, res) => {
 });
 
 // Deleteing album
-router.delete('api/albums/:id', (req, res) => {
-  Command.deleteAlbum(req.params.id);
-  console.log(res);
+router.delete('/api/albums/:Userid/:Albumid', (req, res) => {
+  // needs to have album and user ID
+  Command.removeAlbum(req.params.Userid, req.params.Albumid)
+    .then(user => Command.findUser(user._id))
+    .then((user) => {
+      res.send(user);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
 });
 
 module.exports = router;
