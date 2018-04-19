@@ -181,8 +181,12 @@ const UserCommands = {
   },
 
   getComments: (PhotoID) => {
-    return db.Photo.findById(PhotoID).join()
-      .then(photo => photo);
+    return db.Photo.findById(PhotoID)
+      .then(photo => {
+        return Promise.all(photo.comments.map(comment => (
+          db.Comment.findById(comment).join()
+        )));
+      });
   },
 
   addNewComment: (UserID, PhotoID, commentText) => {

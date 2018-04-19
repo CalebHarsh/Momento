@@ -12,11 +12,12 @@ export default {
   addComment: data => axios.post('/api/addComment', data),
   getAllAlbums: path => axios.get(`/api/${path}`),
   getAllPhotos: path => axios.get(`/api/${path}`),
+  getAllComments: path => axios.get(`/api/photos/${path}`),
 
   checkUser: () => axios.get('/auth'),
   logout: () => axios.get('/logout'),
 
   deleteAlbum: (userID, albumID) => axios.delete(`/api/albums/${userID}/${albumID}`),
-  deletePhoto: (albumID, photoID) => axios.delete(`/api/photo/${albumID}/${photoID}`),
+  deletePhoto: (albumID, photoID) => axios.delete(`/api/photos/${albumID}/${photoID}`),
   deleteComment: (photoID, commentID) => axios.delete(`/api/comments/${photoID}/${commentID}`),
 };

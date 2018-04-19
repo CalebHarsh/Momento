@@ -79,8 +79,9 @@ router.delete('api/photos/:AlbumId/:PhotoId', (req, res) => {
 router.post('/api/addComment', (req, res) => {
   console.log(req.body);
   Command.addNewComment(req.body.userID, req.body.photoID, req.body.text)
-    .then((photo) => {
-      res.send(photo);
+    .then(photo => Command.getComments(photo._id))
+    .then((comments) => {
+      res.send(comments);
     })
     .catch((err) => {
       console.log(err);
@@ -88,12 +89,12 @@ router.post('/api/addComment', (req, res) => {
     });
 });
 
-router.delete('/api/comment/:PhotoId/:CommentId', (req, res) => {
+router.delete('/api/comments/:PhotoId/:CommentId', (req, res) => {
   // needs comment and photo id
   Command.deleteComment(req.params.PhotoId, req.params.CommentId)
     .then(photo => Command.getComments(photo._id))
-    .then((photo) => {
-      res.send(photo);
+    .then((comments) => {
+      res.send(comments);
     })
     .catch((err) => {
       console.log(err);
