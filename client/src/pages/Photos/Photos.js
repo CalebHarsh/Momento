@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Row, Menu, List, message } from 'antd';
+import { Col, Row, Menu, List, message, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './Photos.css';
@@ -91,10 +91,15 @@ class Photos extends Component {
             </Menu>
           </Col>
           <Col md={{ span: 20 }}>
-            <List
-              grid={{
-                gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,
+            {this.state.loading ? <Icon
+              style={{
+                fontSize: 200, display: 'flex', justifyContent: 'center', color: '#1890ff',
               }}
+              type="loading"
+            /> : <List
+              grid={{
+                  gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,
+                }}
               dataSource={this.state.currentAlbum.photos}
               renderItem={item => (
                 <List.Item>
@@ -106,8 +111,8 @@ class Photos extends Component {
                     user={this.props.user}
                   />
                 </List.Item>
-              )}
-            />
+                )}
+            />}
           </Col>
         </Row>
       </div>
