@@ -27,14 +27,12 @@ function isLoggedIn(req, res, next) {
 
 // signing up route
 router.post('/api/signup', (req, res) => {
-  console.log(req.body);
   Command.signUp({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
   })
     .then((user) => {
-      console.log(user.slice());
       // passport.authenticate('local-login')(req, res, function() {
       //   console.log("working")
       //   return res.send(req.user)
@@ -62,7 +60,6 @@ router.get('/auth', isLoggedIn, (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-  console.log('logging out');
   req.logout();
   res.redirect('/');
 });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Row, Menu, List } from 'antd';
+import { Col, Row, Menu, List, message } from 'antd';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './Photos.css';
@@ -10,7 +10,7 @@ import API from '../../utils/API';
 
 class Photos extends Component {
   state = {
-    currentAlbum: {}
+    currentAlbum: {},
   }
 
   componentDidMount() {
@@ -36,6 +36,10 @@ class Photos extends Component {
         this.setState({
           currentAlbum: res.data,
         });
+      })
+      .catch((err) => {
+        console.log(err);
+        message.error('Error Getting Photos');
       });
   }
 
@@ -81,7 +85,7 @@ class Photos extends Component {
               dataSource={this.state.currentAlbum.photos}
               renderItem={item => (
                 <List.Item>
-                  <PhotoCard  id={item._id} title={item.name} src={item.href} />
+                  <PhotoCard id={item._id} title={item.name} src={item.href} />
                 </List.Item>
               )}
             />

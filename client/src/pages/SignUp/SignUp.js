@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Icon, Row } from 'antd';
+import { Col, Icon, Row, message } from 'antd';
 import 'antd/dist/antd.css';
 import SignupForm from '../../components/SignupForm';
 import './SignUp.css';
@@ -23,30 +23,47 @@ class SignUp extends Component {
   }
 
   testPassword = () => {
-    if (
-      this.state.password === this.state.passwordVerify &&
-      this.state.password.length > 7) return true;
-    return false;
+    if (this.state.password.length <= 7) {
+      message.error('Password Must be at least 8 characters long');
+      return false;
+    } else if (!/[A-Z]/.test(this.state.password)) {
+      message.error('Password must contain at least 1 uppercase Letter');
+      return false;
+    } else if (!/[a-z]/.test(this.state.password)) {
+      message.error('Password must contain at least 1 lowercase Letter');
+      return false;
+    } else if (!/\d/.test(this.state.password)) {
+      message.error('Password must contain at least 1 Number');
+      return false;
+    } else if (this.state.password !== this.state.passwordVerify) {
+      message.error("Passwords Don't Match");
+      return false;
+    }
+    return true;
   }
 
 
   handleFormSubmit = (event) => {
     event.preventDefault();
-    if (this.state.name && this.state.email && this.testPassword()) {
-      API.createNewUser({
-        name: this.state.name.trim(),
-        email: this.state.email.trim(),
-        password: this.state.password.trim(),
-      })
-        .then((res) => {
-          if (res.data._id) {
-            this.props.changeApp({
-              isLoggedIn: true,
-              user: res.data,
-              albums: res.data.albums,
-            });
-          }
-        });
+    if (this.state.name && this.state.email && this.state.password && this.state.passwordVerify) {
+      if (this.testPassword()) {
+        API.createNewUser({
+          name: this.state.name.trim(),
+          email: this.state.email.trim(),
+          password: this.state.password.trim(),
+        })
+          .then((res) => {
+            if (res.data._id) {
+              this.props.changeApp({
+                isLoggedIn: true,
+                user: res.data,
+                albums: res.data.albums,
+              });
+            }
+          });
+      }
+    } else {
+      message.error('Please Fill Out All Items');
     }
   }
 

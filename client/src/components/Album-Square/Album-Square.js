@@ -1,18 +1,38 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Icon, Avatar, Dropdown, Menu } from 'antd';
+import { Card, Icon, Avatar, Dropdown, Menu, Modal, Button } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import 'antd/dist/antd.css';
 // import API from '../../utils/API';
 import './Album-Square.css';
 
 const { Meta } = Card;
-
-function handleMenuClick() {
-  console.log('Clicked');
-}
+const confirm = Modal.confirm;
 
 const Square = (props) => {
+  function showDeleteConfirm() {
+    confirm({
+      title: 'Are you sure delete this album?',
+      content: 'If you are the last person to own this Album it will disappear forever.',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        return props.onDelete(props.id);
+      },
+      onCancel() {
+        console.log('OK');
+      },
+    });
+  }
+
+  function handleMenuClick(e) {
+    if (e.key === '2') {
+      showDeleteConfirm();
+    }
+  }
+
+
   const menu = (
     <Menu onClick={handleMenuClick} >
       <CopyToClipboard
@@ -45,7 +65,7 @@ const Square = (props) => {
           overlay={menu}
           placement="topCenter"
         >
-          <a><Icon type="edit" /></a>
+          <Button><Icon type="edit" /></Button>
         </Dropdown>]}
     >
       <Meta
