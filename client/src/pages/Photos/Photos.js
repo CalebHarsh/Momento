@@ -38,9 +38,8 @@ class Photos extends Component {
           loading: false,
         });
         setTimeout(() => {
-          console.log('Timing');
           this.getPictures();
-        }, 50000);
+        }, 3000);
       })
       .catch((err) => {
         console.log(err);
@@ -53,11 +52,11 @@ class Photos extends Component {
       this.setState({
         currentAlbum: res.data,
       });
-      console.log(res.data);
       message.warning('Photo Deleted');
     })
     .catch((err) => {
       console.log(err);
+      message.error('Error Please try Again');
     })
 
   changePhoto = (album) => {

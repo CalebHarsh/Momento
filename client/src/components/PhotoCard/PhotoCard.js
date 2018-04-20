@@ -21,23 +21,28 @@ class PhotoCard extends React.Component {
 
   getComments = photoID => API.getAllComments(photoID)
     .then((res) => {
-      console.log(res.data);
-      this.setState({
-        comments: res.data,
-        loading: false,
-      });
+      if (!res.data.length) {
+        this.setState({
+          comments: res.data,
+          loading: false,
+        });
+      } else {
+        this.setState({
+          loading: false,
+        });
+      }
       setTimeout(() => {
         if (this.state.visible) {
           this.getComments(this.props.id);
         }
-      }, 50000);
+      }, 3000);
     })
     .catch((err) => {
       console.log(err);
+      message.error('Error Please try Again');
     })
 
   deleteCom = (photoID, commentID) => {
-    console.log('deleting comment');
     API.deleteComment(photoID, commentID)
       .then((res) => {
         this.setState({
@@ -62,7 +67,6 @@ class PhotoCard extends React.Component {
           comments: res.data,
         });
         message.success('Comment Added');
-        console.log(res.data);
       });
     } else {
       message.error('Can Not Add a Blank Comment');
@@ -80,7 +84,6 @@ class PhotoCard extends React.Component {
         return props.deletePicture(props.id);
       },
       onCancel() {
-        console.log('OK');
       },
     });
   }
@@ -188,7 +191,7 @@ class PhotoCard extends React.Component {
                         /> :
                         message.warning('Photo is Deleted Please Refresh the Page')
                     )
-                  }
+                    }
                   />
                 </Card>
               </div>

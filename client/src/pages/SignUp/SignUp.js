@@ -59,7 +59,12 @@ class SignUp extends Component {
                 user: res.data,
                 albums: res.data.albums,
               });
+              message.success('Welcome to Momento');
             }
+          })
+          .catch((err) => {
+            console.log(err);
+            message.warning('Email already Taken');
           });
       }
     } else {
