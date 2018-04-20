@@ -37,6 +37,10 @@ class Photos extends Component {
           currentAlbum: res.data,
           loading: false,
         });
+        setTimeout(() => {
+          console.log('Timing');
+          this.getPictures();
+        }, 50000);
       })
       .catch((err) => {
         console.log(err);
@@ -44,18 +48,17 @@ class Photos extends Component {
       });
   }
 
-  deletePicture = (photoID) => {
-    API.deletePhoto(this.state.currentAlbum._id, photoID)
-      .then((res) => {
-        this.setState({
-          currentAlbum: res.data,
-        });
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
+  deletePicture = photoID => API.deletePhoto(this.state.currentAlbum._id, photoID)
+    .then((res) => {
+      this.setState({
+        currentAlbum: res.data,
       });
-  }
+      console.log(res.data);
+      message.warning('Photo Deleted');
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 
   changePhoto = (album) => {
     this.setState({

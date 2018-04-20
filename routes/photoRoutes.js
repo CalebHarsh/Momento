@@ -62,7 +62,7 @@ router.get('/api/photos/:id', (req, res) => {
 });
 
 // deleting a photo
-router.delete('api/photos/:AlbumId/:PhotoId', (req, res) => {
+router.delete('/api/photos/:AlbumId/:PhotoId', (req, res) => {
   // needs Photo and album id
   Command.deletePhoto(req.params.AlbumId, req.params.PhotoId)
     .then(album => Command.getPhotos(album._id))
@@ -77,7 +77,6 @@ router.delete('api/photos/:AlbumId/:PhotoId', (req, res) => {
 
 // Adding a comment
 router.post('/api/addComment', (req, res) => {
-  console.log(req.body);
   Command.addNewComment(req.body.userID, req.body.photoID, req.body.text)
     .then(photo => Command.getComments(photo._id))
     .then((comments) => {

@@ -2,7 +2,7 @@
 .popUp {
   display: grid;
   grid-template-columns: 60% 40%;
-  margin-top: 55px;
+  /* margin-top: 55px; */
 }
 
 .photoContainer {
