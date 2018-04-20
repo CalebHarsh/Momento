@@ -38,6 +38,7 @@
 
 .graphic-container img {
   width: 100%;
+  height: 100%;
 }
 
 .secondHalf {
@@ -75,3 +76,66 @@
   color: #2E2E2E;
   margin-bottom: 30px;
 }
+
+/* ---- Responsive Breakpoints ----------------------------------------------*/
+
+@media only screen and (max-width: 1210px) {
+  .firstHalf {
+    max-width: 980px;
+    padding: 0 30px;
+  }
+    
+  .signup-section {
+    max-width: 980px;
+    padding: 0 30px;
+  }
+}
+  
+@media only screen and (max-width: 991px) {
+  .text-container {
+    text-align: center;
+  }
+    
+  .fixed-container {
+    display: none;
+  }
+}
+  
+@media only screen and (max-width: 800px) {
+  .firstHalf {
+    height: 80vh;
+  }
+}
+  
+@media only screen and (max-width: 375px){
+  .secondHalf {
+    height: 30vh;
+  }
+    
+  .signup-container{
+    padding: 15px;
+  }
+    
+  .signupHead {
+    font-size: 1em;
+  }
+    
+  .hookMsg {
+    font-size: .8em;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .intro {
+    font-size: 3em;
+  }
+  
+  .phonetic {
+    font-size: 1.5em;
+  }
+  
+  .define {
+    font-size: 1.25em;
+  }
+}
+  

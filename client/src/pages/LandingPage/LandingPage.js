@@ -18,7 +18,7 @@ const LandingPage = props => (
     {props.isLoggedIn ? null : checkForCookieUser()}
     <div className="firstHalf">
       <Row gutter={16}>
-        <Col md={{ span: 12 }} xs={{ span: 12 }}>
+        <Col lg={{ span: 12 }} md={{ span: 24 }}>
           <div className="text-container">
             <h1 className="intro">momento</h1>
             <h2 className="phonetic">/moh-men-toh/</h2>
@@ -26,7 +26,7 @@ const LandingPage = props => (
             <h3 className="define">1. a minute portion or point of time : instant</h3>
           </div>
         </Col>
-        <Col md={{ span: 12 }} xs={{ span: 12 }}>
+        <Col className="fixed-container" lg={{ span: 12 }} md={{ span: 24 }}>
           <Affix offsetTop={150}>
             <div className="graphic-container">
               <img src={iphone} alt="iPhone Graphic" />
@@ -38,10 +38,10 @@ const LandingPage = props => (
     <div className="secondHalf">
       <div className="signup-section">
         <Row>
-          <Col md={{ span: 12 }} xs={{ span: 24 }}>
+          <Col lg={{ span: 12 }} md={{ span: 24 }}>
             <ScrollAnimation animateIn="fadeInUp">
               <div className="signup-container">
-                <Divider><h2>What Is Momento?</h2></Divider>
+                <Divider><h2 className="signupHead">What Is Momento?</h2></Divider>
                 <h3 className="hookMsg">We are a micro social network based
                   on sharing photos between friends, families, and significant
                   others. Store your photos on our platform so your inner
