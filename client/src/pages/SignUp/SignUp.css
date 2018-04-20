@@ -17,3 +17,43 @@
   color: #0084FF;
   text-align: left;
 }
+
+/* ---- Responsive Breakpoints ----------------------------------------------*/
+@media only screen and (max-width: 1210px) {
+  .content {
+    max-width: 980px;
+    padding: 0 30px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .content {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .signupHook {
+    padding: 0 50px;
+  }
+  
+  .heading {
+    text-align: center;
+  }
+  
+  .icon-set {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .icon-set p {
+    margin-right: 16px;
+    margin-bottom: 50px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .signupHook {
+    padding: 0 30px;
+  }
+}
