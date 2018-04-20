@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Avatar, Button, Divider, Dropdown, Menu, message } from 'antd';
+import { Avatar, Button, Divider, Dropdown, Menu, message, Modal } from 'antd';
 import 'antd/dist/antd.css';
 import Login from '../Login/Login';
 import './Navbar.css';
@@ -11,10 +11,24 @@ import API from '../../utils/API';
 class Navbar extends Component {
   state = {
     visible: false,
+    modalVisible: false,
     email: '',
     password: '',
+    viewportWidth: window.innerWidth, // used to detect window size
   }
 
+  componentDidMount() {
+    this.updateWindowWidth();
+    window.addEventListener('resize', this.updateWindowWidth.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowWidth.bind(this));
+  }
+
+  updateWindowWidth = () => {
+    this.setState({ viewportWidth: window.innerWidth });
+  }
 
   handleInputChange = (event) => {
     const value = event.target.value;
@@ -25,8 +39,11 @@ class Navbar extends Component {
     });
   }
 
-  // use 'lift state up': https://reactjs.org/docs/lifting-state-up.html to pass
-  // the user info to App.js in the handleSignIn() function.
+  handleClose = () => {
+    this.setState({
+      modalVisible: false,
+    });
+  }
 
   handleSignIn = () => {
     if (this.state.visible) {
@@ -47,9 +64,31 @@ class Navbar extends Component {
       }).catch((err) => {
         message.error('Email and Password Not Found');
       });
-    } else {
+    } else if (this.state.viewportWidth >= 685) {
       this.setState({
         visible: true,
+      });
+    } else if (this.state.modalVisible) {
+      API.signIn({
+        email: this.state.email.trim(),
+        password: this.state.password.trim(),
+      }).then((res) => {
+        if (res.data._id) {
+          message.success('Logged In');
+          this.props.changeApp({
+            isLoggedIn: true,
+            user: res.data,
+            albums: res.data.albums,
+          });
+        } else {
+          message.error('Not Logged In');
+        }
+      }).catch((err) => {
+        message.error('Email and Password Not Found');
+      });
+    } else {
+      this.setState({
+        modalVisible: true,
       });
     }
   }
@@ -96,6 +135,36 @@ class Navbar extends Component {
           </div>
           {!this.props.loggedIn ?
             <div className="nav-items">
+              {
+                this.state.modalVisible &&
+                <Modal
+                  title="Sign In"
+                  visible={this.state.modalVisible}
+                  onOk={this.handleSignIn}
+                  onCancel={this.handleClose}
+                  footer={[
+                    <Button
+                      key="cancel"
+                      onClick={this.handleClose}
+                    >
+                      Cancel
+                    </Button>,
+                    <Button
+                      key="submit"
+                      type="primary"
+                      onClick={this.handleSignIn}
+                    >
+                      Sign In
+                    </Button>,
+                  ]}
+                >
+                  <Login
+                    email={this.state.email}
+                    password={this.state.password}
+                    onChange={this.handleInputChange}
+                  />
+                </Modal>
+              }
               {
                 this.state.visible &&
                 <Login
