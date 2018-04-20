@@ -1,104 +1,63 @@
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-static-element-interactions: 0 */
 import React from 'react';
-import { Avatar, Card, Modal, List, message, Icon } from 'antd';
+import { Avatar, Card, Modal, List, message, Button } from 'antd';
 import 'antd/dist/antd.css';
 import './PhotoCard.css';
 import Comments from '../Comments/Comments';
 import Addcom from '../Addcom/Addcom';
 import API from '../../utils/API';
 
+const confirm = Modal.confirm;
 const { Meta } = Card;
 
-const info = (props) => {
-  Modal.info({
-    width: '950',
-    className: 'photoModal',
-    content: (
-      <div>
-        <Icon id="photoDel" type="delete" />
-        <div className="popUp">
-          <div className="photoContainer">
-            <img id="Picture" alt={props.title} src={props.src} />
-          </div>
-          <div className="infoContainer">
-            <div className="comDisplay">
-              <Card
-                title="Our Beautiful Baby Tender"
-                bordered={false}
-                loading={false}
-                style={{
-                  height: '350px',
-                  width: '350px',
-                  overflowY: 'auto',
-                }}
-              >
-                <List
-                  grid={{
-                    gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,
-                  }}
-                  dataSource={props.comments}
-                  renderItem={item => (
-                    <Comments
-                      hoverable="ture"
-                      id={item._id}
-                      author={item.author.name}
-                      comment={item.text}
-                      delete={props.deleteCom}
-                      photoID={props.id}
-                    />
-                  )}
-                />
-              </Card>
-            </div>
-            <Addcom
-              photoID={props.id}
-              addComment={props.addComment}
-            />
-          </div>
-        </div>
-      </div>
-    ),
-    onOk() { },
-  });
-};
 
 
 
 class PhotoCard extends React.Component {
   state = {
     comments: [],
-  }
-
-  componentDidMount() {
-    this.getComments(this.props.id);
+    visible: false,
+    loading: true,
   }
 
   getComments = photoID => API.getAllComments(photoID)
     .then((res) => {
-      console.log(res.data);
-      this.setState({
-        comments: res.data,
-      });
-      return null;
+      if (!res.data.length) {
+        this.setState({
+          comments: res.data,
+          loading: false,
+        });
+      } else {
+        this.setState({
+          loading: false,
+        });
+      }
+      setTimeout(() => {
+        if (this.state.visible) {
+          this.getComments(this.props.id);
+        }
+      }, 3000);
     })
     .catch((err) => {
       console.log(err);
+      message.error('Error Please try Again');
     })
 
   deleteCom = (photoID, commentID) => {
-    console.log('deleting comment');
     API.deleteComment(photoID, commentID)
       .then((res) => {
         this.setState({
           comments: res.data,
         });
-        message.warning('Comment Deleted')
+        message.warning('Comment Deleted');
       })
       .catch((err) => {
         console.log(err);
+        message.error('Error Please try Again');
       });
   }
+
   addComment = (comment, photo) => {
     if (comment.length) {
       API.addComment({
@@ -110,13 +69,47 @@ class PhotoCard extends React.Component {
           comments: res.data,
         });
         message.success('Comment Added');
-        console.log(res.data);
       });
     } else {
       message.error('Can Not Add a Blank Comment');
     }
   }
 
+  showDeleteConfirm = (props) => {
+    confirm({
+      title: 'Are you sure delete this Picture?',
+      content: 'If you delete it will disappear forever. You will have to upload it again if you want it back.',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        return props.deletePicture(props.id);
+      },
+      onCancel() {
+      },
+    });
+  }
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+    this.getComments(this.props.id);
+  }
+
+  handleOk = () => {
+    this.setState({
+      visible: false,
+      loading: true,
+    });
+  }
+
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+      loading: true,
+    });
+  }
 
   render() {
     return (
@@ -125,17 +118,7 @@ class PhotoCard extends React.Component {
           hoverable
           cover={
             <div
-              onClick={() =>
-                info({
-                  comments: this.state.comments,
-                  id: this.props.id,
-                  title: this.props.title,
-                  src: this.props.src,
-                  addComment: this.addComment,
-                  deleteCom: this.deleteCom,
-                  deletePicure: this.props.deletePicure,
-                })
-              }
+              onClick={e => this.showModal(e)}
               style={
                 {
                   backgroundImage: `url(${this.props.src})`,
@@ -153,6 +136,74 @@ class PhotoCard extends React.Component {
           />
 
         </Card>
+
+        <Modal
+          title={this.props.title}
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          className="photoModal"
+          width="950"
+          footer={[
+            <Button
+              key="delete"
+              type="danger"
+              onClick={() => {
+                this.showDeleteConfirm(this.props);
+              }}
+            >
+              Delete Picture
+            </Button>,
+            <Button key="close" type="primary" onClick={this.handleOk}>
+              Close
+            </Button>,
+          ]}
+        >
+          <div className="popUp">
+            <div className="photoContainer">
+              <img id="Picture" alt={this.props.title} src={this.props.src} />
+            </div>
+            <div className="infoContainer">
+              <div className="comDisplay">
+                <Card
+                  title={this.props.title}
+                  bordered={false}
+                  loading={false}
+                  style={{
+                    height: '350px',
+                    width: '350px',
+                    overflowY: 'auto',
+                  }}
+                >
+                  <List
+                    grid={{
+                      gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,
+                    }}
+                    dataSource={this.state.comments}
+                    loading={this.state.loading}
+                    renderItem={item => (
+                      item._id ?
+                        <Comments
+                          hoverable="ture"
+                          id={item._id}
+                          author={item.author.name}
+                          comment={item.text}
+                          delete={this.deleteCom}
+                          photoID={this.props.id}
+                        /> :
+                        message.warning('Photo is Deleted Please Refresh the Page')
+                    )
+                    }
+                  />
+                </Card>
+              </div>
+              <Addcom
+                photoID={this.props.id}
+                addComment={this.addComment}
+              />
+            </div>
+          </div>
+        </Modal>
       </div>
     );
   }

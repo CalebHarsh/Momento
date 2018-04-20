@@ -37,6 +37,9 @@ class Photos extends Component {
           currentAlbum: res.data,
           loading: false,
         });
+        setTimeout(() => {
+          this.getPictures();
+        }, 3000);
       })
       .catch((err) => {
         console.log(err);
@@ -44,18 +47,17 @@ class Photos extends Component {
       });
   }
 
-  deletePicture = (photoID) => {
-    API.deletePhoto(this.state.currentAlbum._id, photoID)
-      .then((res) => {
-        this.setState({
-          currentAlbum: res.data,
-        });
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
+  deletePicture = photoID => API.deletePhoto(this.state.currentAlbum._id, photoID)
+    .then((res) => {
+      this.setState({
+        currentAlbum: res.data,
       });
-  }
+      message.warning('Photo Deleted');
+    })
+    .catch((err) => {
+      console.log(err);
+      message.error('Error Please try Again');
+    })
 
   changePhoto = (album) => {
     this.setState({
@@ -91,10 +93,15 @@ class Photos extends Component {
             </Menu>
           </Col>
           <Col md={{ span: 20 }}>
-          {this.state.loading ? <Icon style={{fontSize: 200, display: 'flex', justifyContent: 'center', color: '#1890ff'}} type="loading" /> :  <List
-              grid={{
-                gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,
+            {this.state.loading ? <Icon
+              style={{
+                fontSize: 200, display: 'flex', justifyContent: 'center', color: '#1890ff',
               }}
+              type="loading"
+            /> : <List
+              grid={{
+                  gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,
+                }}
               dataSource={this.state.currentAlbum.photos}
               renderItem={item => (
                 <List.Item>
@@ -106,7 +113,7 @@ class Photos extends Component {
                     user={this.props.user}
                   />
                 </List.Item>
-              )}
+                )}
             />}
           </Col>
         </Row>
