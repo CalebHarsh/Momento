@@ -11,7 +11,7 @@ const SignupForm = props => (
     <Form>
       <FormItem
         label="Name"
-        labelCol={{ span: 5 }}
+        labelCol={{ span: 8 }}
         wrapperCol={{ span: 12 }}
       >
         <Input
@@ -24,7 +24,7 @@ const SignupForm = props => (
       </FormItem>
       <FormItem
         label="Email"
-        labelCol={{ span: 5 }}
+        labelCol={{ span: 8 }}
         wrapperCol={{ span: 12 }}
       >
         <Input
@@ -37,7 +37,7 @@ const SignupForm = props => (
       </FormItem>
       <FormItem
         label="Password"
-        labelCol={{ span: 5 }}
+        labelCol={{ span: 8 }}
         wrapperCol={{ span: 12 }}
       >
         <Input
@@ -50,7 +50,7 @@ const SignupForm = props => (
       </FormItem>
       <FormItem
         label="Verify Password"
-        labelCol={{ span: 5 }}
+        labelCol={{ span: 8 }}
         wrapperCol={{ span: 12 }}
       >
         <Input
@@ -62,7 +62,22 @@ const SignupForm = props => (
         />
       </FormItem>
       <FormItem
-        wrapperCol={{ span: 12, offset: 5 }}
+        wrapperCol={
+          {
+            lg: {
+              span: 12,
+              offset: 8,
+            },
+            md: {
+              span: 12,
+              offset: 8,
+            },
+            sm: {
+              span: 24,
+              offset: 0,
+            },
+          }
+        }
       >
         <Button
           type="primary"
