@@ -23,7 +23,7 @@ class PhotoCard extends React.Component {
 
   getComments = photoID => API.getAllComments(photoID)
     .then((res) => {
-      if (!res.data.length) {
+      if (res.data.length) {
         this.setState({
           comments: res.data,
           loading: false,
@@ -35,7 +35,7 @@ class PhotoCard extends React.Component {
       }
       setTimeout(() => {
         if (this.state.visible) {
-          this.getComments(this.props.id);
+          this.getComments(photoID);
         }
       }, 3000);
     })

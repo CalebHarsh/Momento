@@ -10,8 +10,9 @@ export default {
 
   addPhoto: data => axios.post('/api/addPhoto', data),
   addComment: data => axios.post('/api/addComment', data),
-  getAllAlbums: path => axios.get(`/api/${path}`),
-  getAllPhotos: path => axios.get(`/api/${path}`),
+
+  getAllAlbums: path => axios.get(`/api${path}`),
+  getAllPhotos: path => axios.get(`/api${path}`),
   getAllComments: path => axios.get(`/api/photos/${path}`),
 
   checkUser: () => axios.get('/auth'),
