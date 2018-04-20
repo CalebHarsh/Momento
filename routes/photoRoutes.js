@@ -62,7 +62,7 @@ router.get('/api/photos/:id', (req, res) => {
 });
 
 // deleting a photo
-router.delete('api/photos/:AlbumId/:PhotoId', (req, res) => {
+router.delete('/api/photos/:AlbumId/:PhotoId', (req, res) => {
   // needs Photo and album id
   Command.deletePhoto(req.params.AlbumId, req.params.PhotoId)
     .then(album => Command.getPhotos(album._id))
@@ -77,10 +77,10 @@ router.delete('api/photos/:AlbumId/:PhotoId', (req, res) => {
 
 // Adding a comment
 router.post('/api/addComment', (req, res) => {
-  console.log(req.body);
   Command.addNewComment(req.body.userID, req.body.photoID, req.body.text)
-    .then((photo) => {
-      res.send(photo);
+    .then(photo => Command.getComments(photo._id))
+    .then((comments) => {
+      res.send(comments);
     })
     .catch((err) => {
       console.log(err);
@@ -88,12 +88,12 @@ router.post('/api/addComment', (req, res) => {
     });
 });
 
-router.delete('/api/comment/:PhotoId/:CommentId', (req, res) => {
+router.delete('/api/comments/:PhotoId/:CommentId', (req, res) => {
   // needs comment and photo id
   Command.deleteComment(req.params.PhotoId, req.params.CommentId)
     .then(photo => Command.getComments(photo._id))
-    .then((photo) => {
-      res.send(photo);
+    .then((comments) => {
+      res.send(comments);
     })
     .catch((err) => {
       console.log(err);

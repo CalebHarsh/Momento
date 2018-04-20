@@ -36,22 +36,22 @@ class App extends Component {
           <Route
             path="/dashboard"
             render={() =>
-            (<Albums
-              changeApp={this.changeAppState}
-              loginStatus={this.state.isLoggedIn}
-              albums={this.state.albums}
-              user={this.state.user}
-            />)}
+              (<Albums
+                changeApp={this.changeAppState}
+                loginStatus={this.state.isLoggedIn}
+                albums={this.state.albums}
+                user={this.state.user}
+              />)}
           />
           <Route
             path="/albums"
             render={() =>
-  (<Photos
-    changeApp={this.changeAppState}
-    loginStatus={this.state.isLoggedIn}
-    albums={this.state.albums}
-    user={this.state.user}
-  />)}
+              (<Photos
+                changeApp={this.changeAppState}
+                loginStatus={this.state.isLoggedIn}
+                albums={this.state.albums}
+                user={this.state.user}
+              />)}
           />
         </div>
       </Router>

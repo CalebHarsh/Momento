@@ -2,7 +2,7 @@
 .popUp {
   display: grid;
   grid-template-columns: 60% 40%;
-  margin-top: 25px;
+  /* margin-top: 55px; */
 }
 
 .photoContainer {
@@ -41,7 +41,20 @@
   margin: auto;
 }
 
+.ant-confirm-info .ant-confirm-body > .anticon {
+  color: #bfbfbf;
+  margin-bottom: 20px;
+  margin-right: 0;
+}
 
+.ant-confirm-info .ant-confirm-body > .anticon:hover {
+  color: #f5222d;
+  cursor: pointer;
+}
+
+.ant-confirm .ant-confirm-btns {
+  margin-top: 0;
+}
 
 .photoModal {
   margin-left: 0;
@@ -59,7 +72,7 @@
   grid-template-columns: 90% 10%;
   min-height: 65px;
   border-radius: 5px;
-  background-color: #eef7ff;
+  background-color: #f8fbfd;
   padding: 5px;
   margin-bottom: .5em;
 }
@@ -68,6 +81,12 @@
   grid-row: 1/2;
   grid-column: 2/3;
   margin: auto;
+  color: #bfbfbf;
+}
+
+#comDelete:hover {
+  color: #f5222d;
+  cursor: pointer;
 }
 
 #comUser {

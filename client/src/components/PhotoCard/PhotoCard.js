@@ -1,78 +1,207 @@
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 /* eslint jsx-a11y/no-static-element-interactions: 0 */
 import React from 'react';
-import { Avatar, Card, Modal, Form, Input, Button } from 'antd';
+import { Avatar, Card, Modal, List, message, Button } from 'antd';
 import 'antd/dist/antd.css';
 import './PhotoCard.css';
-import Comments from '../Comments/Comments.js';
-import Addcom from '../Addcom/Addcom.js'
+import Comments from '../Comments/Comments';
+import Addcom from '../Addcom/Addcom';
+import API from '../../utils/API';
 
-
+const confirm = Modal.confirm;
 const { Meta } = Card;
 
-function info(props) {
-  Modal.info({
-    title: `${props.title}`,
-    iconType: 'camera-o',
-    width: '950',
-    className: 'photoModal',
-    content: (
-      <div className="popUp">
-        <div className="photoContainer">
-          <img id="Picture" alt={props.title} src={props.src}/>
-        </div>
-        <div className="infoContainer">
-          <div className='comDisplay'>
-            <Card
-              title="Our Beautiful Baby Tender"
-              bordered={false}
-              loading={false}
-              style={{
-                height: '350px',
-                width: '350px',
-                overflowY: 'auto'
+
+class PhotoCard extends React.Component {
+  state = {
+    comments: [],
+    visible: false,
+    loading: true,
+  }
+
+  getComments = photoID => API.getAllComments(photoID)
+    .then((res) => {
+      console.log(res.data);
+      this.setState({
+        comments: res.data,
+        loading: false,
+      });
+      setTimeout(() => {
+        if (this.state.visible) {
+          this.getComments(this.props.id);
+        }
+      }, 50000);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+
+  deleteCom = (photoID, commentID) => {
+    console.log('deleting comment');
+    API.deleteComment(photoID, commentID)
+      .then((res) => {
+        this.setState({
+          comments: res.data,
+        });
+        message.warning('Comment Deleted');
+      })
+      .catch((err) => {
+        console.log(err);
+        message.error('Error Please try Again');
+      });
+  }
+
+  addComment = (comment, photo) => {
+    if (comment.length) {
+      API.addComment({
+        text: comment,
+        userID: this.props.user._id,
+        photoID: photo,
+      }).then((res) => {
+        this.setState({
+          comments: res.data,
+        });
+        message.success('Comment Added');
+        console.log(res.data);
+      });
+    } else {
+      message.error('Can Not Add a Blank Comment');
+    }
+  }
+
+  showDeleteConfirm = (props) => {
+    confirm({
+      title: 'Are you sure delete this Picture?',
+      content: 'If you delete it will disappear forever. You will have to upload it again if you want it back.',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        return props.deletePicture(props.id);
+      },
+      onCancel() {
+        console.log('OK');
+      },
+    });
+  }
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+    this.getComments(this.props.id);
+  }
+
+  handleOk = () => {
+    this.setState({
+      visible: false,
+      loading: true,
+    });
+  }
+
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+      loading: true,
+    });
+  }
+
+  render() {
+    return (
+      <div className="PhotoCard">
+        <Card
+          hoverable
+          cover={
+            <div
+              onClick={e => this.showModal(e)}
+              style={
+                {
+                  backgroundImage: `url(${this.props.src})`,
+                  width: 'auto',
+                  height: '200px',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }
+              }
+            />}
+        >
+          <Meta
+            avatar={<Avatar icon="user" />}
+            title={this.props.title}
+          />
+
+        </Card>
+
+        <Modal
+          title={this.props.title}
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          className="photoModal"
+          width="950"
+          footer={[
+            <Button
+              key="delete"
+              type="danger"
+              onClick={() => {
+                this.showDeleteConfirm(this.props);
               }}
-              >
-              <Comments
-              hoverable={'ture'}
-                title= {props.title}
-                comment= {props.title}
-              />
-            </Card>
+            >
+              Delete Picture
+            </Button>,
+            <Button key="close" type="primary" onClick={this.handleOk}>
+              Close
+            </Button>,
+          ]}
+        >
+          <div className="popUp">
+            <div className="photoContainer">
+              <img id="Picture" alt={this.props.title} src={this.props.src} />
             </div>
-            <Addcom />
-        </div>
+            <div className="infoContainer">
+              <div className="comDisplay">
+                <Card
+                  title={this.props.title}
+                  bordered={false}
+                  loading={false}
+                  style={{
+                    height: '350px',
+                    width: '350px',
+                    overflowY: 'auto',
+                  }}
+                >
+                  <List
+                    grid={{
+                      gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,
+                    }}
+                    dataSource={this.state.comments}
+                    loading={this.state.loading}
+                    renderItem={item => (
+                      item._id ?
+                        <Comments
+                          hoverable="ture"
+                          id={item._id}
+                          author={item.author.name}
+                          comment={item.text}
+                          delete={this.deleteCom}
+                          photoID={this.props.id}
+                        /> :
+                        message.warning('Photo is Deleted Please Refresh the Page')
+                    )
+                  }
+                  />
+                </Card>
+              </div>
+              <Addcom
+                photoID={this.props.id}
+                addComment={this.addComment}
+              />
+            </div>
+          </div>
+        </Modal>
       </div>
-    ),
-    onOk() { },
-  });
+    );
+  }
 }
-
-const PhotoCard = props => (
-  <div className="PhotoCard">
-    <Card
-      hoverable
-      cover={
-        <div
-          onClick={() => info(props)}
-          style={
-            {
-              backgroundImage: `url(${props.src})`,
-              width: 'auto',
-              height: '200px',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }
-          }
-        />}
-    >
-      <Meta
-        avatar={<Avatar icon="user" />}
-        title={props.title}
-      />
-
-    </Card>
-  </div>
-);
 
 export default PhotoCard;
