@@ -24,7 +24,7 @@ const UserCommands = {
   logIn: (email, password) => {
     return db.User.findOne({ email }).join()
       .then(inst => {
-        if (inst) throw new Error('Email not there');
+        if (!inst) throw new Error('Email not there');
         if (bcrypt.compareSync(password, inst.password)) console.log('Signed In');
         else throw new Error('Password is Incorrect');
         return inst;
@@ -208,6 +208,7 @@ const UserCommands = {
         return photo.save();
       });
   },
+
 };
 
 module.exports = UserCommands;

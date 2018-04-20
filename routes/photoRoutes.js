@@ -62,11 +62,7 @@ router.get('/api/photos/:id', (req, res) => {
 });
 
 // deleting a photo
-<<<<<<< HEAD
 router.delete('/api/photos/:AlbumId/:PhotoId', (req, res) => {
-=======
-router.delete('api/photos/:AlbumId/:PhotoId', (req, res) => {
->>>>>>> dc67773317e2c2f074b5113d5f7d809f65375dd0
   // needs Photo and album id
   Command.deletePhoto(req.params.AlbumId, req.params.PhotoId)
     .then(album => Command.getPhotos(album._id))
@@ -82,14 +78,9 @@ router.delete('api/photos/:AlbumId/:PhotoId', (req, res) => {
 // Adding a comment
 router.post('/api/addComment', (req, res) => {
   Command.addNewComment(req.body.userID, req.body.photoID, req.body.text)
-<<<<<<< HEAD
     .then(photo => Command.getComments(photo._id))
     .then((comments) => {
       res.send(comments);
-=======
-    .then((photo) => {
-      res.send(photo);
->>>>>>> dc67773317e2c2f074b5113d5f7d809f65375dd0
     })
     .catch((err) => {
       console.log(err);
@@ -97,21 +88,12 @@ router.post('/api/addComment', (req, res) => {
     });
 });
 
-<<<<<<< HEAD
 router.delete('/api/comments/:PhotoId/:CommentId', (req, res) => {
   // needs comment and photo id
   Command.deleteComment(req.params.PhotoId, req.params.CommentId)
     .then(photo => Command.getComments(photo._id))
     .then((comments) => {
       res.send(comments);
-=======
-router.delete('/api/comment/:PhotoId/:CommentId', (req, res) => {
-  // needs comment and photo id
-  Command.deleteComment(req.params.PhotoId, req.params.CommentId)
-    .then(photo => Command.getComments(photo._id))
-    .then((photo) => {
-      res.send(photo);
->>>>>>> dc67773317e2c2f074b5113d5f7d809f65375dd0
     })
     .catch((err) => {
       console.log(err);

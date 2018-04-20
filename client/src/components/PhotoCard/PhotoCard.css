@@ -2,11 +2,7 @@
 .popUp {
   display: grid;
   grid-template-columns: 60% 40%;
-<<<<<<< HEAD
   /* margin-top: 55px; */
-=======
-  margin-top: 25px;
->>>>>>> dc67773317e2c2f074b5113d5f7d809f65375dd0
 }
 
 .photoContainer {
@@ -38,7 +34,6 @@
 .addCom {
   grid-row: 2/3;
   margin: auto;
-<<<<<<< HEAD
 }
 
 .ant-form #makeItWork {
@@ -59,8 +54,6 @@
 
 .ant-confirm .ant-confirm-btns {
   margin-top: 0;
-=======
->>>>>>> dc67773317e2c2f074b5113d5f7d809f65375dd0
 }
 
 .ant-form #makeItWork {
@@ -86,11 +79,7 @@
   grid-template-columns: 90% 10%;
   min-height: 65px;
   border-radius: 5px;
-<<<<<<< HEAD
   background-color: #f8fbfd;
-=======
-  background-color: #eef7ff;
->>>>>>> dc67773317e2c2f074b5113d5f7d809f65375dd0
   padding: 5px;
   margin-bottom: .5em;
 }
@@ -99,15 +88,12 @@
   grid-row: 1/2;
   grid-column: 2/3;
   margin: auto;
-<<<<<<< HEAD
   color: #bfbfbf;
 }
 
 #comDelete:hover {
   color: #f5222d;
   cursor: pointer;
-=======
->>>>>>> dc67773317e2c2f074b5113d5f7d809f65375dd0
 }
 
 #comUser {
