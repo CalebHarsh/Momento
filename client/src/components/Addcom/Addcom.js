@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Input, Button } from 'antd';
 import 'antd/dist/antd.css';
-// import API from '../../utils/API';
 
 const FormItem = Form.Item;
 

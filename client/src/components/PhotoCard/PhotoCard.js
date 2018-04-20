@@ -4,13 +4,12 @@ import React from 'react';
 import { Avatar, Card, Modal, List, message, Button } from 'antd';
 import 'antd/dist/antd.css';
 import './PhotoCard.css';
-import Comments from '../Comments/Comments';
-import Addcom from '../Addcom/Addcom';
+import Comments from '../Comments';
+import Addcom from '../Addcom';
 import API from '../../utils/API';
 
 const confirm = Modal.confirm;
 const { Meta } = Card;
-
 
 class PhotoCard extends React.Component {
   state = {
