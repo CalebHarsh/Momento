@@ -41,13 +41,13 @@
   margin: auto;
 }
 
-.ant-confirm-info .ant-confirm-body > .anticon {
+#photoDel {
   color: #bfbfbf;
   margin-bottom: 20px;
   margin-right: 0;
 }
 
-.ant-confirm-info .ant-confirm-body > .anticon:hover {
+#photoDel:hover {
   color: #f5222d;
   cursor: pointer;
 }
