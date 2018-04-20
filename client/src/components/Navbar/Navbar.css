@@ -39,3 +39,17 @@
   color: #0084FF;
   margin-bottom: 0;
 }
+
+/* ---- Responsive Breakpoints ----------------------------------------------*/
+@media only screen and (max-width: 1210px) {
+  .container{
+    max-width: 980px;
+    padding: 0 30px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .logotype {
+    display: none;
+  }
+}
