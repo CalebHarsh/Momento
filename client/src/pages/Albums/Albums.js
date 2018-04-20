@@ -31,7 +31,6 @@ class Albums extends Component {
   removeAlbum = albumID =>
     API.deleteAlbum(this.props.user._id, albumID)
       .then((res) => {
-        console.log(res.data);
         if (res.data._id) {
           this.props.changeApp({
             user: res.data,
