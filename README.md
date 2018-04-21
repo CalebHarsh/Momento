@@ -15,38 +15,35 @@ Having to send pictures out via text message every time you take a picture is an
 
 ## The App in Action
 
-We have built a simple account creation tool that stores the user's name, email,
-zip code, and a password that is validated and encrypted.
-
+We allow the user to sign up to create an account, or log into an existing account to take them to their own dashboard that holds their personal albums.
+<!-- Gif here -->
 ![sign up gif](./src/assets/sign-up.gif)  
 
-The only input required by the user is their zip code.
-
+By pressing the "plus" button while on the dashboard, the user can create a new album or add a friend's album to their own dashboard.
+<!-- Gif here -->
 ![search gif](./src/assets/search.gif)
 
-The list of government officials are the user's representatives for their area.
-Clicking on an official displays more information about them on the right.
-
+By pressing the "plus" button in the album page, the user can upload photos from their personal drives or, if on mobile, take a photo and add it to that album, allowing other users to view it and comment on it.
+<!-- Gif here -->
 ![select gif](./src/assets/select.gif)
 
 ## Tools Used
 
 Front-End Tools: 
 * [Adobe XD](https://www.adobe.com/products/xd.html?sdid=12B9F15S&mv=search&s_kwcid=AL!3085!3!247395684636!e!!g!!adobe%20xd&ef_id=WdHfMQAAAF_wo3l0:20180421044352:s): used for wireframing and mockups
-* [React](https://vuejs.org/v2/guide/): framework for building out the app
-* [Ant Design](http://lostgrid.org/): A component library designed and maintained by Ant Financial
+* [React](https://reactjs.org/): framework for building out the app
+* [Ant Design](http://ant.design): A component library designed and maintained by Ant Financial
 
 Back-End Tools:
 * [Node.js](https://nodejs.org/en/): used for server-side scripting
 * [Express](https://expressjs.com/): used as our server
-* [MySQL](https://www.mysql.com/): used as our database
-* [Sequelize](http://docs.sequelizejs.com/): used as our ORM
+* [Mongo](https://www.mongodb.com/): used as our database
+* [Nekodb](https://www.npmjs.com/package/nekodb): used as our ODM
 * [Jest](https://facebook.github.io/jest/): used for testing
-* [Google Civic Information API](https://developers.google.com/civic-information/): API used for government official data
 
 ## Deployed Version
 
-You can view a [deployed version here](https://politivue.herokuapp.com/)
+You can view a [deployed version here](https://momento-sp.herokuapp.com/)
 
 
 ## Installing
@@ -55,11 +52,11 @@ You can run this app locally by following these steps:
 
 ``` bash
 # install dependencies
-npm install
+yarn install
 
-# serve with hot reload at localhost:3030
-npm run dev
+# serve with hot reload at localhost:3000
+yarn start
 
 # build for production with minification
-npm run production
+yarn build
 ```
