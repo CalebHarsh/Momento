@@ -21,7 +21,7 @@ We allow the user to sign up to create an account, or log into an existing accou
 
 By pressing the "plus" button while on the dashboard, the user can create a new album or add a friend's album to their own dashboard.
 <!-- Gif here -->
-![search gif](./src/assets/search.gif)
+![search gif](./client/src/assets/images/create-album.gif)
 
 By pressing the "plus" button in the album page, the user can upload photos from their personal drives or, if on mobile, take a photo and add it to that album, allowing other users to view it and comment on it.
 <!-- Gif here -->
