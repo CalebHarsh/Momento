@@ -1,43 +1,62 @@
-# Create React Express App
+# Momento
 
-## About This Boilerplate
+<!-- Header Image -->
+<!-- ![header](./src/assets/readme-header.png) -->
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+Momento is a micro social network that allows users to upload pictures to online albums. Unlike Facebook or Instagram, Momento allows multiple users to contribute to the same album making it perfect for weddings, family outings or
+Just sharing memories in the moment. 
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+- - - -
 
-## Starting the app locally
+## What is the Purpose of This App?
 
-Start by installing front and backend dependencies. While in this directory, run the following commands:
+We wanted to create an application for anyone that has ever taken a picture and had a friend or loved one tap them them on the shoulder and say “Hey, send that to me!”
+Having to send pictures out via text message every time you take a picture is annoying and outdated. THERE HAS TO BE A BETTER WAY! 
 
-```
+## The App in Action
+
+We allow the user to sign up to create an account, or log into an existing account to take them to their own dashboard that holds their personal albums.
+<!-- Gif here -->
+![sign up gif](./client/src/assets/images/signup.gif)  
+
+By pressing the "plus" button while on the dashboard, the user can create a new album or add a friend's album to their own dashboard.
+<!-- Gif here -->
+![search gif](./client/src/assets/images/create-album.gif)
+
+By pressing the "plus" button in the album page, the user can upload photos from their personal drives or, if on mobile, take a photo and add it to that album, allowing other users to view it and comment on it.
+<!-- Gif here -->
+![select gif](./src/assets/select.gif)
+
+## Tools Used
+
+Front-End Tools: 
+* [Adobe XD](https://www.adobe.com/products/xd.html?sdid=12B9F15S&mv=search&s_kwcid=AL!3085!3!247395684636!e!!g!!adobe%20xd&ef_id=WdHfMQAAAF_wo3l0:20180421044352:s): used for wireframing and mockups
+* [React](https://reactjs.org/): framework for building out the app
+* [Ant Design](http://ant.design): A component library designed and maintained by Ant Financial
+
+Back-End Tools:
+* [Node.js](https://nodejs.org/en/): used for server-side scripting
+* [Express](https://expressjs.com/): used as our server
+* [Mongo](https://www.mongodb.com/): used as our database
+* [Nekodb](https://www.npmjs.com/package/nekodb): used as our ODM
+* [Jest](https://facebook.github.io/jest/): used for testing
+
+## Deployed Version
+
+You can view a [deployed version here](https://momento-sp.herokuapp.com/)
+
+
+## Installing
+
+You can run this app locally by following these steps:
+
+``` bash
+# install dependencies
 yarn install
-cd client
-yarn install
-cd ..
-``
 
-After both installations complete, run the following command in your terminal:
-
-```
+# serve with hot reload at localhost:3000
 yarn start
-```
 
-That's it, your app should be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
-
-## Deployment (Heroku)
-
-After confirming that you have an up to date git repository and a Heroku app created, complete the following:
-
-1. Build the React app for production by running the following command:
-
-```
+# build for production with minification
 yarn build
 ```
-> Note: A yarn build will be required to register any new Post requests from any front-end JavaScript to to prevent any proxy server errors.
-
-2. Add and commit all changes to git
-
-3. Push to Heroku
-
-If all previous steps were followed correctly, your application should be deployed to Heroku!
