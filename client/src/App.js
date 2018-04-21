@@ -7,7 +7,7 @@ import LandingPage from './pages/LandingPage';
 import SignUp from './pages/SignUp';
 import Albums from './pages/Albums';
 import Photos from './pages/Photos';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import FourOhFour from './pages/FourOhFour';
 
 class App extends Component {
@@ -62,7 +62,7 @@ class App extends Component {
               )}
             />
           </Switch>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </Router>
     );
