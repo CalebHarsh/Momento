@@ -127,14 +127,15 @@ const UserCommands = {
 
   deleteAlbum(AlbumInst) {
     if (AlbumInst.photos.length) {
-      AlbumInst.save();
-      return Promise.all(AlbumInst.photos.map(photo => {
-        return this.deletePhoto(AlbumInst._id, photo);
-        /* eslint no-unused-vars: 0 */
-      })).then((values) => {
-        return AlbumInst.delete();
-      }).catch((err) => {
-        console.log(err);
+      return AlbumInst.save().then(album => {
+        return Promise.all(album.photos.map(photo => {
+          return this.deletePhoto(album._id, photo);
+          /* eslint no-unused-vars: 0 */
+        })).then((values) => {
+          return album.delete();
+        }).catch((err) => {
+          console.log(err);
+        });
       });
     } else if (!AlbumInst.photos.length) {
       return AlbumInst.delete();
