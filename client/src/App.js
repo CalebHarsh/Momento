@@ -8,6 +8,7 @@ import SignUp from './pages/SignUp';
 import Albums from './pages/Albums';
 import Photos from './pages/Photos';
 import Footer from './components/Footer';
+import FourOhFour from './pages/FourOhFour';
 
 class App extends Component {
   state = {
@@ -53,6 +54,12 @@ class App extends Component {
                 albums={this.state.albums}
                 user={this.state.user}
               />)}
+          />
+          <Route
+            path="/404"
+            render={() => (
+              <FourOhFour />
+            )}
           />
           <Footer />
         </div>
