@@ -82,8 +82,9 @@
   border-radius: 5px;
   background-color: #f8fbfd;
   padding: 5px;
+  margin: auto;
   margin-bottom: .5em;
-  width: 100%;
+  width: 80%;
 }
 
 #comDelete {

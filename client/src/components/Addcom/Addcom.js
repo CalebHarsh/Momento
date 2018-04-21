@@ -28,7 +28,7 @@ class Addcom extends Component {
           float: 'Left',
           marginTop: '15px',
           marginRight: 10,
-          width: 260,
+          width: 210,
         }}
         >
           <FormItem>
