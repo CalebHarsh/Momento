@@ -17,7 +17,7 @@ Having to send pictures out via text message every time you take a picture is an
 
 We allow the user to sign up to create an account, or log into an existing account to take them to their own dashboard that holds their personal albums.
 <!-- Gif here -->
-![sign up gif](./src/assets/sign-up.gif)  
+![sign up gif](./client/src/assets/images/signup.gif)  
 
 By pressing the "plus" button while on the dashboard, the user can create a new album or add a friend's album to their own dashboard.
 <!-- Gif here -->
