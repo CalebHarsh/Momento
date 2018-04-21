@@ -2,8 +2,10 @@
 /* eslint no-unused-vars: 0 */
 // ==== Testing the API endpoints =============================================
 const Command = require('../controllers/userController');
+const ko = require('nekodb');
 
 // ---- Creating a new user ---------------------------------------------------
+afterAll(() => setTimeout(() => ko.close(), 2000));
 describe('Using commands to access the database', () => {
   afterEach(() => Command.logIn('joe@dude.com', 'Password123')
     .then((user) => {
