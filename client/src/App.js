@@ -7,6 +7,7 @@ import LandingPage from './pages/LandingPage';
 import SignUp from './pages/SignUp';
 import Albums from './pages/Albums';
 import Photos from './pages/Photos';
+import Footer from './components/Footer';
 
 class App extends Component {
   state = {
@@ -53,6 +54,7 @@ class App extends Component {
     user={this.state.user}
   />)}
           />
+          <Footer />
         </div>
       </Router>
     );

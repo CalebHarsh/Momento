@@ -9,6 +9,7 @@ import Navbar from '../src/components/Navbar';
 import PhotoCard from '../src/components/PhotoCard';
 import PicUpload from '../src/components/PicUpload';
 import SignupForm from '../src/components/SignupForm';
+import Footer from '../src/components/Footer';
 
 // ==== UI Testing of the Add Button ==========================================
 storiesOf('AddButton', module)
@@ -50,4 +51,10 @@ storiesOf('PicUpload', module)
 storiesOf('SignupForm', module)
   .add('without props', () => (
     <SignupForm />
+  ));
+
+// ==== UI Testing of the Footer ==============================================
+storiesOf('Footer', module)
+  .add('without props', () => (
+    <Footer />
   ));
