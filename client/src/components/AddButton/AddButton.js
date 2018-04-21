@@ -53,11 +53,10 @@ class AddButton extends Component {
     const page = window.location.pathname;
 
     if (page.includes('albums')) {
-      if (this.state.name && this.state.description && this.state.img) {
+      if (this.state.name && this.state.img) {
         formData.append('author', this.props.user._id);
         formData.append('album', this.props.album._id);
         formData.append('name', this.state.name);
-        formData.append('description', this.state.description);
         formData.append('files', this.state.img[0]);
         API.addPhoto(formData)
           .then((res) => {

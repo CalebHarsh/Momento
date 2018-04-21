@@ -192,7 +192,7 @@ class Navbar extends Component {
               <div className="nav-items">
                 <h3 className="name">{this.props.user.name}</h3>
                 <Divider type="vertical" />
-                <Dropdown overlay={menu} placement="bottomCenter">
+                <Dropdown overlay={menu} placement="bottomCenter" trigger={['click']}>
                   <Avatar icon="user" />
                 </Dropdown>
                 {(window.location.pathname === '/' || window.location.pathname === '/signup') &&

@@ -74,8 +74,8 @@ class PhotoCard extends React.Component {
 
   showDeleteConfirm = (props) => {
     confirm({
-      title: 'Are you sure delete this Picture?',
-      content: 'If you delete it will disappear forever. You will have to upload it again if you want it back.',
+      title: 'Are You Sure You Want To Delete This Picture?',
+      content: 'Deleting this picture will remove it from this album.\n',
       okText: 'Yes',
       okType: 'danger',
       cancelText: 'No',
@@ -162,16 +162,16 @@ class PhotoCard extends React.Component {
             </div>
             <div className="infoContainer">
               <div className="comDisplay">
-                  <List
-                    grid={{
+                <List
+                  grid={{
                       gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,
                     }}
-                    dataSource={this.state.comments}
-                    loading={this.state.loading}
-                    locale= {
-                      {emptyText: 'No Comments'}
+                  dataSource={this.state.comments}
+                  loading={this.state.loading}
+                  locale={
+                      { emptyText: 'No Comments' }
                     }
-                    renderItem={item => (
+                  renderItem={item => (
                       item._id ?
                         <Comments
                           hoverable="ture"
@@ -184,7 +184,7 @@ class PhotoCard extends React.Component {
                         message.warning('Photo is Deleted Please Refresh the Page')
                     )
                     }
-                  />
+                />
               </div>
               <Addcom
                 photoID={this.props.id}

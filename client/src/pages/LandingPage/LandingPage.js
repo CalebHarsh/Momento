@@ -27,7 +27,7 @@ const LandingPage = props => (
           </div>
         </Col>
         <Col className="fixed-container" lg={{ span: 12 }} md={{ span: 24 }}>
-          <Affix offsetTop={120}>
+          <Affix offsetTop={100}>
             <div className="graphic-container">
               <img src={iphone} alt="iPhone Graphic" />
             </div>

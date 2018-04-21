@@ -1,12 +1,13 @@
-.signup-page {
-  height: 87vh;
-  max-height: 87vh;
-}
+/* .signup-page {
+  height: 120vh;
+  max-height: 120vh;
+} */
 
 .content {
   max-width: 1200px;
   margin: 0 auto;
   margin-top: 8vh;
+  height: 83vh;
 }
 
 .signupHook {

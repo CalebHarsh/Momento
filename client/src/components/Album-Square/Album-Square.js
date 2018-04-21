@@ -12,7 +12,7 @@ const confirm = Modal.confirm;
 const Square = (props) => {
   function showDeleteConfirm() {
     confirm({
-      title: 'Are you sure delete this album?',
+      title: 'Are You Sure You Want To Remove This Album?',
       content: 'If you are the last person to own this Album it will disappear forever.',
       okText: 'Yes',
       okType: 'danger',
@@ -21,7 +21,6 @@ const Square = (props) => {
         return props.onDelete(props.id);
       },
       onCancel() {
-        console.log('OK');
       },
     });
   }
