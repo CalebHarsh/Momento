@@ -143,7 +143,7 @@ class PhotoCard extends React.Component {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           className="photoModal"
-          width="950"
+          width="1050"
           footer={[
             <Button
               key="delete"
@@ -165,22 +165,15 @@ class PhotoCard extends React.Component {
             </div>
             <div className="infoContainer">
               <div className="comDisplay">
-                <Card
-                  title={this.props.title}
-                  bordered={false}
-                  loading={false}
-                  style={{
-                    height: '350px',
-                    width: '350px',
-                    overflowY: 'auto',
-                  }}
-                >
                   <List
                     grid={{
                       gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,
                     }}
                     dataSource={this.state.comments}
                     loading={this.state.loading}
+                    locale= {
+                      {emptyText: 'No Comments'}
+                    }
                     renderItem={item => (
                       item._id ?
                         <Comments
@@ -195,7 +188,6 @@ class PhotoCard extends React.Component {
                     )
                     }
                   />
-                </Card>
               </div>
               <Addcom
                 photoID={this.props.id}
