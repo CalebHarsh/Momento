@@ -84,7 +84,7 @@
   padding: 5px;
   margin: auto;
   margin-bottom: .5em;
-  width: 80%;
+  width: 90%;
 }
 
 #comDelete {
@@ -120,6 +120,10 @@
   .popUp {
     display: grid;
     grid-template-columns: 100%;
+  }
+
+  .comDiv {
+    width: 80%;
   }
 
   .ant-modal {
