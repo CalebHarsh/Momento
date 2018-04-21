@@ -1,43 +1,65 @@
-# Create React Express App
+# Momento
 
-## About This Boilerplate
+<!-- Header Image -->
+<!-- ![header](./src/assets/readme-header.png) -->
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+Momento is a micro social network that allows users to upload pictures to online albums. Unlike Facebook or Instagram, Momento allows multiple users to contribute to the same album making it perfect for weddings, family outings or
+Just sharing memories in the moment. 
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+- - - -
 
-## Starting the app locally
+## What is the Purpose of This App?
 
-Start by installing front and backend dependencies. While in this directory, run the following commands:
+We wanted to create an application for anyone that has ever taken a picture and had a friend or loved one tap them them on the shoulder and say “Hey, send that to me!”
+Having to send pictures out via text message every time you take a picture is annoying and outdated. THERE HAS TO BE A BETTER WAY! 
 
+## The App in Action
+
+We have built a simple account creation tool that stores the user's name, email,
+zip code, and a password that is validated and encrypted.
+
+![sign up gif](./src/assets/sign-up.gif)  
+
+The only input required by the user is their zip code.
+
+![search gif](./src/assets/search.gif)
+
+The list of government officials are the user's representatives for their area.
+Clicking on an official displays more information about them on the right.
+
+![select gif](./src/assets/select.gif)
+
+## Tools Used
+
+Front-End Tools: 
+* [Adobe XD](https://www.adobe.com/products/xd.html?sdid=12B9F15S&mv=search&s_kwcid=AL!3085!3!247395684636!e!!g!!adobe%20xd&ef_id=WdHfMQAAAF_wo3l0:20180421044352:s): used for wireframing and mockups
+* [React](https://vuejs.org/v2/guide/): framework for building out the app
+* [Ant Design](http://lostgrid.org/): A component library designed and maintained by Ant Financial
+
+Back-End Tools:
+* [Node.js](https://nodejs.org/en/): used for server-side scripting
+* [Express](https://expressjs.com/): used as our server
+* [MySQL](https://www.mysql.com/): used as our database
+* [Sequelize](http://docs.sequelizejs.com/): used as our ORM
+* [Jest](https://facebook.github.io/jest/): used for testing
+* [Google Civic Information API](https://developers.google.com/civic-information/): API used for government official data
+
+## Deployed Version
+
+You can view a [deployed version here](https://politivue.herokuapp.com/)
+
+
+## Installing
+
+You can run this app locally by following these steps:
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:3030
+npm run dev
+
+# build for production with minification
+npm run production
 ```
-yarn install
-cd client
-yarn install
-cd ..
-``
-
-After both installations complete, run the following command in your terminal:
-
-```
-yarn start
-```
-
-That's it, your app should be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
-
-## Deployment (Heroku)
-
-After confirming that you have an up to date git repository and a Heroku app created, complete the following:
-
-1. Build the React app for production by running the following command:
-
-```
-yarn build
-```
-> Note: A yarn build will be required to register any new Post requests from any front-end JavaScript to to prevent any proxy server errors.
-
-2. Add and commit all changes to git
-
-3. Push to Heroku
-
-If all previous steps were followed correctly, your application should be deployed to Heroku!
