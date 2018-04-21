@@ -56,6 +56,13 @@
   margin-top: 0;
 }
 
+.ant-form #makeItWork {
+  width: 100px;
+  margin: auto;
+}
+
+
+
 .photoModal {
   margin-left: 0;
   max-width: 1050px;

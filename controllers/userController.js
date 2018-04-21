@@ -22,12 +22,12 @@ const UserCommands = {
   },
 
   logIn: (email, password) => {
-    return db.User.findOne({ email }).join()
+    return db.User.findOne({ email })
       .then(inst => {
-        if (inst) throw new Error('Email not there');
-        if (bcrypt.compareSync(password, inst.password)) console.log('Signed In');
+        if (!inst) throw new Error('Email not there');
+        if (bcrypt.compareSync(password, inst.password)) return inst;
+        /* eslint no-else-return: 0 */
         else throw new Error('Password is Incorrect');
-        return inst;
       });
   },
 
@@ -127,11 +127,14 @@ const UserCommands = {
 
   deleteAlbum(AlbumInst) {
     if (AlbumInst.photos.length) {
+      AlbumInst.save();
       return Promise.all(AlbumInst.photos.map(photo => {
         return this.deletePhoto(AlbumInst._id, photo);
         /* eslint no-unused-vars: 0 */
       })).then((values) => {
         return AlbumInst.delete();
+      }).catch((err) => {
+        console.log(err);
       });
     } else if (!AlbumInst.photos.length) {
       return AlbumInst.delete();
@@ -208,6 +211,7 @@ const UserCommands = {
         return photo.save();
       });
   },
+
 };
 
 module.exports = UserCommands;
