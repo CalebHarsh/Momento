@@ -1,7 +1,12 @@
+.signup-page {
+  height: 87vh;
+  max-height: 87vh;
+}
+
 .content {
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 15vh;
+  margin-top: 8vh;
 }
 
 .signupHook {
@@ -16,6 +21,7 @@
 .heading {
   color: #0084FF;
   text-align: left;
+  margin-top: 32px;
 }
 
 /* ---- Responsive Breakpoints ----------------------------------------------*/
