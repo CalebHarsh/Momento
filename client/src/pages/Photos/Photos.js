@@ -7,14 +7,20 @@ import PhotoCard from '../../components/PhotoCard';
 import AddButton from '../../components/AddButton';
 import API from '../../utils/API';
 
+// {!(this.state.currentAlbum.photos && this.state.currentAlbum.photos.length) && (<div>No photos yet! <br /> Click...to get started...</div>)}</List>}
+
 /* eslint react/no-unused-state: 0 */
 class Photos extends Component {
   state = {
     currentAlbum: {},
     loading: true,
+    mode: 'inline',
   }
 
+
   componentDidMount() {
+    this.updateWindowWidth();
+    window.addEventListener('resize', this.updateWindowWidth.bind(this));
     this.getPictures();
     if (!this.props.loginStatus) {
       API.checkUser()
@@ -27,6 +33,18 @@ class Photos extends Component {
             });
           } else window.location.pathname = '/';
         });
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowWidth.bind(this));
+  }
+
+  updateWindowWidth = () => {  
+    if (window.innerWidth >= 700) {
+      this.setState({ mode:'inline'});
+    } else {
+      this.setState({ mode:'horizontal'});
     }
   }
 
@@ -79,7 +97,10 @@ class Photos extends Component {
               onClick={this.getPictures}
               defaultSelectedKeys={[window.location.pathname.slice(8)]}
               defaultOpenKeys={['sub1']}
-              mode="inline"
+              mode={this.state.mode}
+              style={{
+                marginBottom: 20
+              }}
             >
               {
                 this.props.albums.map(item => (
@@ -103,6 +124,11 @@ class Photos extends Component {
                   gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3,
                 }}
               dataSource={this.state.currentAlbum.photos}
+              locale= {
+                {
+                  emptyText: 'Click the "+" to get started'
+                }
+              }
               renderItem={item => (
                 <List.Item>
                   <PhotoCard

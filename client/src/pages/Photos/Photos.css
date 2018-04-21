@@ -6,3 +6,9 @@
 .photoBody {
   margin-top: 10vh;
 }
+
+@media only screen and (max-width: 700px) {
+  .Photos {
+    max-width: 95%;
+  }
+}

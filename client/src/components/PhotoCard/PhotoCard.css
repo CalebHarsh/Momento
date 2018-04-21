@@ -2,7 +2,6 @@
 .popUp {
   display: grid;
   grid-template-columns: 60% 40%;
-  /* margin-top: 55px; */
 }
 
 .photoContainer {
@@ -13,7 +12,9 @@
 #Picture{
   display: block;
   height: auto;
-  width: 100%;
+  max-height: 450px;
+  width: auto;
+  max-width: 100%;
   margin: auto;
   border-radius: 5px;
 }
@@ -21,7 +22,7 @@
 .infoContainer {
   grid-column: 2/3;
   grid-row: 1/2;
-  margin-left: 10px;
+  margin-left: 0px;
   display: grid;
   grid-template-rows: 80% 20%;
 }
@@ -29,6 +30,12 @@
 .comDisplay {
   grid-row: 1/2;
   margin: auto;
+  height: 100%;
+  max-height: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 10px;
+  padding-right: 20px;
 }
 
 .addCom {
@@ -41,13 +48,13 @@
   margin: auto;
 }
 
-.ant-confirm-info .ant-confirm-body > .anticon {
+#photoDel {
   color: #bfbfbf;
   margin-bottom: 20px;
   margin-right: 0;
 }
 
-.ant-confirm-info .ant-confirm-body > .anticon:hover {
+#photoDel:hover {
   color: #f5222d;
   cursor: pointer;
 }
@@ -65,6 +72,7 @@
 
 .photoModal {
   margin-left: 0;
+  min-width: 300px;
   max-width: 1050px;
   margin: auto;
 
@@ -81,7 +89,9 @@
   border-radius: 5px;
   background-color: #f8fbfd;
   padding: 5px;
+  margin: auto;
   margin-bottom: .5em;
+  width: 90%;
 }
 
 #comDelete {
@@ -99,6 +109,7 @@
 #comUser {
   grid-row: 1/2;
   grid-column: 1/2;
+  width: 300px;
   margin-bottom: auto;
   margin-top: auto;
 }
@@ -110,6 +121,26 @@
  margin-top: auto;
 }
 
-.ant-card-body {
-  padding: 15px;
+
+
+@media only screen and (max-width: 700px) {
+  .popUp {
+    display: grid;
+    grid-template-columns: 100%;
+  }
+
+  .comDiv {
+    width: 80%;
+  }
+
+  .ant-modal {
+      width: 90% !important;}
+
+  .infoContainer {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    margin-left: 0;
+    display: grid;
+    grid-template-rows: 80% 20%;
+  }
 }

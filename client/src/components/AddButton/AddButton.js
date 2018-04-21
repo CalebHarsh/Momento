@@ -158,6 +158,7 @@ class AddButton extends Component {
               bottom: 0,
               right: 0,
               margin: '2rem',
+              zIndex: 1000,
             }
           }
           type="primary"
@@ -230,4 +231,3 @@ class AddButton extends Component {
 }
 
 export default AddButton;
-
