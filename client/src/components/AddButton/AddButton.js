@@ -11,7 +11,7 @@ class AddButton extends Component {
     visible: false,
     confirmLoading: false,
     album: false,
-    img: {},
+    img: false,
     name: '',
     description: '',
     tab: '1',
@@ -23,7 +23,7 @@ class AddButton extends Component {
     const checkPath = (page.includes('dashboard'));
     this.setState({
       album: checkPath,
-      img: {},
+      img: false,
       name: '',
       description: '',
     });
@@ -53,38 +53,17 @@ class AddButton extends Component {
     const page = window.location.pathname;
 
     if (page.includes('albums')) {
-      formData.append('author', this.props.user._id);
-      formData.append('album', this.props.album._id);
-      formData.append('name', this.state.name);
-      formData.append('description', this.state.description);
-      formData.append('files', this.state.img[0]);
-      API.addPhoto(formData)
-        .then((res) => {
-          if (res.data._id) {
-            this.props.changePhoto(res.data);
-            message.success('Photo Added');
-            this.setState({ visible: false, confirmLoading: false });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          message.error('Error Please Make Sure You Filled Everthing Out');
-          this.setState({ visible: false, confirmLoading: false });
-        });
-    } else if (page.includes('dashboard')) {
-      if (this.state.tab === '1') {
-        formData.append('user', this.props.user._id);
+      if (this.state.name && this.state.description && this.state.img) {
+        formData.append('author', this.props.user._id);
+        formData.append('album', this.props.album._id);
         formData.append('name', this.state.name);
         formData.append('description', this.state.description);
-        // below is a placeholder of a kitten
         formData.append('files', this.state.img[0]);
-        API.addAlbum(formData)
+        API.addPhoto(formData)
           .then((res) => {
             if (res.data._id) {
-              this.props.changeApp({
-                albums: res.data.albums,
-              });
-              message.success('Album Created');
+              this.props.changePhoto(res.data);
+              message.success('Photo Added');
               this.setState({ visible: false, confirmLoading: false });
             }
           })
@@ -94,24 +73,57 @@ class AddButton extends Component {
             this.setState({ visible: false, confirmLoading: false });
           });
       } else {
-        API.addFriendsAlbum({
-          albumID: this.state.albumID,
-          userID: this.props.user._id,
-        })
-          .then((res) => {
-            if (res.data._id) {
-              this.props.changeApp({
-                albums: res.data.albums,
-              });
-              message.success('Friend Album Added');
-            }
-            this.setState({ visible: false, confirmLoading: false });
+        message.warning('Please Fill Out All Items');
+      }
+    } else if (page.includes('dashboard')) {
+      if (this.state.tab === '1') {
+        if (this.state.name && this.state.description && this.state.img) {
+          formData.append('user', this.props.user._id);
+          formData.append('name', this.state.name);
+          formData.append('description', this.state.description);
+          // below is a placeholder of a kitten
+          formData.append('files', this.state.img[0]);
+          API.addAlbum(formData)
+            .then((res) => {
+              if (res.data._id) {
+                this.props.changeApp({
+                  albums: res.data.albums,
+                });
+                message.success('Album Created');
+                this.setState({ visible: false, confirmLoading: false });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              message.error('Error Please Make Sure You Filled Everthing Out');
+              this.setState({ visible: false, confirmLoading: false });
+            });
+        } else {
+          message.warning('Please Fill Out All Items');
+        }
+      } else if (this.state.tab === '2') {
+        if (this.state.albumID) {
+          API.addFriendsAlbum({
+            albumID: this.state.albumID,
+            userID: this.props.user._id,
           })
-          .catch((err) => {
-            console.log(err);
-            message.error('Error Please Make Sure You Filled Everthing Out');
-            this.setState({ visible: false, confirmLoading: false });
-          });
+            .then((res) => {
+              if (res.data._id) {
+                this.props.changeApp({
+                  albums: res.data.albums,
+                });
+                message.success('Friend Album Added');
+              }
+              this.setState({ visible: false, confirmLoading: false });
+            })
+            .catch((err) => {
+              console.log(err);
+              message.error('Error Please Make Sure You Filled Everthing Out');
+              this.setState({ visible: false, confirmLoading: false });
+            });
+        } else {
+          message.warning('Please Fill Out All Items');
+        }
       }
     }
   }
@@ -183,16 +195,16 @@ class AddButton extends Component {
                     name="name"
                   />
                 </FormItem>
-                { this.state.album &&
-                <FormItem label="Add a description.">
-                  <Input
-                    onChange={this.handleInputChange}
-                    value={this.state.description}
-                    type="text"
-                    placeholder="Some more Foo Bar"
-                    name="description"
-                  />
-                </FormItem> }
+                {this.state.album &&
+                  <FormItem label="Add a description.">
+                    <Input
+                      onChange={this.handleInputChange}
+                      value={this.state.description}
+                      type="text"
+                      placeholder="Some more Foo Bar"
+                      name="description"
+                    />
+                  </FormItem>}
                 <FormItem label={this.state.album ? 'Upload Cover Photo' : 'Upload New Photo'}>
                   <input type="file" id="inputFile" onChange={this.uploadPicture} name="files" accept=".jpg, .jpeg, .png" />
                 </FormItem>

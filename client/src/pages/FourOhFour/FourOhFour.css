@@ -1,0 +1,50 @@
+.not-found-page {
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+
+.shrug {
+  font-size: 7em;
+  color: #e8e8e8;
+}
+
+.error {
+  font-size: 5em;
+  color: #e8e8e8;
+  font-weight: bold;
+  margin: 0;
+}
+
+.sorry {
+  font-size: 3em;
+  color: #e8e8e8;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* ---- Responsive Breakpoints ----------------------------------------------*/
+@media only screen and (max-width: 500px) {
+  .shrug {
+    font-size: 5em;
+  }
+  
+  .error {
+    font-size: 4em;
+  }
+  
+  .sorry {
+    font-size: 2em;
+  }
+}
+
+@media only screen and (max-width: 339px) {
+  .shrug {
+    font-size: 4.5em;
+  }
+}

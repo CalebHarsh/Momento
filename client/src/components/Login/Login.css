@@ -22,3 +22,18 @@
   animation-name: fadeInRight;
   animation-duration: 0.5s;
 }
+
+/* ---- Responsive Breakpoints ----------------------------------------------*/
+@media only screen and (max-width: 684px) {
+  .login-container {
+    flex-direction: column;
+  }
+  
+  .input {
+    margin-top: 16px;
+  }
+  
+  .login{
+    animation: none;
+  }
+}

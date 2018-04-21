@@ -10,20 +10,25 @@
     "build": "node scripts/build.js",
     "lint": "eslint .",
     "install": "cd client; yarn; cd ..; yarn build;",
-    "test": "yarn lint;"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@storybook/react": "^3.4.1",
     "babel-eslint": "^8.2.2",
+    "babel-jest": "^22.4.3",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "concurrently": "^3.5.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
-    "nodemon": "^1.17.3"
+    "jest": "^22.4.3",
+    "nodemon": "^1.17.3",
+    "react-test-renderer": "^16.3.2"
   },
   "dependencies": {
     "aws-sdk": "^2.221.1",
