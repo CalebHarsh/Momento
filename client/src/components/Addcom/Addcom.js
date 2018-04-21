@@ -31,7 +31,7 @@ class Addcom extends Component {
         }}
         >
           <FormItem>
-            <Input onChange={this.handleComChange} onkeyup={e => e.keyUp.toString() === '13' && this.addComment} value={this.state.comment} name="comment" placeholder="Add a comment!" />
+            <Input onChange={this.handleComChange} onKeyUp={e => (e.keyCode.toString() === '13' ? this.addComment() : null)} value={this.state.comment} name="comment" placeholder="Add a comment!" />
           </FormItem>
         </Form>
         <Button onClick={this.addComment} style={{ marginTop: '23px' }} type="primary" icon="check" shape="circle" size="small" />
