@@ -1,10 +1,12 @@
 .Photos {
+  height: 83vh;
+  max-height: 83vh;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .photoBody {
-  margin-top: 10vh;
+  margin-top: 5vh;
 }
 
 @media only screen and (max-width: 700px) {
