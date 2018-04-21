@@ -130,7 +130,6 @@ class Navbar extends Component {
                   </div>
                 </Link>
             }
-
             <h1 className="logotype">momento</h1>
           </div>
           {!this.props.loggedIn ?

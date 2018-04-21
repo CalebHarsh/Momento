@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Affix } from 'antd';
 import './App.css';
 import Navbar from './components/Navbar';
@@ -8,6 +8,7 @@ import SignUp from './pages/SignUp';
 import Albums from './pages/Albums';
 import Photos from './pages/Photos';
 import Footer from './components/Footer';
+import FourOhFour from './pages/FourOhFour';
 
 class App extends Component {
   state = {
@@ -32,28 +33,35 @@ class App extends Component {
               loggedIn={this.state.isLoggedIn}
             />
           </Affix>
-          <Route exact path="/" render={() => <LandingPage isLoggedIn={this.state.isLoggedIn} />} />
-          <Route exact path="/signup" render={() => <SignUp changeApp={this.changeAppState} user={this.state.user} />} />
-          <Route
-            path="/dashboard"
-            render={() =>
-              (<Albums
-                changeApp={this.changeAppState}
-                loginStatus={this.state.isLoggedIn}
-                albums={this.state.albums}
-                user={this.state.user}
-              />)}
-          />
-          <Route
-            path="/albums"
-            render={() =>
-              (<Photos
-                changeApp={this.changeAppState}
-                loginStatus={this.state.isLoggedIn}
-                albums={this.state.albums}
-                user={this.state.user}
-              />)}
-          />
+          <Switch>
+            <Route exact path="/" render={() => <LandingPage isLoggedIn={this.state.isLoggedIn} />} />
+            <Route exact path="/signup" render={() => <SignUp changeApp={this.changeAppState} user={this.state.user} />} />
+            <Route
+              path="/dashboard"
+              render={() =>
+                (<Albums
+                  changeApp={this.changeAppState}
+                  loginStatus={this.state.isLoggedIn}
+                  albums={this.state.albums}
+                  user={this.state.user}
+                />)}
+            />
+            <Route
+              path="/albums"
+              render={() =>
+                (<Photos
+                  changeApp={this.changeAppState}
+                  loginStatus={this.state.isLoggedIn}
+                  albums={this.state.albums}
+                  user={this.state.user}
+                />)}
+            />
+            <Route
+              render={() => (
+                <FourOhFour />
+              )}
+            />
+          </Switch>
           <Footer />
         </div>
       </Router>
